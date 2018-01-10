@@ -173,7 +173,7 @@
             width: 100%;
         }
 
-        #Mycanvas {
+        #canvas-box {
             position: absolute;
             top: 0;
             left: 0;
@@ -183,10 +183,10 @@
 
 <body>
     <div id="login">
-        <div class="login-header" id="canvas-box">
+        <div class="login-header" id="canvas-container">
             <!-- 可更换背景图 -->
             <img src="./images/logobg.jpg" alt="background" class="background-image">
-            <canvas id="Mycanvas" width="1920" height="350"></canvas>
+            <canvas id="canvas-box" style="background:rgba(0,0,0,0)" width="1920" height="959"></canvas>
             <!-- 可更换logo -->
             <div class="logo-box">
                 <img src="./images/logo.png" alt="logo">
@@ -345,111 +345,63 @@
     })
 </script>
 <script>
-    //定义画布宽高和生成点的个数
-    var WIDTH = window.innerWidth,
-        HEIGHT = document.getElementById('canvas-box').offsetHeight,
-        POINT = 35;
-
-    var canvas = document.getElementById('Mycanvas');
-    canvas.width = WIDTH,
-        canvas.height = HEIGHT;
-    var context = canvas.getContext('2d');
-    context.strokeStyle = 'rgba(255,255,255,0.4)',
-        context.strokeWidth = 1,
-        context.fillStyle = 'rgba(255,255,255,0.3)';
-    var circleArr = [];
-
-    //线条：开始xy坐标，结束xy坐标，线条透明度
-    function Line(x, y, _x, _y, o) {
-        this.beginX = x,
-            this.beginY = y,
-            this.closeX = _x,
-            this.closeY = _y,
-            this.o = o;
-    }
-    //点：圆心xy坐标，半径，每帧移动xy的距离
-    function Circle(x, y, r, moveX, moveY) {
-        this.x = x,
-            this.y = y,
-            this.r = r,
-            this.moveX = moveX,
-            this.moveY = moveY;
-    }
-    //生成max和min之间的随机数
-    function num(max, _min) {
-        var min = arguments[1] || 0;
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-    // 绘制原点
-    function drawCricle(cxt, x, y, r, moveX, moveY) {
-        var circle = new Circle(x, y, r, moveX, moveY)
-        cxt.beginPath()
-        cxt.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI)
-        cxt.closePath()
-        cxt.fill();
-        return circle;
-    }
-    //绘制线条
-    function drawLine(cxt, x, y, _x, _y, o) {
-        var line = new Line(x, y, _x, _y, o)
-        cxt.beginPath()
-        cxt.strokeStyle = 'rgba(255,255,255,' + o + ')'
-        cxt.moveTo(line.beginX, line.beginY)
-        cxt.lineTo(line.closeX, line.closeY)
-        cxt.closePath()
-        cxt.stroke();
-
-    }
-    //初始化生成原点
-    function init() {
-        circleArr = [];
-        for (var i = 0; i < POINT; i++) {
-            circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10) / 40, num(10, -10) /
-                40));
-        }
-        draw();
-    }
-
-    //每帧绘制
-    function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < POINT; i++) {
-            drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
-        }
-        for (var i = 0; i < POINT; i++) {
-            for (var j = 0; j < POINT; j++) {
-                if (i + j < POINT) {
-                    var A = Math.abs(circleArr[i + j].x - circleArr[i].x),
-                        B = Math.abs(circleArr[i + j].y - circleArr[i].y);
-                    var lineLength = Math.sqrt(A * A + B * B);
-                    var C = 1 / lineLength * 7 - 0.009;
-                    var lineOpacity = C > 0.03 ? 0.03 : C;
-                    if (lineOpacity > 0) {
-                        drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i + j].x, circleArr[i + j].y,
-                            lineOpacity);
-                    }
-                }
-            }
-        }
-    }
-
-    //调用执行
     window.onload = function () {
-        init();
-        setInterval(function () {
-            for (var i = 0; i < POINT; i++) {
-                var cir = circleArr[i];
-                cir.x += cir.moveX;
-                cir.y += cir.moveY;
-                if (cir.x > WIDTH) cir.x = 0;
-                else if (cir.x < 0) cir.x = WIDTH;
-                if (cir.y > HEIGHT) cir.y = 0;
-                else if (cir.y < 0) cir.y = HEIGHT;
+        //获取画布对象
+        var canvas = document.getElementById("canvas-box");
+        //获取画布的上下文
+        var context = canvas.getContext("2d");
+        //获取浏览器屏幕的宽度和高度
+        var W = window.innerWidth;
+        var H = document.getElementById('canvas-container').offsetHeight;
+        //设置canvas的宽度和高度
+        canvas.width = W;
+        canvas.height = H;
+        //每个文字的字体大小
+        var fontSize = 16;
+        //计算列
+        var colunms = Math.floor(W / fontSize);
+        //记录每列文字的y轴坐标
+        var drops = [];
+        //给每一个文字初始化一个起始点的位置
+        for (var i = 0; i < colunms; i++) {
+            drops.push(0);
+        }
 
+        //运动的文字
+        var str = "q-huan com canvas";
+        //4:fillText(str,x,y);原理就是去更改y的坐标位置
+        //绘画的函数
+        function draw() {
+            context.fillStyle = "rgba(0,0,0,0.05)";
+            context.fillRect(0, 0, W, H);
+            //给字体设置样式
+            context.font = "700 " + fontSize + "px  微软雅黑";
+            //给字体添加颜色
+            context.fillStyle = "#00a0e9"; //可以rgb,hsl, 标准色，十六进制颜色
+            //写入画布中
+            for (var i = 0; i < colunms; i++) {
+                var index = Math.floor(Math.random() * str.length);
+                var x = i * fontSize;
+                var y = drops[i] * fontSize;
+                context.fillText(str[index], x, y);
+                //如果要改变时间，肯定就是改变每次他的起点
+                if (y >= canvas.height && Math.random() > 0.99) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
             }
-            draw();
-        }, 16);
-    }
+        };
+
+        function randColor() {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        draw();
+        setInterval(draw, 30);
+    };
 </script>
 
 </html>

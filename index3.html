@@ -173,7 +173,7 @@
             width: 100%;
         }
 
-        #Mycanvas {
+        .drawer {
             position: absolute;
             top: 0;
             left: 0;
@@ -183,10 +183,10 @@
 
 <body>
     <div id="login">
-        <div class="login-header" id="canvas-box">
+        <div class="login-header" id="canvas-container">
             <!-- 可更换背景图 -->
             <img src="./images/logobg.jpg" alt="background" class="background-image">
-            <canvas id="Mycanvas" width="1920" height="350"></canvas>
+            <canvas id="J_dotLine"  class="drawer" width="1920" height="500"></canvas>
             <!-- 可更换logo -->
             <div class="logo-box">
                 <img src="./images/logo.png" alt="logo">
@@ -345,111 +345,135 @@
     })
 </script>
 <script>
-    //定义画布宽高和生成点的个数
-    var WIDTH = window.innerWidth,
-        HEIGHT = document.getElementById('canvas-box').offsetHeight,
-        POINT = 35;
+   
+		function Dotline(option){
+			this.opt = this.extend({
+				dom:'J_dotLine',//画布id
+				cw: document.getElementById('canvas-container').offsetWidth,//画布宽
+				ch: document.getElementById('canvas-container').offsetHeight,//画布高
+				ds:100,//点的个数
+				r:1,//圆点半径
+				dis:100//触发连线的距离
+			},option);
+			this.c = document.getElementById(this.opt.dom);//canvas元素id
+			this.ctx = this.c.getContext('2d');
+			this.c.width = this.opt.cw;//canvas宽
+			this.c.height = this.opt.ch;//canvas高
+			this.dotSum = this.opt.ds;//点的数量
+			this.radius = this.opt.r;//圆点的半径
+			this.disMax = this.opt.dis*this.opt.dis;//点与点触发连线的间距		
+			this.dots = [];
+			//requestAnimationFrame控制canvas动画
+			var RAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+			            window.setTimeout(callback, 1000 / 60);
+			        };
+			var _self = this;
+			//增加鼠标效果
+			var mousedot = {x:null,y:null,label:'mouse'};
+			this.c.onmousemove = function(e){
+				var e = e || window.event;
+				mousedot.x = e.clientX - _self.c.offsetLeft;
+				mousedot.y = e.clientY - _self.c.offsetTop;
+			};
+			this.c.onmouseout = function(e){
+				mousedot.x = null;
+				mousedot.y = null;
+			}
+			//控制动画
+			this.animate = function(){
+				_self.ctx.clearRect(0, 0, _self.c.width, _self.c.height);
+				_self.drawLine([mousedot].concat(_self.dots));
+				RAF(_self.animate);
+			};
+		}
+		//合并配置项，es6直接使用obj.assign();
+		Dotline.prototype.extend = function(o,e){
+			for(var key in e){
+				if(e[key]){
+					o[key]=e[key]
+				}
+			}
+			return o;
+		};
+		//画点
+		Dotline.prototype.addDots = function(){
+			var dot;
+			for(var i=0; i<this.dotSum; i++){//参数
+				dot = {
+					x : Math.floor(Math.random()*this.c.width)-this.radius,
+					y : Math.floor(Math.random()*this.c.height)-this.radius,
+					ax : (Math.random() * 2 - 1) / 1.5,
+					ay : (Math.random() * 2 - 1) / 1.5
+				}
+				this.dots.push(dot);
+			}
+		};
+		//点运动
+		Dotline.prototype.move = function(dot){
+			dot.x += dot.ax;
+			dot.y += dot.ay;
+			//点碰到边缘返回
+			dot.ax *= (dot.x>(this.c.width-this.radius)||dot.x<this.radius)?-1:1;
+			dot.ay *= (dot.y>(this.c.height-this.radius)||dot.y<this.radius)?-1:1;
+			//绘制点
+			this.ctx.beginPath();
+			this.ctx.arc(dot.x, dot.y, this.radius, 0, Math.PI*2, true);
+			this.ctx.stroke();
+		};
+		//点之间画线
+		Dotline.prototype.drawLine = function(dots){
+			var nowDot;
+			var _that = this;
+			//自己的思路：遍历两次所有的点，比较点之间的距离，函数的触发放在animate里
+			this.dots.forEach(function(dot){
+				
+				_that.move(dot);
+				for(var j=0; j<dots.length; j++){
+					nowDot = dots[j];
+					if(nowDot===dot||nowDot.x===null||nowDot.y===null) continue;//continue跳出当前循环开始新的循环
+					var dx = dot.x - nowDot.x,//别的点坐标减当前点坐标
+						dy = dot.y - nowDot.y;
+					var dc = dx*dx + dy*dy;
+					if(Math.sqrt(dc)>Math.sqrt(_that.disMax)) continue;
+					// 如果是鼠标，则让粒子向鼠标的位置移动
+					if (nowDot.label && Math.sqrt(dc) >Math.sqrt(_that.disMax)/2) {
+						dot.x -= dx * 0.02;
+						dot.y -= dy * 0.02;
+					}
+					var ratio;
+					ratio = (_that.disMax - dc) / _that.disMax;
 
-    var canvas = document.getElementById('Mycanvas');
-    canvas.width = WIDTH,
-        canvas.height = HEIGHT;
-    var context = canvas.getContext('2d');
-    context.strokeStyle = 'rgba(255,255,255,0.4)',
-        context.strokeWidth = 1,
-        context.fillStyle = 'rgba(255,255,255,0.3)';
-    var circleArr = [];
+					_that.ctx.beginPath();
+					_that.ctx.lineWidth = ratio / 2;
+          			_that.ctx.strokeStyle = 'rgba(255,255,255,' + (ratio + 0.2) + ')';
+					_that.ctx.moveTo(dot.x, dot.y);
+					_that.ctx.lineTo(nowDot.x, nowDot.y);
+					_that.ctx.stroke();//不描边看不出效果
 
-    //线条：开始xy坐标，结束xy坐标，线条透明度
-    function Line(x, y, _x, _y, o) {
-        this.beginX = x,
-            this.beginY = y,
-            this.closeX = _x,
-            this.closeY = _y,
-            this.o = o;
-    }
-    //点：圆心xy坐标，半径，每帧移动xy的距离
-    function Circle(x, y, r, moveX, moveY) {
-        this.x = x,
-            this.y = y,
-            this.r = r,
-            this.moveX = moveX,
-            this.moveY = moveY;
-    }
-    //生成max和min之间的随机数
-    function num(max, _min) {
-        var min = arguments[1] || 0;
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-    // 绘制原点
-    function drawCricle(cxt, x, y, r, moveX, moveY) {
-        var circle = new Circle(x, y, r, moveX, moveY)
-        cxt.beginPath()
-        cxt.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI)
-        cxt.closePath()
-        cxt.fill();
-        return circle;
-    }
-    //绘制线条
-    function drawLine(cxt, x, y, _x, _y, o) {
-        var line = new Line(x, y, _x, _y, o)
-        cxt.beginPath()
-        cxt.strokeStyle = 'rgba(255,255,255,' + o + ')'
-        cxt.moveTo(line.beginX, line.beginY)
-        cxt.lineTo(line.closeX, line.closeY)
-        cxt.closePath()
-        cxt.stroke();
-
-    }
-    //初始化生成原点
-    function init() {
-        circleArr = [];
-        for (var i = 0; i < POINT; i++) {
-            circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10) / 40, num(10, -10) /
-                40));
-        }
-        draw();
-    }
-
-    //每帧绘制
-    function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < POINT; i++) {
-            drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
-        }
-        for (var i = 0; i < POINT; i++) {
-            for (var j = 0; j < POINT; j++) {
-                if (i + j < POINT) {
-                    var A = Math.abs(circleArr[i + j].x - circleArr[i].x),
-                        B = Math.abs(circleArr[i + j].y - circleArr[i].y);
-                    var lineLength = Math.sqrt(A * A + B * B);
-                    var C = 1 / lineLength * 7 - 0.009;
-                    var lineOpacity = C > 0.03 ? 0.03 : C;
-                    if (lineOpacity > 0) {
-                        drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i + j].x, circleArr[i + j].y,
-                            lineOpacity);
-                    }
-                }
-            }
-        }
-    }
-
-    //调用执行
-    window.onload = function () {
-        init();
-        setInterval(function () {
-            for (var i = 0; i < POINT; i++) {
-                var cir = circleArr[i];
-                cir.x += cir.moveX;
-                cir.y += cir.moveY;
-                if (cir.x > WIDTH) cir.x = 0;
-                else if (cir.x < 0) cir.x = WIDTH;
-                if (cir.y > HEIGHT) cir.y = 0;
-                else if (cir.y < 0) cir.y = HEIGHT;
-
-            }
-            draw();
-        }, 16);
-    }
+					//dots.splice(dots.indexOf(dot), 1);
+				}
+			});
+		};
+		//开始动画
+		Dotline.prototype.start = function(){
+			var _that = this;
+			this.addDots();
+			setTimeout(function() {
+			     _that.animate();
+			}, 100);
+		}
+		//调用
+		window.onload = function(){
+			var dotline = new Dotline({
+				dom:'J_dotLine',//画布id
+				cw: document.getElementById('canvas-container').offsetWidth,//画布宽
+				ch: document.getElementById('canvas-container').offsetHeight,//画布高
+				ds:80,//点的个数
+				r:0.5,//圆点半径
+				dis:100//触发连线的距离
+			}).start();
+		}
+	
 </script>
 
 </html>
