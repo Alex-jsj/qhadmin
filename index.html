@@ -54,43 +54,43 @@
 
         .login-header {
             width: 100%;
-            height: 10vh;
+            height: 36.4vh;
             position: relative;
         }
 
-        .logo {
-            height: 5vh;
+        .logo-box {
+            height: 8.1vh;
             position: absolute;
-            top: 50%;
-            left: 1rem;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            -o-transform: translateY(-50%);
-            transform: translateY(-50%);
+            top: 11.1vh;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            transform: translateX(-50%);
         }
 
-        .logo-container {
-            float: left;
-            height: 5vh;
-        }
-
-        .logo-container img {
-            display: block;
+        .login-header img {
             width: auto;
             height: 100%;
         }
 
         .logo-text {
-            white-space: nowrap;
             position: absolute;
-            bottom: 0;
+            bottom: 4.1vh;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+
+        .logo-text span {
             font-size: 0.6rem;
-            margin-left: 0.5rem;
         }
 
         .login-footer {
             width: 100%;
-            height: 3vh;
+            height: 2.9vh;
             position: absolute;
             bottom: 0;
         }
@@ -108,12 +108,12 @@
         }
 
         .login-footer a {
-            color: #606266;
+            color: #888;
             vertical-align: middle;
         }
 
         .login-footer p span {
-            color: #606266;
+            color: #888;
             vertical-align: middle;
         }
 
@@ -123,43 +123,50 @@
 
         .logo-index {
             width: 100%;
-            height: 87vh;
+            height: 63.6vh;
             position: relative;
         }
 
-        .logo-index .background-image {
-            width: 100%;
-            height: 87vh;
-        }
-
         .form-container {
-            width: 12rem;
+            width: 10rem;
             position: absolute;
-            top: 50%;
-            -webkit-transform: translateY(-50%) translateZ(0);
-            -ms-transform: translateY(-50%) translateZ(0);
-            -o-transform: translateY(-50%) translateZ(0);
-            transform: translateY(-50%) translateZ(0);
-            right: 5rem;
-            background: #fff;
-            border-radius: 3px;
+            left: 50%;
+            top: 6.5vh;
+            -webkit-transform: translateX(-50%) translateZ(0);
+            -ms-transform: translateX(-50%) translateZ(0);
+            -o-transform: translateX(-50%) translateZ(0);
+            transform: translateX(-50%) translateZ(0);
         }
 
         .form-box {
             width: 100%;
-            padding: 20px;
         }
 
-        .form-info .iconfont {
+        .form-box .item-box {
+            position: relative;
+        }
+
+        .iconfont {
+            position: absolute;
+            top: 0;
+            right: 0.2rem;
+            color: #888;
+            z-index: 999;
             font-size: 0.6rem;
-            color: #606266;
         }
 
-        .form-info span {
-            font-size: 0.5rem;
-            color: #606266;
+        .el-input__inner {
+            padding-right: 30px;
         }
 
+        .el-checkbox {
+            color: #888;
+            font-weight: 300;
+        }
+
+        .r-psd {
+            margin-bottom: 12px !important;
+        }
 
         .form-control-btn .el-button {
             width: 100%;
@@ -170,36 +177,33 @@
 <body>
     <div id="login">
         <div class="login-header">
-            <div class="logo">
-                <div class="logo-container">
-                    <!-- 可更换logo -->
-                    <img src="./images/logo.png" alt="logo">
-                </div>
-                <span class="logo-text">站群管理系统</span>
+            <!-- 可更换背景图 -->
+            <img src="./images/logobg.jpg" alt="background" class="background-image">
+            <!-- 可更换logo -->
+            <div class="logo-box">
+                <img src="./images/logo.png" alt="logo">
+            </div>
+            <div class="logo-text">
+                <span>站群管理系统V1.0</span>
             </div>
         </div>
         <div class="logo-index">
-            <!-- 可更换背景图 -->
-            <img src="./images/timg.jpg" alt="background" class="background-image">
             <!-- 表单 -->
             <div class="form-container">
-                <el-form ref="form" :model="login_id" :rules="rules" status-icon size="mini" class="form-box">
-                    <el-form-item prop="username" class="item-padding">
-                        <div class="form-info">
-                            <i class="iconfont icon-user"></i>
-                            <span>用户名</span>
-                        </div>
-                        <el-input v-model="login_id.username" @keyup.enter.native="submitForm('form')"></el-input>
+                <el-form ref="form" :model="login_id" :rules="rules" class="form-box">
+                    <el-form-item prop="username" class="item-box">
+                        <i class="iconfont icon-user"></i>
+                        <el-input v-model="login_id.username" @keyup.enter.native="submitForm('form')" placeholder="用户名"></el-input>
                     </el-form-item>
-                    <el-form-item prop="password" class="item-padding">
-                        <div class="form-info">
-                            <i class="iconfont icon-password"></i>
-                            <span>密码</span>
-                        </div>
-                        <el-input v-model="login_id.password" type="password" @keyup.enter.native="submitForm('form')"></el-input>
+                    <el-form-item prop="password" class="item-box r-psd">
+                        <i class="iconfont icon-password"></i>
+                        <el-input v-model="login_id.password" type="password" @keyup.enter.native="submitForm('form')" placeholder="密码"></el-input>
+                    </el-form-item>
+                    <el-form-item size="mini">
+                        <el-checkbox label="记住密码" name="type"></el-checkbox>
                     </el-form-item>
                     <el-form-item class="form-control-btn" class="item-padding">
-                        <el-button type="primary"  @click="submitForm('form')" size="large" :loading="subLoading">提交</el-button>
+                        <el-button type="primary" @click="submitForm('form')" size="large" :loading="subLoading">提交</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -301,15 +305,15 @@
                     var url = null;
                     // 演示用账号密码
                     if (that.login_id.username == 'admin1' && that.login_id.password == 'admin1') {
-                        url = "administrators.html";
+                        url = "editor.html"; //编辑
                     } else if (that.login_id.username == 'admin2' && that.login_id.password == 'admin2') {
-                        url = "administrators.html";
+                        url = "administrators.html"; //管理员
                     } else if (that.login_id.username == 'admin3' && that.login_id.password == 'admin3') {
-                        url = "administrators.html";
+                        url = "leader.html"; //领导
                     } else if (that.login_id.username == 'admin4' && that.login_id.password == 'admin4') {
-                        url = "administrators.html";
+                        url = "master_administrators.html"; //主站管理员
                     } else if (that.login_id.username == 'admin5' && that.login_id.password == 'admin5') {
-                        url = "administrators.html";
+                        url = "system_administrator.html"; //系统管理员
                     } else {
                         valid = false;
                     }

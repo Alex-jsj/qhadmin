@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:44:51 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-09 17:56:24
+ * @Last Modified time: 2018-01-10 19:58:05
  */
 
 @base-color: #54c3f1;
@@ -627,6 +627,55 @@ body {
         }
         .div-not-show {
             display: none;
+        }
+    } //编辑页面
+    #entry-list.editor {
+        height: 330px;
+        .editor-list {
+            &::after {
+                .clear;
+            }
+            width: 600px;
+        }
+        .editor-article {
+            background: #fff;
+            height: 100%;
+            &::after {
+                .clear;
+            }
+            width: 580px;
+            margin-right: 20px;
+            .table-text-color {
+                height: 100%;
+                color: @text-color;
+                white-space: nowrap;
+            }
+        }
+    } //少于5个时的页面样式
+    #entry-list.list-4 {
+        width: 820px;
+        .entry-box {
+            width: 400px;
+            height: 220px;
+            a {
+                .iconfont {
+                    font-size: 54px;
+                    margin-top: 45px;
+                }
+            }
+        }
+    } //少于7个时的页面样式
+    #entry-list.list-6 {
+        width: 1200px;
+        .entry-box {
+            width: 390px;
+            height: 200px;
+            a {
+                .iconfont {
+                    font-size: 54px;
+                    margin-top: 45px;
+                }
+            }
         }
     }
     #footer {

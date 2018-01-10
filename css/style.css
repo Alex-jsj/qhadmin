@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:44:51 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-09 17:56:24
+ * @Last Modified time: 2018-01-10 19:58:05
  */
 .loading {
   width: 100%;
@@ -657,6 +657,57 @@ body {
 }
 #admin #entry-list .div-not-show {
   display: none;
+}
+#admin #entry-list.editor {
+  height: 330px;
+}
+#admin #entry-list.editor .editor-list {
+  width: 600px;
+}
+#admin #entry-list.editor .editor-list::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#admin #entry-list.editor .editor-article {
+  background: #fff;
+  height: 100%;
+  width: 580px;
+  margin-right: 20px;
+}
+#admin #entry-list.editor .editor-article::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#admin #entry-list.editor .editor-article .table-text-color {
+  height: 100%;
+  color: #606266;
+  white-space: nowrap;
+}
+#admin #entry-list.list-4 {
+  width: 820px;
+}
+#admin #entry-list.list-4 .entry-box {
+  width: 400px;
+  height: 220px;
+}
+#admin #entry-list.list-4 .entry-box a .iconfont {
+  font-size: 54px;
+  margin-top: 45px;
+}
+#admin #entry-list.list-6 {
+  width: 1200px;
+}
+#admin #entry-list.list-6 .entry-box {
+  width: 390px;
+  height: 200px;
+}
+#admin #entry-list.list-6 .entry-box a .iconfont {
+  font-size: 54px;
+  margin-top: 45px;
 }
 #admin #footer {
   position: absolute;

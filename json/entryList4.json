@@ -1,0 +1,33 @@
+[
+
+    {
+        "iconName": "icon-shujukanban",
+        "entryName": "数据看板",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-zhandianfangwenpaihang",
+        "entryName": "站点访问排行",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-wenzhangshenhe",
+        "entryName": "文章审核",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-zhandianwenzhangshuliangpaihang",
+        "entryName": "站点文章数量排行",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-wenzhangfangwenpaihang",
+        "entryName": "文章访问排行",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-chakanwenzhang",
+        "entryName": "查看文章",
+        "entryUrl": "javascript:void(0);"
+    }
+]

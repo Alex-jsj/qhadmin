@@ -6,12 +6,12 @@
     {
         "iconName": "icon-daishenwenzhang",
         "entryName": "待审文章",
-        "entryUrl": "articles_list.html"
+        "entryUrl": "javascript:void(0);"
     },
     {
         "iconName": "icon-wenzhangliebiao",
         "entryName": "文章列表",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "articles_list.html"
     },
     {
         "iconName": "icon-lanmuliebiao",

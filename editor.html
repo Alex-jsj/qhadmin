@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="iconfont/iconfont.css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
-    <!-- <link rel="stylesheet" href="css/element.min.css"> -->
+    <link rel="stylesheet" href="css/element.min.css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script>
         /*判断浏览器版本是否过低*/
@@ -49,12 +49,22 @@
         <!-- header -->
         <div id="header"></div>
         <!-- list -->
-        <div id="entry-list">
-            <div v-for="(list,index) in entryList" class="float-left entry-box" :class="list.show?'div-not-show':'div-show'">
-                <a :href="list.entryUrl">
-                    <i class="iconfont" :class="list.iconName"></i>
-                    <span>{{list.entryName}}</span>
-                </a>
+        <div id="entry-list" class="editor">
+            <div class="editor-list float-left">
+                <div v-for="(list,index) in entryList" class="float-left entry-box" :class="list.show?'div-not-show':'div-show'">
+                    <a :href="list.entryUrl">
+                        <i class="iconfont" :class="list.iconName"></i>
+                        <span>{{list.entryName}}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="editor-article float-right">
+                <el-table ref="multipleTable" :data="tableInfo" stripe size="small">
+                    <el-table-column prop="title" label="最新文章" width="450px">
+                        <a :href="scope.row.url" slot-scope="scope" class="table-text-color">{{scope.row.title}}</a>
+                    </el-table-column>
+                    <el-table-column prop="date"></el-table-column>
+                </el-table>
             </div>
         </div>
         <!-- footer -->
@@ -63,41 +73,64 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="js/axios.min.js"></script>
-<!-- <script src="js/element.min.js"></script> -->
+<script src="js/element.min.js"></script>
 <script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/public.js"></script>
+<script src="js/public_bianji.js"></script>
 <script>
     var app = new Vue({
         el: '#admin',
         data: {
-            entryList: []
+            entryList: [],
+            tableInfo: [{
+                    uid: 0,
+                    title: '郎朗独奏音乐会',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                },
+                {
+                    uid: 1,
+                    title: '中国美术学院工会工作奖励和配套资助办法',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                },
+                {
+                    uid: 2,
+                    title: '中国美术学院举行纪念建团95周年活动',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                },
+                {
+                    uid: 3,
+                    title: '“治水最前线”中国美术学院下乡创作实践展开幕,中国美术学院下乡创作实践展开幕',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                },
+                {
+                    uid: 4,
+                    title: '「民族翰骨——潘天寿诞辰120年纪念大展」在中国美术馆开幕',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                },
+                {
+                    uid: 5,
+                    title: '纪念潘天寿诞辰120周年座谈会举行 刘延东出席并讲话',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                },
+                {
+                    uid: 6,
+                    title: '中国美术学院第八届教代会、第十六届工代会第三次会议隆重举行',
+                    date: '2017-02-20 / 13:30',
+                    url: 'javascript:void(0);'
+                }
+            ],
         },
         mounted: function () {
             var that = this;
             //获取入口列表数据
             axios({
                 method: "get",
-                url: "./json/entryList.json",
-                data: {
-                    //search: search_id
-                },
-                transformRequest: [
-                    function (data) {
-                        let ret = "";
-                        for (var i = 0; i < data.length; i++) {
-                            ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                        }
-                        ret = ret.slice(0, -1); // 去掉最后的空行
-                        return ret;
-                    }
-                ],
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
+                url: "./json/entryList2.json",
             }).then(function (response) {
                 var cw = window.innerWidth || document.documentElement.clientWidth || document.body
                     .clientWidth;
@@ -139,6 +172,15 @@
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        methods: {
+            //选中的时候触发
+            handleSelectionChange(val) {
+                this.tableList = val;
+                //console.log(val[0].uid)
+                //this.tableInfo.splice(val.uid, 1)
+                //console.log(this.tableList)
+            },
         }
     })
 </script>

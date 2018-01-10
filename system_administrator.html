@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>启焕科技-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/element.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="system_administrator" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- main -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- 二级菜单 -->
+                <div class="second-menu">
+                    <a href="publish_articles.html" class="float-left">
+                        <el-button type="primary" size="mini">发布文章</el-button>
+                    </a>
+                    <a href="publish_href.html" class="float-left">
+                        <el-button type="primary" size="mini">发布链接</el-button>
+                    </a>
+                    <a href="articles_list.html" class="float-left">
+                        <el-button type="primary" size="mini">文章列表</el-button>
+                    </a>
+                    <a href="javascript:void(0);" class="float-right question">
+                        <i class="el-icon-question"></i>
+                        <span>如何发链接</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public_xitong.js"></script>
+<script>
+    var app = new Vue({
+        el: '#system_administrator',
+        data: {
+            //加载页面
+            loading: true,
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'index.html',
+                    this_page: true
+                },
+                {
+                    name: '发链接',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                }
+            ],
+        },
+        methods: {
+            //日期格式化
+            dateFormat(date) {
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                this.form.date = (year + '-' + month + '-' + day);
+            },
+            //图片上传
+            handleAvatarSuccess(res, file) {
+                this.form.imageUrl = URL.createObjectURL(file.raw);
+            },
+            //上传限制
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isJPG) {
+                    this.$message.error('上传缩略图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传缩略图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
+            //表单提交
+            submitForm(formName) {
+                var that = this;
+                that.$refs[formName].validate(function (valid) {
+                    that.subLoading = true;
+                    if (valid) {
+                        that.subLoading = false;
+                        that.$message({
+                            type: 'success',
+                            message: '提交成功!'
+                        });
+                        setTimeout(function () { //提交成功后跳转到文章列表页面
+                            window.location.href = "articles_list.html";
+                        }, 1000)
+                        console.log(that.form.date);
+                    } else {
+                        that.subLoading = false;
+                        that.$message.error('提交失败!');
+                        return false;
+                    }
+                });
+            },
+        }
+    })
+</script>
+
+
+</html>

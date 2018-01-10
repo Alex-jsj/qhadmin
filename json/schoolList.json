@@ -1,0 +1,221 @@
+[{
+        "department": "党政管理机构",
+        "departmentList": [{
+                "schoolId": 1001,
+                "schoolName": "党政办公室",
+                "schoolUrl": "http://web.q-huan.com/zjcm/dzb/",
+                "schoolUrl2": "http://172.16.60.113/dzbgs"
+            },
+            {
+                "schoolId": 1002,
+                "schoolName": "纪委办公室（监察审计处）",
+                "schoolUrl": "http://web.q-huan.com/zjcm/jw/",
+                "schoolUrl2": "http://172.16.60.113/jw"
+            },
+            {
+                "schoolId": 1003,
+                "schoolName": "党委组织部（党委统战部）",
+                "schoolUrl": "http://web.q-huan.com/zjcm/zzb/",
+                "schoolUrl2": "http://172.16.60.113/zzb"
+            },
+            {
+                "schoolId": 1004,
+                "schoolName": "党委宣传部（新闻中心）",
+                "schoolUrl": "http://www.zjcm.edu.cn/news.shtml",
+                "schoolUrl2": "http://www.zjcm.edu.cn/news.shtml"
+            },
+            {
+                "schoolId": 1005,
+                "schoolName": "学生工作部（学生处、人武部、招生办公室）",
+                "schoolUrl": "http://web.q-huan.com/zjcm/xgb/",
+                "schoolUrl2": "http://172.16.60.113/xgb"
+            },
+            {
+                "schoolId": 1006,
+                "schoolName": "发展规划与社会合作处",
+                "schoolUrl": "http://web.q-huan.com/zjcm/fzgh/",
+                "schoolUrl2": "http://172.16.60.113/fzghhzc"
+            },
+            {
+                "schoolId": 1007,
+                "schoolName": "人事处（人才办、退休处）",
+                "schoolUrl": "http://web.q-huan.com/zjcm/rsc/",
+                "schoolUrl2": "http://172.16.60.113/rsc"
+            },
+            {
+                "schoolId": 1008,
+                "schoolName": "财务处",
+                "schoolUrl": " http://web.q-huan.com/zjcm/cw/",
+                "schoolUrl2": ""
+            },
+            {
+                "schoolId": 1009,
+                "schoolName": "教务处、教师发展中心",
+                "schoolUrl": "http://web.q-huan.com/zjcm/jwc/",
+                "schoolUrl2": "http://172.16.60.113/jwc"
+            },
+            {
+                "schoolId": 1010,
+                "schoolName": "科研处",
+                "schoolUrl": "http://web.q-huan.com/zjcm/kyc/",
+                "schoolUrl2": "http://172.16.60.113/kyc"
+            },
+            {
+                "schoolId": 1011,
+                "schoolName": "研究生处",
+                "schoolUrl": "http://web.q-huan.com/zjcm/yj",
+                "schoolUrl2": "http://172.16.60.113/yjsc"
+            },
+            {
+                "schoolId": 1011,
+                "schoolName": "艺术实践处",
+                "schoolUrl": "http://web.q-huan.com/zjcm/yssj/",
+                "schoolUrl2": "http://172.16.60.113/yssjc"
+            },
+            {
+                "schoolId": 1012,
+                "schoolName": "国际交流合作处（港澳台事务办公室）",
+                "schoolUrl": "http://web.q-huan.com/zjcm/gjjl/",
+                "schoolUrl2": "http://172.16.60.113/gjjlhzc"
+            },
+            {
+                "schoolId": 1013,
+                "schoolName": "资产与后勤管理处",
+                "schoolUrl": "http://web.q-huan.com/zjcm/zc/",
+                "schoolUrl2": "http://172.16.60.113/zchqc"
+            },
+            {
+                "schoolId": 1014,
+                "schoolName": "保卫处",
+                "schoolUrl": "http://web.q-huan.com/zjcm/bw/",
+                "schoolUrl2": "http://172.16.60.113/bwc"
+            }
+        ]
+    },
+    {
+        "department": "群团组织",
+        "departmentList": [{
+                "schoolId": 1015,
+                "schoolName": "工会",
+                "schoolUrl": "http://web.q-huan.com/zjcm/gh/",
+                "schoolUrl2": "http://172.16.60.113/gh"
+            },
+            {
+                "schoolId": 1016,
+                "schoolName": "团委",
+                "schoolUrl": "http://web.q-huan.com/zjcm/tw/",
+                "schoolUrl2": "http://172.16.60.113/tw"
+            }
+        ]
+    },
+    {
+        "department": "教学科研机构",
+        "departmentList": [{
+                "schoolId": 1017,
+                "schoolName": "作曲与指挥系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/zq/",
+                "schoolUrl2": "http://172.16.60.113/zqzhx"
+            },
+            {
+                "schoolId": 1018,
+                "schoolName": "音乐学系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/yyxx/",
+                "schoolUrl2": "http://172.16.60.113/yyxx"
+            },
+            {
+                "schoolId": 1019,
+                "schoolName": "音乐教育系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/yyjy/",
+                "schoolUrl2": "http://172.16.60.113/yyjyx"
+            },
+            {
+                "schoolId": 1020,
+                "schoolName": "钢琴系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/gq/",
+                "schoolUrl2": "http://172.16.60.113/gq/"
+            },
+            {
+                "schoolId": 1021,
+                "schoolName": "声乐歌剧系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/sg/",
+                "schoolUrl2": "http://172.16.60.113/sg"
+            },
+            {
+                "schoolId": 1022,
+                "schoolName": "国乐系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/gyx/",
+                "schoolUrl2": "http://172.16.60.113/gyx"
+            },
+            {
+                "schoolId": 1023,
+                "schoolName": "管弦系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/gx/",
+                "schoolUrl2": "http://172.16.60.113/gxx"
+            },
+            {
+                "schoolId": 1024,
+                "schoolName": "流行音乐系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/lx/",
+                "schoolUrl2": "http://172.16.60.113/lxyyx"
+            },
+            {
+                "schoolId": 1025,
+                "schoolName": "舞蹈系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/wd/",
+                "schoolUrl2": "http://172.16.60.113/wdx"
+            },
+            {
+                "schoolId": 1026,
+                "schoolName": "戏剧系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/xj/",
+                "schoolUrl2": "http://172.16.60.113/xjx"
+            },
+            {
+                "schoolId": 1027,
+                "schoolName": "音乐工程系",
+                "schoolUrl": "http://web.q-huan.com/zjcm/yygcx/",
+                "schoolUrl2": "http://172.16.60.113/yygcx"
+            },
+            {
+                "schoolId": 1026,
+                "schoolName": "公共基础教学部（思想政治理论课教学部）",
+                "schoolUrl": "http://web.q-huan.com/zjcm/jxb/",
+                "schoolUrl2": "http://172.16.60.113/jcb"
+            },
+            {
+                "schoolId": 1026,
+                "schoolName": "附属音乐学校",
+                "schoolUrl": "http://web.q-huan.com/zjcm/zjcm/fz/",
+                "schoolUrl2": "http://fz.zjcm.edu.cn"
+            },
+            {
+                "schoolId": 1026,
+                "schoolName": "创业学院",
+                "schoolUrl": "http://web.q-huan.com/zjcm/cy/",
+                "schoolUrl2": "http://172.16.60.113/cyxy"
+            },
+            {
+                "schoolId": 1027,
+                "schoolName": "继续教育学院",
+                "schoolUrl": "http://web.q-huan.com/zjcm/jxjy/",
+                "schoolUrl2": "http://jxjyxy.zjcm.edu.cn"
+            }
+        ]
+    },
+    {
+        "department": "直属单位",
+        "departmentList": [{
+                "schoolId": 9101,
+                "schoolName": "教学与艺术实践服务中心",
+                "schoolUrl": "http://web.q-huan.com/zjcm/jy/",
+                "schoolUrl2": "http://172.16.60.113/jfzx"
+            },
+            {
+                "schoolId": 9101,
+                "schoolName": "浙江乐典文化有限责任公司",
+                "schoolUrl": "http://web.q-huan.com/zjcm/yd/",
+                "schoolUrl2": "http://172.16.60.113/yd"
+            }
+        ]
+    }
+]

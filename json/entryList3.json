@@ -1,0 +1,23 @@
+[
+
+    {
+        "iconName": "icon-wenzhangliebiao",
+        "entryName": "文章列表",
+        "entryUrl": "articles_list.html"
+    },
+    {
+        "iconName": "icon-daishenwenzhang",
+        "entryName": "待审文章",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-shishishuju",
+        "entryName": "实时数据",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-wenzhangpaihang",
+        "entryName": "文章排行",
+        "entryUrl": "javascript:void(0);"
+    }
+]

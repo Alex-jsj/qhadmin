@@ -10,7 +10,6 @@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="iconfont/iconfont.css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
-    <!-- <link rel="stylesheet" href="css/element.min.css"> -->
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script>
         /*判断浏览器版本是否过低*/
@@ -49,7 +48,7 @@
         <!-- header -->
         <div id="header"></div>
         <!-- list -->
-        <div id="entry-list">
+        <div id="entry-list" :class="listClass">
             <div v-for="(list,index) in entryList" class="float-left entry-box" :class="list.show?'div-not-show':'div-show'">
                 <a :href="list.entryUrl">
                     <i class="iconfont" :class="list.iconName"></i>
@@ -63,41 +62,21 @@
 </body>
 <script src="js/vue.js"></script>
 <script src="js/axios.min.js"></script>
-<!-- <script src="js/element.min.js"></script> -->
 <script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/public.js"></script>
+<script src="js/public_leader.js"></script>
 <script>
     var app = new Vue({
         el: '#admin',
         data: {
-            entryList: []
+            entryList: [],
+            listClass: '',
         },
         mounted: function () {
             var that = this;
             //获取入口列表数据
             axios({
                 method: "get",
-                url: "./json/entryList.json",
-                data: {
-                    //search: search_id
-                },
-                transformRequest: [
-                    function (data) {
-                        let ret = "";
-                        for (var i = 0; i < data.length; i++) {
-                            ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                        }
-                        ret = ret.slice(0, -1); // 去掉最后的空行
-                        return ret;
-                    }
-                ],
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
+                url: "./json/entryList3.json",
             }).then(function (response) {
                 var cw = window.innerWidth || document.documentElement.clientWidth || document.body
                     .clientWidth;
@@ -135,6 +114,7 @@
                         }
                     }
                 }
+
                 that.entryList = response.data;
             }).catch(function (error) {
                 console.log(error);
