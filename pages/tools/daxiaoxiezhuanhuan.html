@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>大小写转换 - 启焕科技</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+</head>
+
+<body>
+    <table border="1" bordercolor="#00a0e9" cellspacing="0" width="700" align="center" cellpadding="2">
+        <tr>
+            <td valign="top" width="99%" bgcolor="#00a0e9">
+                <p align="center">
+                    <font color="#FFFFFF">
+                        <strong>大小写转换</strong>
+                    </font>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td height="15" valign="top" width="99%">
+                <div align="center">
+                    <center>
+                        <br />
+                        <input onclick="convert('0')" type="button" value="全部大写" />
+                        <input onclick="convert('1')" type="button" value="全部小写" />
+                        <input onclick="convert('2')" type="button" value="首字母大写" />
+                        <input onclick="txt.value=''" type="button" value="清空" />
+                        <br />
+                        <br />
+                        <textarea id="txt" rows="15" cols="80" value=""></textarea>
+                        <br />
+                        <br />
+                    </center>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</body>
+<script language="JavaScript" type="text/javascript">
+    function allBig(cc) {
+        var str = cc.toUpperCase();
+        return str;
+    }
+
+    function allSmall(cc) {
+        var str = cc.toLowerCase()
+        return str;
+    }
+
+    function first(cc) {
+        var str = cc.toLowerCase();
+        var strarr = cc.split(' ');
+        var result = '';
+        for (var i in strarr) {
+            result += strarr[i].substring(0, 1).toUpperCase() + strarr[i].substring(1) + ' ';
+        }
+        return result;
+    }
+
+    function convert(nOption) {
+        if (nOption == 0) {
+            txt.value = allBig(txt.value);
+        } else if (nOption == 1) {
+            txt.value = allSmall(txt.value);
+        } else {
+            txt.value = first(txt.value);
+        }
+    }
+</script>
+
+</html>

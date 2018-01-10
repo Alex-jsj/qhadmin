@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>文章列表-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/element.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="articles_list" class="public-wap articles_list2">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+
+        <!-- component -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- 二级菜单 -->
+                <div class="second-menu">
+                    <a href="publish_articles.html" class="float-left">
+                        <el-button type="primary" size="mini">发布文章</el-button>
+                    </a>
+                    <a href="publish_href.html" class="float-left">
+                        <el-button type="primary" size="mini">发布链接</el-button>
+                    </a>
+                    <a href="articles_list.html" class="float-left">
+                        <el-button type="primary" size="mini">文章列表</el-button>
+                    </a>
+                    <a href="javascript:void(0);" class="float-right question">
+                        <i class="el-icon-question"></i>
+                        <span>文章管理常见问题解答</span>
+                    </a>
+                </div>
+                <!-- 表格主体 -->
+                <div class="table-container">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 表格筛选 -->
+                    <div class="table-filter">
+                        <el-select v-model="stateValue" clearable placeholder="发布状态" size="mini" class="float-left state-selection">
+                            <el-option v-for="item in stateSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-select v-model="columnSelectionValue" clearable placeholder="栏目" size="mini" class="float-left column-selection">
+                            <el-option v-for="item in columnSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-input placeholder="请输入关键字" v-model="titleSearchValue" class="input-with-select title-search float-right" size="mini">
+                            <el-button slot="append" icon="el-icon-search" @click="articleSearch()"></el-button>
+                        </el-input>
+                    </div>
+                    <!-- 表格 -->
+                    <div class="table-body">
+                        <el-table ref="multipleTable" :data="tableInfo" stripe size="small" @selection-change="handleSelectionChange">
+                            <el-table-column type="selection"></el-table-column>
+                            <el-table-column prop="uid" label="ID" width="70"></el-table-column>
+                            <el-table-column prop="title" label="标题" resizable></el-table-column>
+                            <el-table-column prop="column" label="栏目" width="100"></el-table-column>
+                            <el-table-column prop="state" label="发布状态" width="90" :filters="[{ text: '已发', value: '已发' }, { text: '待审', value: '待审' }, { text: '草稿', value: '草稿' }]"
+                                :filter-method="filterState" filter-placement="bottom-end">
+                                <div slot-scope="scope">
+                                    <el-tag close-transition :class="scope.row.stateClass" size="mini">{{scope.row.state}}</el-tag>
+                                </div>
+                            </el-table-column>
+                            <el-table-column prop="date" label="创建日期" width="100"></el-table-column>
+                            <el-table-column prop="author" label="创建人" width="85"></el-table-column>
+                            <el-table-column prop="count" label="浏览次数" width="70"></el-table-column>
+                            <el-table-column label="排序" width="65">
+                                <div slot-scope="scope" class="table-sort-input">
+                                    <el-input type="text" size="mini" @blur="sortBlur(scope.$index, tableInfo)">
+                                </div>
+                            </el-table-column>
+                            <el-table-column label="操作" width="250">
+                                <div slot-scope="scope" class="control-btn">
+                                    <el-button size="small">预览</el-button>
+                                    <el-button size="small">审核</el-button>
+                                    <el-button size="small">编辑</el-button>
+                                    <el-button @click.native.prevent="deleteRow(scope.$index, tableInfo)" size="small" class="control-btn-del">删除</el-button>
+                                </div>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <!-- 表格控制 -->
+                    <div class="table-filter">
+                        <el-button type="primary" size="mini" @click="selection(tableInfo)">全选</el-button>
+                        <el-button type="primary" size="mini" @click="batchDeleting()">批量删除</el-button>
+                        <el-button type="primary" size="mini" @click="transferFormVisible = true">转移</el-button>
+                        <!-- 转移弹框 -->
+                        <el-dialog title="移动文档" :visible.sync="transferFormVisible" class="transferDialog" width="35%">
+                            <el-form :model="transfer" size="mini">
+                                <el-form-item label="目标栏目:" :label-width="transfer.width">
+                                    <el-select v-model="transferSelectionValue" clearable placeholder="栏目" size="mini" class="float-left column-selection">
+                                        <el-option v-for="item in columnSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="文档ID:" :label-width="transfer.width">
+                                    <el-input model="transfer.ids" auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div class="dialog-info">
+                                <p>移动到的目标栏目必须和选定的文档频道类型一致，否则程序会自动忽略不符合的文档。</p>
+                            </div>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="transferFormVisible = false" size="mini">取 消</el-button>
+                                <el-button type="primary" @click="transferFormVisible = false" size="mini">确 定</el-button>
+                            </div>
+                        </el-dialog>
+                        <el-button type="primary" size="mini" @click="pusherFormVisible = true" class="last-btn">推送</el-button>
+                        <!-- 推送弹框 -->
+                        <el-dialog title="推送文档" :visible.sync="pusherFormVisible" class="transferDialog" width="35%">
+                            <el-form :model="pusher" size="mini">
+                                <el-form-item label="目标站点:" :label-width="pusher.width">
+                                    <el-select v-model="pusherSelectionValue" clearable placeholder="栏目" size="mini" class="float-left column-selection">
+                                        <el-option v-for="item in columnSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="文档ID:" :label-width="pusher.width">
+                                    <el-input model="pusher.ids" auto-complete="off"></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div class="dialog-info">
+                                <p>推送到的目标栏目必须和选定的文档频道类型一致，否则程序会自动忽略不符合的文档。</p>
+                            </div>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="pusherFormVisible = false" size="mini">取 消</el-button>
+                                <el-button type="primary" @click="pusherFormVisible = false" size="mini">确 定</el-button>
+                            </div>
+                        </el-dialog>
+                    </div>
+                    <!-- 分页 -->
+                    <div class="paging">
+                        <center>
+                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
+                                :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
+                                :total="currentPaging.totals">
+                            </el-pagination>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var app = new Vue({
+        el: '#articles_list',
+        data: {
+            //加载页面
+            loading: true,
+            //状态class
+            stateClass: 'a',
+            //分页
+            currentPaging: {},
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'index.html',
+                    this_page: true
+                },
+                {
+                    name: '文章列表',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                }
+            ],
+            //选择栏目
+            columnSelection: [{
+                    value: 0,
+                    label: '学术交流'
+                },
+                {
+                    value: 1,
+                    label: '通知公告'
+                },
+                {
+                    value: 2,
+                    label: '下载中心'
+                },
+                {
+                    value: 3,
+                    label: '联系我们'
+                }
+            ],
+            columnSelectionValue: '',
+            //选择发布状态
+            stateSelection: [{
+                    value: 0,
+                    label: '已发'
+                },
+                {
+                    value: 1,
+                    label: '待审'
+                },
+                {
+                    value: 2,
+                    label: '草稿'
+                }
+            ],
+            stateValue: '',
+            //栏目检索
+            titleSearchValue: '',
+            //表格
+            tableInfo: [{
+                    uid: 0,
+                    title: '郎朗独奏音乐会',
+                    column: '学术交流',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '56',
+                    zip: 200333
+                },
+                {
+                    uid: 1,
+                    title: '中国美术学院工会工作奖励和配套资助办法',
+                    column: '学术交流',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '656',
+                    zip: 200333
+                },
+                {
+                    uid: 2,
+                    title: '中国美术学院举行纪念建团95周年活动',
+                    column: '学术交流',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '待审',
+                    stateClass: 'state2',
+                    count: '1',
+                    zip: 200333
+                },
+                {
+                    uid: 3,
+                    title: '“治水最前线”中国美术学院下乡创作实践展开幕',
+                    column: '联系我们',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '684',
+                    zip: 200333
+                },
+                {
+                    uid: 4,
+                    title: '「民族翰骨——潘天寿诞辰120年纪念大展」在中国美术馆开幕',
+                    column: '联系我们',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '草稿',
+                    stateClass: 'state3',
+                    count: '78',
+                    zip: 200333
+                },
+                {
+                    uid: 5,
+                    title: '纪念潘天寿诞辰120周年座谈会举行 刘延东出席并讲话',
+                    column: '通知公告',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '待审',
+                    stateClass: 'state2',
+                    count: '5',
+                    zip: 200333
+                },
+                {
+                    uid: 6,
+                    title: '中国美术学院第八届教代会、第十六届工代会第三次会议隆重举行',
+                    column: '下载中心',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '草稿',
+                    stateClass: 'state3',
+                    count: '875',
+                    zip: 200333
+                },
+                {
+                    uid: 7,
+                    title: '中国美术学院2017-2018年教职工蛋糕（券）供应商',
+                    column: '通知公告',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '54',
+                    zip: 200333
+                },
+                {
+                    uid: 8,
+                    title: '中国美术学院民艺博物馆物业服务项目预中标公告',
+                    column: '下载中心',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '0',
+                    zip: 200333
+                },
+                {
+                    uid: 9,
+                    title: '中国美术学院2017年接受国内访问学者简章',
+                    column: '通知公告',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '1456',
+                    zip: 200333
+                }
+            ],
+            tableList: [],
+            //更改分类
+            changeClassify: [{
+                    value: 0,
+                    label: '分类1'
+                },
+                {
+                    value: 1,
+                    label: '分类2'
+                },
+                {
+                    value: 2,
+                    label: '分类3'
+                }
+            ],
+            changeClassifyValue: '',
+            //转移
+            transfer: {
+                name: '',
+                ids: [],
+                width: '75px'
+            },
+            transferFormVisible: false,
+            transferSelectionValue: '',
+            //推送
+            pusher: {
+                name: '',
+                ids: [],
+                width: '75px'
+            },
+            pusherFormVisible: false,
+            pusherSelectionValue: ''
+        },
+        watch: {
+            //选择栏目ajax
+            columnSelectionValue: function (newVal, oldVal) {
+                console.log(newVal)
+            },
+            //分页
+            total: function (newVal, oldVal) {
+                console.log(newVal)
+            },
+            //选择发布状态ajax
+            stateValue: function (newVal, oldVal) {},
+            //更改分类
+            changeClassifyValue: function (newVal, oldVal) {
+                console.log(newVal)
+            },
+        },
+        mounted: function () {
+            var that = this;
+            //获取分页数据
+            axios({
+                method: "get",
+                url: "./json/paging.json",
+                data: {
+                    //search: search_id
+                },
+                transformRequest: [
+                    function (data) {
+                        let ret = "";
+                        for (var i = 0; i < data.length; i++) {
+                            ret +=
+                                encodeURIComponent(it) +
+                                "=" +
+                                encodeURIComponent(data[it]) +
+                                "&";
+                        }
+                        ret = ret.slice(0, -1); // 去掉最后的空行
+                        return ret;
+                    }
+                ],
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            }).then(function (response) {
+                var cw = window.innerWidth || document.documentElement.clientWidth || document.body
+                    .clientWidth;
+                that.currentPaging = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        methods: {
+            //全选
+            selection(rows) {
+                var that = this;
+                if (this.tableInfo.length !== this.tableList.length) {
+                    rows.forEach(function (row) {
+                        that.$refs.multipleTable.toggleRowSelection(row, true);
+                    });
+                } else {
+                    that.$refs.multipleTable.clearSelection();
+                }
+            },
+            //选中的时候触发
+            handleSelectionChange(val) {
+                this.tableList = val;
+                //console.log(val[0].uid)
+                //this.tableInfo.splice(val.uid, 1)
+                //console.log(this.tableList)
+            },
+            //文章检索
+            articleSearch() {
+                console.log(this.titleSearchValue)
+            },
+            //删除表格行
+            deleteRow(index, rows) {
+                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    rows.splice(index, 1);
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+                console.log(this.tableInfo)
+            },
+            //表格排序
+            sortBlur(a, b) {
+                console.log(b[a].uid)
+            },
+            //筛选状态
+            formatter(row, column) {
+                return row.address;
+            },
+            filterState(value, row) {
+                return row.state === value;
+            },
+            //转移分类
+            transferClassify() {
+                console.log(this.changeClassifyValue);
+            },
+            //批量删除
+            batchDeleting() {
+                for (var i = 0; i < this.tableList.length; i++) {
+                    //console.log(this.tableList[i].uid)
+                }
+                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //推送
+            articlePush() {
+                console.log(this.changeClassifyValue);
+            },
+            //分页
+            handleSizeChange(val) {
+                this.currentPaging.pageSize = val; // 设置每页显示的条数
+                console.log(this.currentPaging.pageSize);
+            },
+            handleCurrentChange(val) {
+                this.currentPaging.currentPage = val; // 设置当前页
+                console.log(this.currentPaging.currentPage);
+            }
+        }
+    })
+</script>
+
+</html>

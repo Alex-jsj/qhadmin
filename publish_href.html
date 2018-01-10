@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>发布链接-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/element.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="publish_href" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- main -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- 二级菜单 -->
+                <div class="second-menu">
+                    <a href="publish_articles.html" class="float-left">
+                        <el-button type="primary" size="mini">发布文章</el-button>
+                    </a>
+                    <a href="publish_href.html" class="float-left">
+                        <el-button type="primary" size="mini">发布链接</el-button>
+                    </a>
+                    <a href="articles_list.html" class="float-left">
+                        <el-button type="primary" size="mini">文章列表</el-button>
+                    </a>
+                    <a href="javascript:void(0);" class="float-right question">
+                        <i class="el-icon-question"></i>
+                        <span>如何发链接</span>
+                    </a>
+                </div>
+                <!-- form主体 -->
+                <div class="form-container">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 表单 -->
+                    <el-form ref="form" :model="form" :rules="rules" status-icon label-width="100px" size="mini" label-position="right" class="form-box">
+                        <el-form-item label="主栏目" class="form-item" prop="mainColumn">
+                            <el-select v-model="form.mainColumn" placeholder="请选择主栏目" style="width:100%;">
+                                <el-option v-for="item in mainColumnList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="副栏目" class="form-item">
+                            <el-select v-model="form.subColumn" placeholder="请选择副栏目" style="width:100%;">
+                                <el-option v-for="item in subColumnList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="标题" class="form-item" prop="title">
+                            <el-input v-model="form.title"></el-input>
+                        </el-form-item>
+                        <el-form-item label="属性" class="form-item" prop="attribute">
+                            <el-radio-group v-model="form.attribute">
+                                <el-radio label="推荐"></el-radio>
+                                <el-radio label="头条"></el-radio>
+                                <el-radio label="置顶"></el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                        <el-form-item label="来源" class="form-item" prop="comeFrom">
+                            <el-select v-model="form.comeFrom" placeholder="请选择栏目" style="width:100%;">
+                                <el-option v-for="item in mainColumnList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="作者" class="form-item">
+                            <el-input v-model="form.author"></el-input>
+                        </el-form-item>
+                        <el-form-item label="编辑" class="form-item">
+                            <el-input v-model="form.editer"></el-input>
+                        </el-form-item>
+                        <el-form-item label="摄影" class="form-item">
+                            <el-input v-model="form.photoGraphy"></el-input>
+                        </el-form-item>
+                        <el-form-item label="文章排序" class="form-item" prop="sort">
+                            <el-input v-model.number="form.sort"></el-input>
+                        </el-form-item>
+                        <el-form-item label="置顶" class="form-item">
+                            <el-select v-model="form.toTop" placeholder="请选择" style="width:100%;">
+                                <el-option v-for="item in toTopList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="发布日期" class="form-item" prop="date">
+                            <el-date-picker v-model="form.date" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions" @change="dateFormat"></el-date-picker>
+                        </el-form-item>
+                        <el-form-item class="form-control-btn">
+                            <el-button type="primary" size="large">预览</el-button>
+                            <el-button type="primary" @click="submitForm('form')" size="large" :loading="subLoading">提交</el-button>
+                            <el-checkbox v-model="continueBtn" style="margin-left:10px;">发布后继续</el-checkbox>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var app = new Vue({
+        el: '#publish_href',
+        data: {
+            //加载页面
+            loading: true,
+            //提交按钮loading
+            subLoading: false,
+            //发布后继续开关
+            continueBtn: false,
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'index.html',
+                    this_page: true
+                },
+                {
+                    name: '发链接',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                }
+            ],
+            //表单
+            form: {
+                mainColumn: '', //主栏目
+                subColumn: '', //副栏目
+                title: '', //标题
+                attribute: '', //属性
+                imageUrl: '', //缩略图
+                comeFrom: '', //来源
+                author: '', //作者
+                editer: '', //编辑
+                photoGraphy: '', //摄影
+                sort: 100, //文章排序
+                toTop: '', //置顶
+                date: '' //发布日期
+            },
+            //表单验证
+            rules: {
+                title: [{
+                        required: true,
+                        message: '请输入标题',
+                        trigger: 'blur'
+                    },
+                    {
+                        min: 1,
+                        //max: 5,
+                        message: '内容不能为空',
+                        trigger: 'blur'
+                    }
+                ],
+                mainColumn: [{
+                    required: true,
+                    message: '请选择主栏目',
+                    trigger: 'change'
+                }],
+                comeFrom: [{
+                    required: true,
+                    message: '请选择来源',
+                    trigger: 'change'
+                }],
+                date: [{
+                    type: 'string',
+                    required: true,
+                    message: '请选择日期',
+                    trigger: 'change'
+                }],
+                attribute: [{
+                    required: true,
+                    message: '请选择属性',
+                    trigger: 'change'
+                }],
+                sort: [{
+                    required: true,
+                    validator: function (rule, value, callback) {
+                        if (!Number.isInteger(value)) {
+                            callback(new Error('请输入数字值'));
+                        } else {
+                            callback();
+                        }
+                    },
+                    trigger: 'blur'
+                }]
+            },
+            //主栏目列表
+            mainColumnList: [{
+                    value: 0,
+                    label: '学术交流'
+                },
+                {
+                    value: 1,
+                    label: '通知公告'
+                },
+                {
+                    value: 2,
+                    label: '下载中心'
+                },
+                {
+                    value: 3,
+                    label: '联系我们'
+                }
+            ],
+            //副栏目列表
+            subColumnList: [{
+                    value: 0,
+                    label: '学术交流'
+                },
+                {
+                    value: 1,
+                    label: '通知公告'
+                },
+                {
+                    value: 2,
+                    label: '下载中心'
+                },
+                {
+                    value: 3,
+                    label: '联系我们'
+                }
+            ],
+            //置顶
+            toTopList: [{
+                    value: 0,
+                    label: '置顶一天'
+                },
+                {
+                    value: 1,
+                    label: '置顶一周'
+                },
+                {
+                    value: 2,
+                    label: '置顶一个月'
+                }
+            ],
+            //日起选择器
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+                shortcuts: [{
+                    text: '今天',
+                    onClick(picker) {
+                        picker.$emit('pick', new Date());
+                    }
+                }, {
+                    text: '昨天',
+                    onClick(picker) {
+                        const date = new Date();
+                        date.setTime(date.getTime() - 3600 * 1000 * 24);
+                        picker.$emit('pick', date);
+                    }
+                }, {
+                    text: '一周前',
+                    onClick(picker) {
+                        const date = new Date();
+                        date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                        picker.$emit('pick', date);
+                    }
+                }]
+            },
+        },
+        methods: {
+            //日期格式化
+            dateFormat(date) {
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                this.form.date = (year + '-' + month + '-' + day);
+            },
+            //图片上传
+            handleAvatarSuccess(res, file) {
+                this.form.imageUrl = URL.createObjectURL(file.raw);
+            },
+            //上传限制
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isJPG) {
+                    this.$message.error('上传缩略图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传缩略图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
+            //表单提交
+            submitForm(formName) {
+                var that = this;
+                that.$refs[formName].validate(function (valid) {
+                    that.subLoading = true;
+                    if (valid) {
+                        that.subLoading = false;
+                        that.$message({
+                            type: 'success',
+                            message: '提交成功!'
+                        });
+                        setTimeout(function () { //提交成功后跳转到文章列表页面
+                            window.location.href = "articles_list.html";
+                        }, 1000)
+                        console.log(that.form.date);
+                    } else {
+                        that.subLoading = false;
+                        that.$message.error('提交失败!');
+                        return false;
+                    }
+                });
+            },
+        }
+    })
+</script>
+
+
+</html>

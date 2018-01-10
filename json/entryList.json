@@ -1,0 +1,56 @@
+[{
+        "iconName": "icon-fawenzhang",
+        "entryName": "发文章",
+        "entryUrl": "publish_articles.html"
+    },
+    {
+        "iconName": "icon-daishenwenzhang",
+        "entryName": "待审文章",
+        "entryUrl": "articles_list.html"
+    },
+    {
+        "iconName": "icon-wenzhangliebiao",
+        "entryName": "文章列表",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-lanmuliebiao",
+        "entryName": "栏目列表",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-huandengpian",
+        "entryName": "轮播图",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-piaofuguanggao",
+        "entryName": "首页广告",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-huodongyugao",
+        "entryName": "活动预告",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-jiaoshifengcai",
+        "entryName": "教师风采",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-shishishuju",
+        "entryName": "实时数据",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-wenzhangpaihang",
+        "entryName": "文章排行",
+        "entryUrl": "javascript:void(0);"
+    },
+    {
+        "iconName": "icon-zhandianxinxi",
+        "entryName": "站点信息",
+        "entryUrl": "javascript:void(0);"
+    }
+]

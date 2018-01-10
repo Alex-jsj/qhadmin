@@ -1,0 +1,6 @@
+{
+    "currentPage": 1,
+    "pageSize": 10,
+    "pageSizes": [10, 50, 100],
+    "totals": 100
+}
