@@ -189,17 +189,17 @@
                             <i class="iconfont icon-user"></i>
                             <span>用户名</span>
                         </div>
-                        <el-input v-model="login_id.username"></el-input>
+                        <el-input v-model="login_id.username" @keyup.enter.native="submitForm('form')"></el-input>
                     </el-form-item>
                     <el-form-item prop="password" class="item-padding">
                         <div class="form-info">
                             <i class="iconfont icon-password"></i>
                             <span>密码</span>
                         </div>
-                        <el-input v-model="login_id.password" type="password"></el-input>
+                        <el-input v-model="login_id.password" type="password" @keyup.enter.native="submitForm('form')"></el-input>
                     </el-form-item>
                     <el-form-item class="form-control-btn" class="item-padding">
-                        <el-button type="primary" @click="submitForm('form')" size="large" :loading="subLoading">提交</el-button>
+                        <el-button type="primary"  @click="submitForm('form')" size="large" :loading="subLoading">提交</el-button>
                     </el-form-item>
                 </el-form>
             </div>
