@@ -1,0 +1,91 @@
+[{
+        "uid": 0,
+        "title": "9101-党院办",
+        "today": 52838,
+        "thisMonth": 20907,
+        "lastMonth": 495520,
+        "thisYear": 5388800,
+        "count": 2180362
+    },
+    {
+        "uid": 1,
+        "title": "9102-组织人事部",
+        "today": 40838,
+        "thisMonth": 20907,
+        "lastMonth": 490520,
+        "thisYear": 5380800,
+        "count": 2180362
+    },
+    {
+        "uid": 2,
+        "title": "9103-纪监审办公室",
+        "today": 30838,
+        "thisMonth": 10907,
+        "lastMonth": 390520,
+        "thisYear": 4380800,
+        "count": 1180362
+    },
+    {
+        "uid": 3,
+        "title": "9104-宣传部",
+        "today": 20838,
+        "thisMonth": 20507,
+        "lastMonth": 490520,
+        "thisYear": 5356800,
+        "count": 2186362
+    },
+    {
+        "uid": 4,
+        "title": "9105-研究生工作部",
+        "today": 40138,
+        "thisMonth": 21107,
+        "lastMonth": 490320,
+        "thisYear": 5311800,
+        "count": 2110362
+    },
+    {
+        "uid": 5,
+        "title": "9106-学生工作部",
+        "today": 40238,
+        "thisMonth": 20237,
+        "lastMonth": 490020,
+        "thisYear": 5312800,
+        "count": 1180362
+    },
+    {
+        "uid": 6,
+        "title": "9107-网络中心",
+        "today": 10838,
+        "thisMonth": 10907,
+        "lastMonth": 90520,
+        "thisYear": 380800,
+        "count": 180362
+    },
+    {
+        "uid": 7,
+        "title": "9108-发展规划与学科建设处",
+        "today": 838,
+        "thisMonth": 907,
+        "lastMonth": 1520,
+        "thisYear": 80800,
+        "count": 80362
+    },
+    {
+        "uid": 8,
+        "title": "9109-教务处",
+        "today": 338,
+        "thisMonth": 807,
+        "lastMonth": 520,
+        "thisYear": 8080,
+        "count": 80362
+    },
+    {
+        "uid": 9,
+        "title": "9110-招生办公室",
+        "today": 238,
+        "thisMonth": 107,
+        "lastMonth": 520,
+        "thisYear": 1800,
+        "count": 15362
+    }
+]

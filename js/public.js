@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
- * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-11 14:57:21
+ * @Last Modified by: alex (chenzeyongjsj@163.com)
+ * @Last Modified time: 2018-01-12 00:34:15
  */
 window.onload = function () {
 	(function () {
@@ -89,6 +89,15 @@ window.onload = function () {
 					//存储菜单的定位信息
 					window.localStorage.setItem("liIndex", liIndex);
 					window.localStorage.setItem("aIndex", aIndex);
+				});
+				/* 
+				系统信息弹框
+				*/
+				$('.system-dialog').click(function () {
+					$('.system-dialog-box').fadeIn(300);
+				});
+				$('.icon-close').click(function () {
+					$('.system-dialog-box').fadeOut(300);
 				});
 			});
 		}

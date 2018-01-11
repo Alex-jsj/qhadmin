@@ -131,24 +131,51 @@
                             </div>
                             <!-- 访问量排行 -->
                             <div v-show="switch_control == 2">
-                                <!-- 数据总览 -->
-                                <div class="data-all">
-                                    2
+                                <div class="rank-title">
+                                    <span>备注：数据统计时间有延迟，每10分钟数据自动刷新一次。</span>
+                                    <el-button type="primary" size="mini">数据刷新</el-button>
                                 </div>
+                                <el-table :data="accessRankings" stripe size="small" v-loading="tableLoading">
+                                    <el-table-column prop="uid" label="序号" width="50"></el-table-column>
+                                    <el-table-column prop="title" label="网站名称" width="300"></el-table-column>
+                                    <el-table-column prop="today" label="本月访问量"></el-table-column>
+                                    <el-table-column prop="thisMonth" label="今日访问量"></el-table-column>
+                                    <el-table-column prop="lastMonth" label="上月访问量"></el-table-column>
+                                    <el-table-column prop="thisYear" label="今年访问量"></el-table-column>
+                                    <el-table-column prop="count" label="总访问量"></el-table-column>
+                                </el-table>
                             </div>
                             <!-- 文章数量排行 -->
                             <div v-show="switch_control == 3">
-                                <!-- 数据总览 -->
-                                <div class="data-all">
-                                    3
+                                <div class="rank-title">
+                                    <span>备注：数据统计时间有延迟，每10分钟数据自动刷新一次。</span>
+                                    <el-button type="primary" size="mini">数据刷新</el-button>
                                 </div>
+                                <el-table :data="countRankings" stripe size="small" v-loading="tableLoading2">
+                                    <el-table-column prop="uid" label="序号" width="50"></el-table-column>
+                                    <el-table-column prop="title" label="网站名称" width="300"></el-table-column>
+                                    <el-table-column prop="today" label="今日发布"></el-table-column>
+                                    <el-table-column prop="thisMonth" label="本月发布"></el-table-column>
+                                    <el-table-column prop="lastMonth" label="上月发布"></el-table-column>
+                                    <el-table-column prop="thisYear" label="今年发布"></el-table-column>
+                                    <el-table-column prop="count" label="总文章数量"></el-table-column>
+                                </el-table>
                             </div>
                             <!-- 文章访问排行 -->
                             <div v-show="switch_control == 4">
-                                <!-- 数据总览 -->
-                                <div class="data-all">
-                                    4
+                                <div class="rank-title">
+                                    <span>备注：数据统计时间有延迟，每10分钟数据自动刷新一次。</span>
+                                    <el-button type="primary" size="mini">数据刷新</el-button>
                                 </div>
+                                <el-table :data="lookRankings" stripe size="small" v-loading="tableLoading3">
+                                    <el-table-column prop="uid" label="排行" width="50"></el-table-column>
+                                    <el-table-column prop="title" label="标题" width="300"></el-table-column>
+                                    <el-table-column prop="count" label="浏览次数"></el-table-column>
+                                    <el-table-column prop="author" label="作者"></el-table-column>
+                                    <el-table-column prop="column" label="栏目"></el-table-column>
+                                    <el-table-column prop="date" label="创建日期"></el-table-column>
+                                    <el-table-column prop="site" label="所属站点"></el-table-column>
+                                </el-table>
                             </div>
                         </div>
                     </div>
@@ -171,6 +198,9 @@
         data: {
             //加载页面
             loading: true,
+            tableLoading: true,
+            tableLoading2: true,
+            tableLoading3: true,
             //面包屑
             crumbs: [{
                 name: '工作台',
@@ -262,7 +292,7 @@
             //年度数据
             year_data: [36783, 28383, 45345, 5353, 43783, 54352, 28383, 45345, 54353, 43783, 54352],
             //筛选数据
-            choose_data: [544, 723, 425, 428, 686, 342, 115, 289],
+            choose_data: [250, 121, 425, 150, 350, 200, 300, 710],
             //按日期筛选
             pickerOptions: {
                 shortcuts: [{
@@ -291,7 +321,9 @@
                     }
                 }]
             },
-            echarts_filter: '',
+            echarts_filter: [
+                '2018-01-15', '2018-01-31'
+            ],
             //选择栏目
             earchts_filter_list: [{
                     value: 0,
@@ -318,20 +350,52 @@
                     label: '公共管理学院'
                 }
             ],
-            earchts_filter_list_value: '',
-        },
-        watch: {
-            switch_control(newVal, oldVla) {
-                
-            }
+            earchts_filter_list_value: '全部',
+            //访问排行榜
+            accessRankings: [],
+            //数量排行榜
+            countRankings: [],
+            //访问量排行榜
+            lookRankings: []
         },
         methods: {
             data_switch: function (event, index) {
                 var that = this;
+                var url = null;
                 for (var i = 0; i < that.data_display.length; i++) {
                     that.data_display[i].classCon = false;
                 }
                 that.switch_control = index + 1;
+                if (index == 1) {
+                    url = "./json/accessRankings.json";
+                } else if (index == 2) {
+                    url = "./json/countRankings.json";
+                } else if (index == 3) {
+                    url = "./json/lookRankings.json";
+                }
+                axios({
+                    method: "get",
+                    url: url,
+                }).then(function (response) {
+                    if (index == 1) {
+                        that.accessRankings = response.data;
+                        setTimeout(function () {
+                            that.tableLoading = false;
+                        }, 300)
+                    } else if (index == 2) {
+                        that.countRankings = response.data;
+                        setTimeout(function () {
+                            that.tableLoading2 = false;
+                        }, 300)
+                    } else if (index == 3) {
+                        that.lookRankings = response.data;
+                        setTimeout(function () {
+                            that.tableLoading3 = false;
+                        }, 300)
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
                 that.data_display[index].classCon = true;
                 that.line_left = event.currentTarget.offsetLeft + 'px';
                 that.line_Width = event.currentTarget.offsetWidth + 'px';
@@ -339,102 +403,102 @@
         },
         mounted: function () {
             var Charts = function (dataList, name, dataInfo, myChart, posi) {
-                    // 指定图表的配置项和数据
-                    var option = {
-                        tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {
-                                type: 'cross',
-                                label: {
-                                    backgroundColor: '#00a0e9'
-                                }
-                            }
-                        },
-                        toolbox: { //将图表保存为图片
-                            feature: {
-                                saveAsImage: {}
-                            }
-                        },
-                        grid: posi,
-                        xAxis: [{
-                            type: 'category',
-                            boundaryGap: true,
-                            data: dataList
-                        }],
-                        yAxis: [{
-                            type: 'value'
-                        }],
-                        series: [{
-                            name: name,
-                            type: 'line',
-                            stack: '总量',
-                            itemStyle: {
-                                normal: {
-                                    color: '#54c3f1'
-                                }
-                            },
+                // 指定图表的配置项和数据
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
                             label: {
-                                normal: {
-                                    show: false,
-                                    position: 'top'
-                                }
-                            },
-                            areaStyle: {
-                                normal: {}
-                            },
-                            data: dataInfo
-                        }]
-                    };
-                    // 使用刚指定的配置项和数据显示图表。
-                    myChart.setOption(option);
-                }
-                // 今日数据
-                var myChart1 = echarts.init(document.getElementById('echarts-1'));
-                Charts(['0:00', '4:00', '8:00', '12:00', '16:00', '20:00'], '当日数据', this.today_data, myChart1, {
+                                backgroundColor: '#00a0e9'
+                            }
+                        }
+                    },
+                    toolbox: { //将图表保存为图片
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    grid: posi,
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: true,
+                        data: dataList
+                    }],
+                    yAxis: [{
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: name,
+                        type: 'line',
+                        stack: '总量',
+                        itemStyle: {
+                            normal: {
+                                color: 'rgba(84,195,241,0.5)'
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'top'
+                            }
+                        },
+                        areaStyle: {
+                            normal: {}
+                        },
+                        data: dataInfo
+                    }]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+            // 今日数据
+            var myChart1 = echarts.init(document.getElementById('echarts-1'));
+            Charts(['0:00', '4:00', '8:00', '12:00', '16:00', '20:00'], '当日数据', this.today_data, myChart1, {
+                left: '0',
+                right: '0',
+                bottom: '0',
+                top: '10%',
+                containLabel: true
+            });
+            var myChart2 = echarts.init(document.getElementById('echarts-2'));
+            Charts(['周一', '周二', '周三', '周四', '周五', '周六', '周日'], '本周数据', this.week_data, myChart2, {
+                left: '0',
+                right: '0',
+                bottom: '0',
+                top: '10%',
+                containLabel: true
+            });
+            var myChart3 = echarts.init(document.getElementById('echarts-3'));
+            Charts(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
+                '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
+                '31'
+            ], '本月数据', this.month_data, myChart3, {
+                left: '0',
+                right: '0',
+                bottom: '0',
+                top: '10%',
+                containLabel: true
+            });
+            var myChart4 = echarts.init(document.getElementById('echarts-4'));
+            Charts(['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'], '年度数据', this
+                .year_data, myChart4, {
                     left: '0',
                     right: '0',
                     bottom: '0',
                     top: '10%',
                     containLabel: true
                 });
-                var myChart2 = echarts.init(document.getElementById('echarts-2'));
-                Charts(['周一', '周二', '周三', '周四', '周五', '周六', '周日'], '本周数据', this.week_data, myChart2, {
-                    left: '0',
-                    right: '0',
-                    bottom: '0',
-                    top: '10%',
-                    containLabel: true
-                });
-                var myChart3 = echarts.init(document.getElementById('echarts-3'));
-                Charts(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
-                    '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
-                    '31'
-                ], '本月数据', this.month_data, myChart3, {
-                    left: '0',
-                    right: '0',
-                    bottom: '0',
-                    top: '10%',
-                    containLabel: true
-                });
-                var myChart4 = echarts.init(document.getElementById('echarts-4'));
-                Charts(['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'], '年度数据', this
-                    .year_data, myChart4, {
-                        left: '0',
-                        right: '0',
-                        bottom: '0',
-                        top: '10%',
-                        containLabel: true
-                    });
-                var myChart5 = echarts.init(document.getElementById('echarts-5'));
-                Charts(['2017-12-12', '2017-12-13', '2017-12-14', '2017-12-15', '2017-12-16', '2017-12-17',
-                    '2017-12-18', '2017-12-19',
-                ], '年度数据', this.choose_data, myChart5, {
-                    left: '0',
-                    right: '0',
-                    bottom: '0',
-                    top: '20%',
-                    containLabel: true
-                });
+            var myChart5 = echarts.init(document.getElementById('echarts-5'));
+            Charts(['2017-12-12', '2017-12-13', '2017-12-14', '2017-12-15', '2017-12-16', '2017-12-17',
+                '2017-12-18', '2017-12-19',
+            ], '年度数据', this.choose_data, myChart5, {
+                left: '0',
+                right: '0',
+                bottom: '0',
+                top: '20%',
+                containLabel: true
+            });
             //重置侧边菜单定位
             window.localStorage.setItem("liIndex", 0);
             window.localStorage.setItem("aIndex", null);
