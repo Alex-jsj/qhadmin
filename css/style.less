@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
- * @Date: 2018-01-08 10:44:51 
+ * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-10 19:58:05
+ * @Last Modified time: 2018-01-11 14:08:49
  */
 
 @base-color: #54c3f1;
@@ -531,6 +531,7 @@ body {
             background: #fff;
             padding: 0 20px;
             padding-top: 18px;
+            border-radius: 3px;
             &::after {
                 .clear;
             }
@@ -556,6 +557,113 @@ body {
                 font-size: 14px;
                 position: relative;
                 top: -3px;
+            }
+        }
+    }
+}
+
+//侧边栏
+#sideBar {
+    width: 183px;
+    background: #fff;
+    border-radius: 3px;
+    .side-ul {
+        width: 100%;
+        padding: 10px 0;
+        overflow: hidden;
+        >li {
+            width: 100%;
+            &:first-of-type {
+                .icon-down {
+                    display: none;
+                }
+            }
+            &:hover {
+                >a {
+                    background: #dff2fc;
+                    &::before {
+                        left: 0;
+                    }
+                }
+            }
+            >a {
+                display: block;
+                width: 100%;
+                height: 40px;
+                padding-left: 20px;
+                position: relative;
+                background: #fff;
+                .transi;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: -6px;
+                    top: 0;
+                    display: block;
+                    width: 6px;
+                    height: 100%;
+                    background: @base-color2;
+                    .transi;
+                }
+                .iconfont,
+                span {
+                    line-height: 40px;
+                    color: @base_grey;
+                    font-size: 16px;
+                    position: relative;
+                    z-index: 10;
+                }
+                .icon-down {
+                    position: absolute;
+                    right: 26px;
+                    .transi;
+                }
+                .side-text {
+                    margin-left: 5px;
+                }
+            }
+            >ol {
+                width: 100%;
+                >li {
+                    width: 100%;
+                    height: 0;
+                    overflow: hidden;
+                    .transi;
+                    .side-click {
+                        display: block;
+                        width: 100%;
+                        line-height: 38px;
+                        font-size: 14px;
+                        padding-left: 20px;
+                        color: @base_grey;
+                        .transi;
+                        &:hover {
+                            color: @base-color2;
+                        }
+                    }
+                }
+                .side-active {
+                    a { 
+                        color: @base-color2;
+                    }
+                }
+            }
+        }
+        .li-active {
+            >a {
+                background: #dff2fc;
+                &::before {
+                    left: 0;
+                }
+                .icon-down {
+                    -webkit-transform: rotateZ(180deg);
+                    -ms-transform: rotateZ(180deg);
+                    -o-transform: rotateZ(180deg);
+                    transform: rotateZ(180deg);
+                }
+            }
+            >ol>li {
+                height: 38px;
             }
         }
     }
@@ -720,6 +828,7 @@ body {
             background: #fff;
             width: 100%;
             margin-top: 20px;
+            border-radius: 3px;
             /* 表格筛选栏 */
             .table-filter {
                 width: 100%;
@@ -803,6 +912,7 @@ body {
             background: #fff;
             width: 100%;
             margin-top: 20px;
+            border-radius: 3px;
             .form-box {
                 overflow: hidden;
                 margin-top: 20px;
@@ -869,6 +979,7 @@ body {
             background: #fff;
             width: 100%;
             margin-top: 20px;
+            border-radius: 3px;
             .form-box {
                 overflow: hidden;
                 margin-top: 20px;
@@ -889,6 +1000,11 @@ body {
             }
         }
     }
+}
+
+//系统管理员
+#system_administrator {
+    width: 100%;
 }
 
 //手机端样式

@@ -25,7 +25,7 @@
         }
         //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
         if (IETester() == 9.0) {
-            window.location.href = 'iepoint/index.html';
+            //window.location.href = 'iepoint/index.html';
         } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
             window.location.href = 'iepoint/index.html';
         }
@@ -75,7 +75,7 @@
 <script src="js/axios.min.js"></script>
 <script src="js/element.min.js"></script>
 <script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/public_bianji.js"></script>
+<script src="js/public.js"></script>
 <script>
     var app = new Vue({
         el: '#admin',
@@ -145,7 +145,6 @@
                         }
                     }
                 } else if (cw > 769 && response.data.length < 5) { //小与5个时添加另一套class
-                    console.log(4)
                     that.listClass = 'list-4';
                     //修改入口列表数据以隔行变色
                     for (var i = 0; i < response.data.length; i++) {
@@ -177,9 +176,6 @@
             //选中的时候触发
             handleSelectionChange(val) {
                 this.tableList = val;
-                //console.log(val[0].uid)
-                //this.tableInfo.splice(val.uid, 1)
-                //console.log(this.tableList)
             },
         }
     })

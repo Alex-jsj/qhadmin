@@ -26,7 +26,7 @@
         }
         //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
         if (IETester() == 9.0) {
-            window.location.href = 'iepoint/index.html';
+            //window.location.href = 'iepoint/index.html';
         } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
             window.location.href = 'iepoint/index.html';
         }
@@ -53,22 +53,8 @@
         <div class="main">
             <!-- component -->
             <div class="component">
-                <!-- 二级菜单 -->
-                <div class="second-menu">
-                    <a href="publish_articles.html" class="float-left">
-                        <el-button type="primary" size="mini">发布文章</el-button>
-                    </a>
-                    <a href="publish_href.html" class="float-left">
-                        <el-button type="primary" size="mini">发布链接</el-button>
-                    </a>
-                    <a href="articles_list.html" class="float-left">
-                        <el-button type="primary" size="mini">文章列表</el-button>
-                    </a>
-                    <a href="javascript:void(0);" class="float-right question">
-                        <i class="el-icon-question"></i>
-                        <span>如何发链接</span>
-                    </a>
-                </div>
+                <!-- side bar -->
+                <div id="sideBar"></div>
             </div>
         </div>
         <!-- footer -->
@@ -79,7 +65,7 @@
 <script src="js/axios.min.js"></script>
 <script src="js/element.min.js"></script>
 <script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/public_xitong.js"></script>
+<script src="js/public.js"></script>
 <script>
     var app = new Vue({
         el: '#system_administrator',
@@ -88,72 +74,20 @@
             loading: true,
             //面包屑
             crumbs: [{
-                    name: '工作台',
-                    url: 'index.html',
-                    this_page: true
-                },
-                {
-                    name: '发链接',
-                    url: 'javascript:void(0);',
-                    this_page: false
-                }
-            ],
+                name: '工作台',
+                url: 'index.html',
+                this_page: true
+            }],
         },
         methods: {
-            //日期格式化
-            dateFormat(date) {
-                var year = date.getFullYear();
-                var month = date.getMonth() + 1;
-                var day = date.getDate();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                this.form.date = (year + '-' + month + '-' + day);
-            },
-            //图片上传
-            handleAvatarSuccess(res, file) {
-                this.form.imageUrl = URL.createObjectURL(file.raw);
-            },
-            //上传限制
-            beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-                if (!isJPG) {
-                    this.$message.error('上传缩略图片只能是 JPG 格式!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传缩略图片大小不能超过 2MB!');
-                }
-                return isJPG && isLt2M;
-            },
-            //表单提交
-            submitForm(formName) {
-                var that = this;
-                that.$refs[formName].validate(function (valid) {
-                    that.subLoading = true;
-                    if (valid) {
-                        that.subLoading = false;
-                        that.$message({
-                            type: 'success',
-                            message: '提交成功!'
-                        });
-                        setTimeout(function () { //提交成功后跳转到文章列表页面
-                            window.location.href = "articles_list.html";
-                        }, 1000)
-                        console.log(that.form.date);
-                    } else {
-                        that.subLoading = false;
-                        that.$message.error('提交失败!');
-                        return false;
-                    }
-                });
-            },
+
         }
     })
 </script>
-
+<script>
+    //重置侧边菜单定位
+    window.localStorage.setItem("liIndex", 0);
+    window.localStorage.setItem("aIndex", null);
+</script>
 
 </html>

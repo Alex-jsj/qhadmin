@@ -24,7 +24,7 @@
         }
         //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
         if (IETester() == 9.0) {
-            window.location.href = 'iepoint/index.html';
+            //window.location.href = 'iepoint/index.html';
         } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
             window.location.href = 'iepoint/index.html';
         }
@@ -227,8 +227,6 @@
 <script src="js/vue.min.js"></script>
 <script src="js/axios.min.js"></script>
 <script src="js/element.min.js"></script>
-<!-- <script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/public.js"></script> -->
 <script>
     var app = new Vue({
         el: '#login',
@@ -314,14 +312,24 @@
                     // 演示用账号密码
                     if (that.login_id.username == 'admin1' && that.login_id.password == 'admin1') {
                         url = "editor.html"; //编辑
+                        window.localStorage.setItem("headerName", '沈超(编辑)');
+                        window.localStorage.setItem("headerUrl", 'editor.html');
                     } else if (that.login_id.username == 'admin2' && that.login_id.password == 'admin2') {
                         url = "administrators.html"; //管理员
+                        window.localStorage.setItem("headerName", '陈泽勇(管理员)');
+                        window.localStorage.setItem("headerUrl", 'administrators.html');
                     } else if (that.login_id.username == 'admin3' && that.login_id.password == 'admin3') {
                         url = "leader.html"; //领导
+                        window.localStorage.setItem("headerName", '王欢(领导)');
+                        window.localStorage.setItem("headerUrl", 'leader.html');
                     } else if (that.login_id.username == 'admin4' && that.login_id.password == 'admin4') {
                         url = "master_administrators.html"; //主站管理员
+                        window.localStorage.setItem("headerName", '杜海峰(主站管理员)');
+                        window.localStorage.setItem("headerUrl", 'master_administrators.html');
                     } else if (that.login_id.username == 'admin5' && that.login_id.password == 'admin5') {
                         url = "system_administrator.html"; //系统管理员
+                        window.localStorage.setItem("headerName", '吴晓棣(系统管理员)');
+                        window.localStorage.setItem("headerUrl", 'system_administrator.html');
                     } else {
                         valid = false;
                     }

@@ -2,12 +2,15 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-09 10:24:23
+ * @Last Modified time: 2018-01-11 14:43:14
  */
 window.onload = function () {
 	(function () {
 		var header = $('#header');
-		header.load('tpl/header.html', function () {});
+		header.load('tpl/header.html', function () {
+			$('.header-name').text(window.localStorage.getItem("headerName"));
+			$('.header-url').attr('href', window.localStorage.getItem("headerUrl"));
+		});
 		var footer = $('#footer');
 		footer.load('tpl/footer.html', function () {
 			var open_pop = $('.tools-open-pop');
@@ -54,5 +57,38 @@ window.onload = function () {
 				});
 			}
 		})
+		//系统管理员
+		if ($('#sideBar')) {
+			var sideBar = $('#sideBar');
+			sideBar.load('tpl/side_bar.html', function () {
+				var li = $('.side-ul>li');
+				var liClick = $('.side-ul>li>a');
+				var _li = li.find('.side-click');
+				var ol_li = li.find('li');
+				//获取菜单的定位信息
+				var liIndex = parseInt(window.localStorage.getItem("liIndex"));
+				var aIndex = parseInt(window.localStorage.getItem("aIndex"));
+				(function () { //初始化给菜单栏定位
+					$(li[liIndex]).addClass('li-active');
+					$(li[liIndex]).children('ol').children('li').eq(aIndex).addClass('side-active');
+				})();
+				liClick.click(function () {
+					li = $(this).parent('li');
+					if (li.hasClass('li-active')) {
+						li.removeClass('li-active');
+						$($('.side-ul>li')[liIndex]).addClass('li-active');
+					} else {
+						li.addClass('li-active').siblings('li').removeClass('li-active');
+					}
+				});
+				_li.click(function () {
+					liIndex = $(this).parents('ol').parent('li').index();
+					aIndex = $(this).parent().index();
+					//存储菜单的定位信息
+					window.localStorage.setItem("liIndex", liIndex);
+					window.localStorage.setItem("aIndex", aIndex);
+				});
+			});
+		}
 	})();
 }

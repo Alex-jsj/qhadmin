@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
- * @Date: 2018-01-08 10:44:51 
+ * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-10 19:58:05
+ * @Last Modified time: 2018-01-11 14:08:49
  */
 .loading {
   width: 100%;
@@ -547,6 +547,7 @@ body {
   background: #fff;
   padding: 0 20px;
   padding-top: 18px;
+  border-radius: 3px;
 }
 .public-wap .component .second-menu::after {
   content: "";
@@ -577,6 +578,118 @@ body {
   font-size: 14px;
   position: relative;
   top: -3px;
+}
+#sideBar {
+  width: 183px;
+  background: #fff;
+  border-radius: 3px;
+}
+#sideBar .side-ul {
+  width: 100%;
+  padding: 10px 0;
+  overflow: hidden;
+}
+#sideBar .side-ul > li {
+  width: 100%;
+}
+#sideBar .side-ul > li:first-of-type .icon-down {
+  display: none;
+}
+#sideBar .side-ul > li:hover > a {
+  background: #dff2fc;
+}
+#sideBar .side-ul > li:hover > a::before {
+  left: 0;
+}
+#sideBar .side-ul > li > a {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding-left: 20px;
+  position: relative;
+  background: #fff;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#sideBar .side-ul > li > a::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  display: block;
+  width: 6px;
+  height: 100%;
+  background: #00a0e9;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#sideBar .side-ul > li > a .iconfont,
+#sideBar .side-ul > li > a span {
+  line-height: 40px;
+  color: #888;
+  font-size: 16px;
+  position: relative;
+  z-index: 10;
+}
+#sideBar .side-ul > li > a .icon-down {
+  position: absolute;
+  right: 26px;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#sideBar .side-ul > li > a .side-text {
+  margin-left: 5px;
+}
+#sideBar .side-ul > li > ol {
+  width: 100%;
+}
+#sideBar .side-ul > li > ol > li {
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#sideBar .side-ul > li > ol > li .side-click {
+  display: block;
+  width: 100%;
+  line-height: 38px;
+  font-size: 14px;
+  padding-left: 20px;
+  color: #888;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#sideBar .side-ul > li > ol > li .side-click:hover {
+  color: #00a0e9;
+}
+#sideBar .side-ul > li > ol .side-active a {
+  color: #00a0e9;
+}
+#sideBar .side-ul .li-active > a {
+  background: #dff2fc;
+}
+#sideBar .side-ul .li-active > a::before {
+  left: 0;
+}
+#sideBar .side-ul .li-active > a .icon-down {
+  -webkit-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+#sideBar .side-ul .li-active > ol > li {
+  height: 38px;
 }
 #admin {
   width: 100%;
@@ -747,6 +860,7 @@ body {
   background: #fff;
   width: 100%;
   margin-top: 20px;
+  border-radius: 3px;
   /* 表格筛选栏 */
 }
 #articles_list .component .table-container .table-filter {
@@ -828,6 +942,7 @@ body {
   background: #fff;
   width: 100%;
   margin-top: 20px;
+  border-radius: 3px;
   /* 图片上传 */
 }
 #publish_articles .component .form-container .form-box {
@@ -891,6 +1006,7 @@ body {
   background: #fff;
   width: 100%;
   margin-top: 20px;
+  border-radius: 3px;
 }
 #publish_href .component .form-container .form-box {
   overflow: hidden;
@@ -912,6 +1028,9 @@ body {
 }
 #publish_href .component .form-container .form-item {
   width: 90%;
+}
+#system_administrator {
+  width: 100%;
 }
 @media screen and (max-width: 769px) {
   html {
