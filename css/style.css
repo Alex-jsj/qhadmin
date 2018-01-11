@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-11 16:17:24
+ * @Last Modified time: 2018-01-11 17:56:50
  */
 .loading {
   width: 100%;
@@ -1130,6 +1130,44 @@ body {
   position: absolute;
   bottom: -2.5px;
   left: 0;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#system_administrator .data-display .data-container {
+  margin-top: 50px;
+}
+#system_administrator .data-display .data-container .data-all ul::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#system_administrator .data-display .data-container .data-all ul li {
+  margin-right: 18px;
+  display: block;
+  width: 175px;
+  height: 100px;
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+  position: relative;
+  text-align: center;
+}
+#system_administrator .data-display .data-container .data-all ul li:last-of-type {
+  margin-right: 0;
+}
+#system_administrator .data-display .data-container .data-all ul li span {
+  display: block;
+  color: #00a0e9;
+  font-size: 34px;
+  white-space: nowrap;
+  margin-top: 11px;
+}
+#system_administrator .data-display .data-container .data-all ul li p {
+  color: #888;
+  white-space: nowrap;
+  margin-top: 11px;
 }
 .open {
   display: block;

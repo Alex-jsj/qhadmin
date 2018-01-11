@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-11 16:17:24
+ * @Last Modified time: 2018-01-11 17:56:50
  */
 
 @base-color: #54c3f1;
@@ -1094,6 +1094,43 @@ body {
                 position: absolute;
                 bottom: -2.5px;
                 left: 0;
+                .transi;
+            }
+        }
+        .data-container {
+            margin-top: 50px;
+            .data-all {
+                ul {
+                    &::after {
+                        .clear;
+                    }
+                    li {
+                        margin-right: 18px;
+                        display: block;
+                        width: 175px;
+                        height: 100px;
+                        text-align: center;
+                        border-radius: 3px;
+                        border: 1px solid #d9d9d9;
+                        position: relative;
+                        text-align: center;
+                        &:last-of-type {
+                            margin-right: 0;
+                        }
+                        span {
+                            display: block;
+                            color: @base-color2;
+                            font-size: 34px;
+                            white-space: nowrap;
+                            margin-top: 11px;
+                        }
+                        p {
+                            color: @base_grey;
+                            white-space: nowrap;
+                            margin-top: 11px;
+                        }
+                    }
+                }
             }
         }
     }
