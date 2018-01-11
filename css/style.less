@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-11 14:08:49
+ * @Last Modified time: 2018-01-11 16:17:24
  */
 
 @base-color: #54c3f1;
@@ -227,6 +227,9 @@ body {
             .underline-hover:before {
                 background: @base-color2;
             }
+        }
+        .xitong-left {
+            margin-left: 52px;
         }
         .back-to-home {
             display: none;
@@ -535,9 +538,9 @@ body {
             &::after {
                 .clear;
             }
-        }
-        a {
-            margin-right: 10px;
+            >a {
+                margin-right: 10px;
+            }
         }
         .question {
             margin-top: 6px;
@@ -643,7 +646,7 @@ body {
                     }
                 }
                 .side-active {
-                    a { 
+                    a {
                         color: @base-color2;
                     }
                 }
@@ -1005,6 +1008,104 @@ body {
 //系统管理员
 #system_administrator {
     width: 100%;
+    .system-main {
+        width: 990px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 3px;
+    }
+    .quick-navigation {
+        padding-top: 48px;
+        border-top: 1px solid #d9d9d9;
+        ul {
+            &::after {
+                .clear;
+            }
+            li {
+                margin-right: 18px;
+                &:last-of-type {
+                    margin-right: 0;
+                }
+                a {
+                    display: block;
+                    width: 175px;
+                    height: 100px;
+                    text-align: center;
+                    border-radius: 3px;
+                    border: 1px solid #d9d9d9;
+                    position: relative;
+                    .iconfont {
+                        color: @base-color2;
+                        font-size: 40px;
+                        position: absolute;
+                        left: 50%;
+                        top: 35%;
+                        .abso;
+                    }
+                    .icon-fujianguanli {
+                        font-size: 38px;
+                    }
+                    .icon-xitongrizhi {
+                        font-size: 44px;
+                    }
+                    p {
+                        position: absolute;
+                        left: 50%;
+                        bottom: 10px;
+                        -webkit-transform: translateX(-50%);
+                        -ms-transform: translateX(-50%);
+                        -o-transform: translateX(-50%);
+                        transform: translateX(-50%);
+                        color: @base_grey;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+    .data-display {
+        margin-top: 46px;
+        .data-menu {
+            width: 100%;
+            height: 40px;
+            border-bottom: 1px solid #d9d9d9;
+            position: relative;
+            span {
+                font-size: 18px;
+                color: @base_grey;
+                cursor: pointer;
+                line-height: 40px;
+                margin-right: 32px;
+                .transi;
+                &:last-of-type {
+                    margin-right: 0;
+                }
+                &:hover {
+                    color: @base-color2;
+                }
+            }
+            .span-active {
+                color: @base-color2;
+            }
+            .line {
+                width: 72px;
+                height: 5px;
+                background: @base-color2;
+                position: absolute;
+                bottom: -2.5px;
+                left: 0;
+            }
+        }
+    }
+}
+
+//演示用class
+.open {
+    display: block;
+}
+
+.close {
+    display: none;
 }
 
 //手机端样式

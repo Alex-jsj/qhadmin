@@ -54,7 +54,37 @@
             <!-- component -->
             <div class="component">
                 <!-- side bar -->
-                <div id="sideBar"></div>
+                <div id="sideBar" class="float-left"></div>
+                <!-- index -->
+                <div class="system-main float-right">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 快捷导航 -->
+                    <div class="quick-navigation">
+                        <ul>
+                            <li v-for="item in quick_navigation" class="float-left">
+                                <a :href="item.url">
+                                    <i class="iconfont" :class="item.icon"></i>
+                                    <p>{{item.name}}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 数据展示 -->
+                    <div class="data-display">
+                        <!-- menu -->
+                        <div class="data-menu">
+                            <span ref="data" v-for="(item,index) in data_display" @click="data_switch($event,index)" :class="item.classCon?'span-active':''">{{item.name}}</span>
+                            <i class="line"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- footer -->
@@ -78,9 +108,63 @@
                 url: 'index.html',
                 this_page: true
             }],
+            //快捷导航
+            quick_navigation: [{
+                    name: '权限管理',
+                    url: 'javascript:void(0);',
+                    icon: 'icon-quanxianguanli'
+                },
+                {
+                    name: '附件管理',
+                    url: 'javascript:void(0);',
+                    icon: 'icon-fujianguanli'
+                },
+                {
+                    name: '系统日志',
+                    url: 'javascript:void(0);',
+                    icon: 'icon-xitongrizhi'
+                },
+                {
+                    name: '数据备份',
+                    url: 'javascript:void(0);',
+                    icon: 'icon-shujubeifen'
+                },
+                {
+                    name: '查看站点内容',
+                    url: 'javascript:void(0);',
+                    icon: 'icon-chakanzhandianneirong'
+                },
+            ],
+            //数据导航
+            data_display: [{
+                    name: '数据概况',
+                    classCon: true
+                },
+                {
+                    name: '访问量排行',
+                    classCon: false
+                },
+                {
+                    name: '文章数量排行',
+                    classCon: false
+                },
+                {
+                    name: '文章访问排行',
+                    classCon: false
+                }
+            ]
         },
         methods: {
-
+            data_switch: function (event, index) {
+                var index = index;
+                var that = this;
+                that.data_display.forEach(function (item, ind) {
+                    that.data_display[index].classCon = false;
+                    if (ind == index) {
+                        that.data_display[index].classCon = false;
+                    }
+                })
+            }
         }
     })
 </script>

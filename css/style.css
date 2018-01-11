@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-11 14:08:49
+ * @Last Modified time: 2018-01-11 16:17:24
  */
 .loading {
   width: 100%;
@@ -220,6 +220,9 @@ body {
 }
 #nav .nav-container .admin-index-btn .underline-hover:before {
   background: #00a0e9;
+}
+#nav .nav-container .xitong-left {
+  margin-left: 52px;
 }
 #nav .nav-container .back-to-home {
   display: none;
@@ -555,7 +558,7 @@ body {
   visibility: hidden;
   clear: both;
 }
-.public-wap .component a {
+.public-wap .component .second-menu > a {
   margin-right: 10px;
 }
 .public-wap .component .question {
@@ -1031,6 +1034,108 @@ body {
 }
 #system_administrator {
   width: 100%;
+}
+#system_administrator .system-main {
+  width: 990px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 3px;
+}
+#system_administrator .quick-navigation {
+  padding-top: 48px;
+  border-top: 1px solid #d9d9d9;
+}
+#system_administrator .quick-navigation ul::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#system_administrator .quick-navigation ul li {
+  margin-right: 18px;
+}
+#system_administrator .quick-navigation ul li:last-of-type {
+  margin-right: 0;
+}
+#system_administrator .quick-navigation ul li a {
+  display: block;
+  width: 175px;
+  height: 100px;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+  position: relative;
+}
+#system_administrator .quick-navigation ul li a .iconfont {
+  color: #00a0e9;
+  font-size: 40px;
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+#system_administrator .quick-navigation ul li a .icon-fujianguanli {
+  font-size: 38px;
+}
+#system_administrator .quick-navigation ul li a .icon-xitongrizhi {
+  font-size: 44px;
+}
+#system_administrator .quick-navigation ul li a p {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: #888;
+  white-space: nowrap;
+}
+#system_administrator .data-display {
+  margin-top: 46px;
+}
+#system_administrator .data-display .data-menu {
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #d9d9d9;
+  position: relative;
+}
+#system_administrator .data-display .data-menu span {
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  line-height: 40px;
+  margin-right: 32px;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#system_administrator .data-display .data-menu span:last-of-type {
+  margin-right: 0;
+}
+#system_administrator .data-display .data-menu span:hover {
+  color: #00a0e9;
+}
+#system_administrator .data-display .data-menu .span-active {
+  color: #00a0e9;
+}
+#system_administrator .data-display .data-menu .line {
+  width: 72px;
+  height: 5px;
+  background: #00a0e9;
+  position: absolute;
+  bottom: -2.5px;
+  left: 0;
+}
+.open {
+  display: block;
+}
+.close {
+  display: none;
 }
 @media screen and (max-width: 769px) {
   html {

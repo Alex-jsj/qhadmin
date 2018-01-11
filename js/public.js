@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-11 14:43:14
+ * @Last Modified time: 2018-01-11 14:57:21
  */
 window.onload = function () {
 	(function () {
@@ -10,6 +10,8 @@ window.onload = function () {
 		header.load('tpl/header.html', function () {
 			$('.header-name').text(window.localStorage.getItem("headerName"));
 			$('.header-url').attr('href', window.localStorage.getItem("headerUrl"));
+			$('.notice-list').addClass(window.localStorage.getItem("infoHidden"));
+			$('.xitong').addClass(window.localStorage.getItem("setHidden"));
 		});
 		var footer = $('#footer');
 		footer.load('tpl/footer.html', function () {
