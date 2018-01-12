@@ -2,15 +2,16 @@
 <html>
 
 <head lang="zh-CN">
-    <title>登录-站群管理系统</title>
+    <title>隶属单位网站一览表-站群管理系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <meta name="applicable-device" content="pc,mobile">
     <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="stylesheet" href="iconfont/iconfont.css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
     <link rel="stylesheet" href="css/element.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <script>
         /*判断浏览器版本是否过低*/
         function IETester(userAgent) {
@@ -32,442 +33,219 @@
         // 动态设置font-size
         (function () {
             var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-            if (cw < 1921 && cw > 769) {
+            /* if (cw < 1921 && cw > 769) {
                 //cw = 1920;
                 document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 960) + 'px';
-            }
+            } */
             if (cw < 769) {
                 document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
             }
         })();
     </script>
-    <style>
-        .float-left {
-            float: left;
-        }
-
-        #login {
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .login-header {
-            width: 100%;
-            height: 36.4vh;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-box {
-            height: 8.1vh;
-            position: absolute;
-            top: 11.1vh;
-            left: 50%;
-            -webkit-transform: translateX(-50%);
-            -ms-transform: translateX(-50%);
-            -o-transform: translateX(-50%);
-            transform: translateX(-50%);
-        }
-
-        .login-header img {
-            width: auto;
-            height: 100%;
-        }
-
-        .logo-text {
-            position: absolute;
-            bottom: 4.1vh;
-            left: 50%;
-            -webkit-transform: translateX(-50%);
-            -ms-transform: translateX(-50%);
-            -o-transform: translateX(-50%);
-            transform: translateX(-50%);
-        }
-
-        .logo-text span {
-            font-size: 0.6rem;
-        }
-
-        .login-footer {
-            width: 100%;
-            height: 2.9vh;
-            position: absolute;
-            bottom: 0;
-        }
-
-        .login-footer p {
-            width: 100%;
-            font-size: 0.4rem;
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            -o-transform: translateY(-50%);
-            transform: translateY(-50%);
-        }
-
-        .login-footer a {
-            color: #888;
-            vertical-align: middle;
-        }
-
-        .login-footer p span {
-            color: #888;
-            vertical-align: middle;
-        }
-
-        .login-footer a:hover {
-            color: #1c2a55;
-        }
-
-        .logo-index {
-            width: 100%;
-            height: 63.6vh;
-            position: relative;
-        }
-
-        .form-container {
-            width: 10rem;
-            position: absolute;
-            left: 50%;
-            top: 6.5vh;
-            -webkit-transform: translateX(-50%) translateZ(0);
-            -ms-transform: translateX(-50%) translateZ(0);
-            -o-transform: translateX(-50%) translateZ(0);
-            transform: translateX(-50%) translateZ(0);
-        }
-
-        .form-box {
-            width: 100%;
-        }
-
-        .form-box .item-box {
-            position: relative;
-        }
-
-        .iconfont {
-            position: absolute;
-            top: 0;
-            right: 0.2rem;
-            color: #888;
-            z-index: 999;
-            font-size: 0.6rem;
-        }
-
-        .el-input__inner {
-            padding-right: 30px;
-        }
-
-        .el-checkbox {
-            color: #888;
-            font-weight: 300;
-        }
-
-        .r-psd {
-            margin-bottom: 12px !important;
-        }
-
-        .form-control-btn .el-button {
-            width: 100%;
-        }
-
-        #Mycanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        <img src="../lADPBY0V4t-RUivNCYHND6A_4000_2433.jpg"/></style>
 </head>
 
 <body>
-    <div id="login">
-        <div class="login-header" id="canvas-box">
-            <!-- 可更换背景图 -->
-            <img src="./images/logobg.jpg" alt="background" class="background-image">
-            <canvas id="Mycanvas" width="1920" height="350"></canvas>
-            <!-- 可更换logo -->
-            <div class="logo-box">
-                <img src="./images/logo.png" alt="logo">
-            </div>
-            <div class="logo-text">
-                <span>站群管理系统V1.0</span>
+    <div id="index" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header">
+            <!-- nav -->
+            <div id="nav" class="web_nav">
+                <div class="nav-container">
+                    <div class="nav-logo float-left">
+                        <a href="index.html" class="header-url">
+                            <div class="logo-rotate float-left">
+                                <i class="iconfont icon-logo"></i>
+                            </div>
+                            <i class="iconfont icon-qihuankeji"></i>
+                        </a>
+                    </div>
+                    <span class="logo-title float-left">隶属单位网站一览表</span>
+                    <!-- list -->
+                    <ul class="float-right nav-list">
+                        <li class="float-left">
+                            <a href="javascript:void(0);" class="underline-hover">站点排行榜</a>
+                        </li>
+                        <li class="float-left">
+                            <a href="javascript:void(0);" class="underline-hover">学院官网</a>
+                        </li>
+                        <li class="float-left">
+                            <a href="login.html" class="underline-hover">后台登录</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="logo-index">
-            <!-- 表单 -->
-            <div class="form-container">
-                <el-form ref="form" :model="login_id" :rules="rules" class="form-box">
-                    <el-form-item prop="username" class="item-box">
-                        <i class="iconfont icon-user"></i>
-                        <el-input v-model="login_id.username" @keyup.enter.native="submitForm('form')" placeholder="用户名"></el-input>
-                    </el-form-item>
-                    <el-form-item prop="password" class="item-box r-psd">
-                        <i class="iconfont icon-password"></i>
-                        <el-input v-model="login_id.password" type="password" @keyup.enter.native="submitForm('form')" placeholder="密码"></el-input>
-                    </el-form-item>
-                    <el-form-item size="mini">
-                        <el-checkbox label="记住密码" name="type"></el-checkbox>
-                    </el-form-item>
-                    <el-form-item class="form-control-btn" class="item-padding">
-                        <el-button type="primary" @click="submitForm('form')" size="large" :loading="subLoading">提交</el-button>
-                    </el-form-item>
-                </el-form>
+        <div class="main">
+            <div class="component">
+                <div class="filter-container">
+                    <span class="filter-title float-left">全站检索</span>
+                    <el-input placeholder="请输入关键字" v-model="searchValue" class="input-with-select title-search float-left" size="mini" @keyup.enter.native="newsSearch()">
+                        <el-button slot="append" icon="el-icon-search" @click="newsSearch()"></el-button>
+                    </el-input>
+                    <span class="filter-title float-left">新闻查询</span>
+                    <el-select v-model="newsSearchValue" clearable size="mini" class="float-left">
+                        <el-option v-for="item in newsSearchList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                    </el-select>
+                    <div class="float-right">
+                        <span class="filter-title float-left">更新时间:</span>
+                        <span class="filter-title float-left">{{now_date|formatTime('YMDHM')}}</span>
+                    </div>
+                </div>
+                <div class="school-list">
+                    <ul class="list-ul">
+                        <li v-for="(list,index) in schoolList" :class="index%2==0?a:b">
+                            <p class="ul-li-title">{{list.department}}</p>
+                            <ol class="list-ol">
+                                <li v-for="item in list.departmentList" class="float-left">
+                                    <a :href="item.schoolUrl" target="_blank">
+                                        <div class="text-container">
+                                            <span class="school-id">{{item.schoolId}}</span>
+                                            <p class="school-name">{{item.schoolName}}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="login-footer">
-            <p>
-                <a href="javascript:void(0);" target="_blank">© 杭州启焕网络科技有限公司</a>
-                <span>版权所有</span>
-            </p>
+        <!-- footer -->
+        <div id="footer">
+            <div class="footer-container">
+                <p>中国美术学院版权所有 技术支持：启焕科技</p>
+            </div>
         </div>
     </div>
 </body>
-<script src="js/vue.min.js"></script>
+<script src="js/vue.js"></script>
 <script src="js/axios.min.js"></script>
 <script src="js/element.min.js"></script>
 <script>
     var app = new Vue({
-        el: '#login',
+        el: '#index',
         data: {
-            subLoading: false,
-            login_id: {
-                username: '',
-                password: ''
-            },
-            //表单验证
-            rules: {
-                username: [{
-                    required: true,
-                    validator: function (rule, value, callback) {
-                        var reg = /^[0-9a-zA-Z_]{1,12}$/; //1-12位数字字母下划线
-                        if (!value) {
-                            callback(new Error('用户名不能为空'));
-                        } else if (reg.test(value) == false) {
-                            callback(new Error('用户名必须为数字/字母/下划线,长度不超过12位'));
-                        } else {
-                            callback();
-                        }
-                    },
-                    trigger: 'blur'
-                }],
-                password: [{
-                    required: true,
-                    validator: function (rule, value, callback) {
-                        var reg = /^[0-9a-zA-Z_]{3,12}$/; //3-12位数字字母下划线
-                        if (!value) {
-                            callback(new Error('密码不能为空'));
-                        } else if (reg.test(value) == false) {
-                            callback(new Error('密码必须为数字/字母/下划线,长度3-12位之间'));
-                        } else {
-                            callback();
-                        }
-                    },
-                    trigger: 'blur'
-                }]
-            },
+            a: '',
+            b: 'bgChange',
+            loading: true,
+            //全站搜索
+            searchValue: '',
+            //新闻查询
+            newsSearchList: [{
+                    value: 0,
+                    label: '今日新闻'
+                },
+                {
+                    value: 1,
+                    label: '本周新闻'
+                },
+                {
+                    value: 2,
+                    label: '本月新闻'
+                },
+                {
+                    value: 3,
+                    label: '年度新闻'
+                }
+            ],
+            newsSearchValue: '今日新闻',
+            //当前时间
+            now_date: new Date().getTime(),
+            //学校列表
+            schoolList: []
+        },
+        filters: {
+            // 时间过滤器
+            formatTime: function (value, type) {
+                let dataTime = "";
+                let data = new Date();
+                data.setTime(value);
+                let year = data.getFullYear();
+                let month = data.getMonth() + 1;
+                let day = data.getDate();
+                let hour = data.getHours();
+                let minute = data.getMinutes();
+                let second = data.getSeconds();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                if (hour < 10) {
+                    hour = "0" + hour;
+                }
+                if (minute < 10) {
+                    minute = "0" + minute;
+                }
+                if (second < 10) {
+                    second = "0" + second;
+                }
+                if (type == "YMD") {
+                    dataTime = year + "-" + month + "-" + day;
+                } else if (type == "YMDHMS") {
+                    dataTime =
+                        year +
+                        "-" +
+                        month +
+                        "-" +
+                        day +
+                        "  " +
+                        hour +
+                        ":" +
+                        minute +
+                        ":" +
+                        second;
+                } else if (type == "HMS") {
+                    dataTime = hour + ":" + minute + ":" + second;
+                } else if (type == "YM") {
+                    dataTime = year + "-" + month + "-";
+                } else if (type == "YMDHM") {
+                    dataTime =
+                        year +
+                        "-" +
+                        month +
+                        "-" +
+                        day +
+                        "  " +
+                        hour +
+                        ":" +
+                        minute
+                }
+                return dataTime; // 将格式化后的字符串输出到前端显示
+            }
         },
         mounted: function () {
             var that = this;
             //获取入口列表数据
             axios({
                 method: "get",
-                url: "./json/login.json",
-                data: {
-                    username: that.login_id.username,
-                    password: that.login_id.password,
-                },
-                //格式化
-                transformRequest: [
-                    function (data) {
-                        var ret = "";
-                        for (var i = 0; i < data.length; i++) {
-                            ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                        }
-                        ret = ret.slice(0, -1); // 去掉最后的空行
-                        return ret;
-                    }
-                ],
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
+                url: "./json/schoolList.json",
             }).then(function (response) {
-                console.log(response.data)
+                //修改入口列表数据以隔行变色
+                /*  for (var i = 0; i < response.data.length; i++) {
+                     if ((i + 1) % 3 === 0) {
+                         response.data.splice(i, 0, {
+                             show: true
+                         })
+                     }
+                 } */
+                that.schoolList = response.data;
             }).catch(function (error) {
                 console.log(error);
             });
         },
         methods: {
-            //表单提交
-            submitForm(formName) {
-                var that = this;
-                that.$refs[formName].validate(function (valid) {
-                    //跳转地址
-                    var url = null;
-                    // 演示用账号密码
-                    if (that.login_id.username == 'admin1' && that.login_id.password == 'admin1') {
-                        url = "editor.html"; //编辑
-                        window.localStorage.setItem("headerName", '沈超(编辑)');
-                        window.localStorage.setItem("headerUrl", 'editor.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
-                    } else if (that.login_id.username == 'admin2' && that.login_id.password == 'admin2') {
-                        url = "administrators.html"; //管理员
-                        window.localStorage.setItem("headerName", '陈泽勇(管理员)');
-                        window.localStorage.setItem("headerUrl", 'administrators.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
-                    } else if (that.login_id.username == 'admin3' && that.login_id.password == 'admin3') {
-                        url = "leader.html"; //领导
-                        window.localStorage.setItem("headerName", '王欢(领导)');
-                        window.localStorage.setItem("headerUrl", 'leader.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
-                    } else if (that.login_id.username == 'admin4' && that.login_id.password == 'admin4') {
-                        url = "master_administrators.html"; //主站管理员
-                        window.localStorage.setItem("headerName", '杜海峰(主站管理员)');
-                        window.localStorage.setItem("headerUrl", 'master_administrators.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
-                    } else if (that.login_id.username == 'admin5' && that.login_id.password == 'admin5') {
-                        url = "system_administrator.html"; //系统管理员
-                        window.localStorage.setItem("headerName", '吴晓棣(系统管理员)');
-                        window.localStorage.setItem("headerUrl", 'system_administrator.html');
-                        window.localStorage.setItem("infoHidden", 'close');
-                        window.localStorage.setItem("setHidden", 'open');
-                    } else {
-                        valid = false;
-                    }
-                    if (valid) {
-                        that.subLoading = true;
-                        that.$message({
-                            type: 'success',
-                            message: '登录成功!'
-                        });
-                        setTimeout(function () { //提交成功后跳转到文章列表页面
-                            window.location.href = url;
-                        }, 1000)
-                    } else {
-                        that.subLoading = false;
-                        that.$message.error('用户名或密码错误!');
-                        return false;
-                    }
-                });
-            },
+            //新闻检索
+            newsSearch() {
+                console.log(this.searchValue)
+            }
         }
     })
-</script>
-<script>
-    //定义画布宽高和生成点的个数
-    var WIDTH = window.innerWidth,
-        HEIGHT = document.getElementById('canvas-box').offsetHeight,
-        POINT = 35;
-
-    var canvas = document.getElementById('Mycanvas');
-    canvas.width = WIDTH,
-        canvas.height = HEIGHT;
-    var context = canvas.getContext('2d');
-    context.strokeStyle = 'rgba(255,255,255,0.4)',
-        context.strokeWidth = 1,
-        context.fillStyle = 'rgba(255,255,255,0.3)';
-    var circleArr = [];
-
-    //线条：开始xy坐标，结束xy坐标，线条透明度
-    function Line(x, y, _x, _y, o) {
-        this.beginX = x,
-            this.beginY = y,
-            this.closeX = _x,
-            this.closeY = _y,
-            this.o = o;
-    }
-    //点：圆心xy坐标，半径，每帧移动xy的距离
-    function Circle(x, y, r, moveX, moveY) {
-        this.x = x,
-            this.y = y,
-            this.r = r,
-            this.moveX = moveX,
-            this.moveY = moveY;
-    }
-    //生成max和min之间的随机数
-    function num(max, _min) {
-        var min = arguments[1] || 0;
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-    // 绘制原点
-    function drawCricle(cxt, x, y, r, moveX, moveY) {
-        var circle = new Circle(x, y, r, moveX, moveY)
-        cxt.beginPath()
-        cxt.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI)
-        cxt.closePath()
-        cxt.fill();
-        return circle;
-    }
-    //绘制线条
-    function drawLine(cxt, x, y, _x, _y, o) {
-        var line = new Line(x, y, _x, _y, o)
-        cxt.beginPath()
-        cxt.strokeStyle = 'rgba(255,255,255,' + o + ')'
-        cxt.moveTo(line.beginX, line.beginY)
-        cxt.lineTo(line.closeX, line.closeY)
-        cxt.closePath()
-        cxt.stroke();
-
-    }
-    //初始化生成原点
-    function init() {
-        circleArr = [];
-        for (var i = 0; i < POINT; i++) {
-            circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10) / 40, num(10, -10) /
-                40));
-        }
-        draw();
-    }
-
-    //每帧绘制
-    function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < POINT; i++) {
-            drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
-        }
-        for (var i = 0; i < POINT; i++) {
-            for (var j = 0; j < POINT; j++) {
-                if (i + j < POINT) {
-                    var A = Math.abs(circleArr[i + j].x - circleArr[i].x),
-                        B = Math.abs(circleArr[i + j].y - circleArr[i].y);
-                    var lineLength = Math.sqrt(A * A + B * B);
-                    var C = 1 / lineLength * 7 - 0.009;
-                    var lineOpacity = C > 0.03 ? 0.03 : C;
-                    if (lineOpacity > 0) {
-                        drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i + j].x, circleArr[i + j].y,
-                            lineOpacity);
-                    }
-                }
-            }
-        }
-    }
-
-    //调用执行
-    window.onload = function () {
-        init();
-        setInterval(function () {
-            for (var i = 0; i < POINT; i++) {
-                var cir = circleArr[i];
-                cir.x += cir.moveX;
-                cir.y += cir.moveY;
-                if (cir.x > WIDTH) cir.x = 0;
-                else if (cir.x < 0) cir.x = WIDTH;
-                if (cir.y > HEIGHT) cir.y = 0;
-                else if (cir.y < 0) cir.y = HEIGHT;
-
-            }
-            draw();
-        }, 16);
-    }
 </script>
 
 </html>

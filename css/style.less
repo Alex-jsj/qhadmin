@@ -299,6 +299,34 @@ body {
     }
 }
 
+//站群网站列表nav
+#nav.web_nav {
+    .logo-title {
+        color: @base-color2;
+        font-size: 24px;
+        margin-left: 40px;
+        line-height: 90px;
+        font-weight: 600;
+    }
+    .nav-list {
+        margin-top: 55px;
+        li {
+            margin-left: 73px;
+            a {
+                font-size: 14px;
+                color: @text-color;
+                .transi;
+                &:hover {
+                    color: @text-hover;
+                }
+            }
+            .underline-hover:before {
+                bottom: -3px;
+            }
+        }
+    }
+}
+
 #footer {
     width: 100%;
     margin: 24px 0;
@@ -644,6 +672,9 @@ body {
                     position: relative;
                     z-index: 10;
                 }
+                .icon-fujianguanli {
+                    font-size: 14px;
+                }
                 .icon-down {
                     position: absolute;
                     right: 26px;
@@ -700,7 +731,137 @@ body {
     }
 }
 
-//首页
+//前台首页
+#index {
+    width: 100%;
+    position: relative;
+    .main {
+        .component {
+            background: #fff;
+            border-radius: 3px;
+            padding: 20px;
+            .filter-container {
+                width: 100%;
+                height: 28px;
+                .title-search {
+                    width: 200px;
+                    margin-right: 33px;
+                    .el-input-group__append {
+                        padding: 0 10px;
+                        overflow: hidden;
+                        .el-button {
+                            .transi;
+                        }
+                        [class*=" el-icon-"],
+                        [class^=el-icon-] {
+                            font-size: 16px;
+                            position: relative;
+                            top: 2px;
+                            .transi;
+                        }
+                        &:hover {
+                            .el-button {
+                                background: @base-color2;
+                            }
+                            [class*=" el-icon-"],
+                            [class^=el-icon-] {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+                .filter-title {
+                    line-height: 28px;
+                    color: @text-color;
+                    font-size: 14px;
+                    margin-right: 15px;
+                }
+                .float-right {
+                    .filter-title {
+                        line-height: 28px;
+                        color: @base_grey;
+                        font-size: 14px;
+                        margin-right: 8px;
+                    }
+                }
+            }
+            .school-list {
+                width: 100%;
+                margin-top: 20px;
+                padding-top: 50px;
+                border-top: 1px solid #d9d9d9;
+                li {
+                    .ul-li-title {
+                        font-size: 18px;
+                        margin-bottom: 6px;
+                        color: @text-color;
+                    }
+                    .list-ol {
+                        border-top: 1px solid #d9d9d9;
+                        padding-top: 20px;
+                        margin-bottom: 30px;
+                        &::after {
+                            .clear;
+                        }
+                        li {
+                            margin-right: 20px;
+                            &:nth-child(4n) {
+                                margin-right: 0;
+                            }
+                            a {
+                                display: block;
+                                width: 272px;
+                                height: 70px;
+                                color: @base_grey;
+                                font-size: 14px;
+                                text-align: center;
+                                border: 1px solid #a8def7;
+                                border-radius: 5px;
+                                background: #dff2fc;
+                                margin-bottom: 19px;
+                                position: relative;
+                                .transi;
+                                &:hover {
+                                    border: 1px solid #cdcdce;
+                                    background: #efeff0;
+                                    color: @base-color2;
+                                }
+                            }
+                            .text-container {
+                                width: 272px;
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                padding: 0 14px;
+                                .abso;
+                            }
+                            .school-name {
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                }
+                .bgChange {
+                    .list-ol {
+                        li {
+                            a {
+                                border: 1px solid #cdcdce;
+                                background: #efeff0;
+                                &:hover {
+                                    border: 1px solid #a8def7;
+                                    background: #dff2fc;
+                                    color: @base_grey;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//后台首页
 #admin {
     width: 100%;
     height: 100vh;
@@ -1079,8 +1240,14 @@ body {
                         top: 35%;
                         .abso;
                     }
-                    .icon-fujianguanli {
+                    .icon-quanxianguanli {
                         font-size: 38px;
+                    }
+                    .icon-shujubeifen {
+                        font-size: 38px;
+                    }
+                    .icon-fujianguanli {
+                        font-size: 33px;
                     }
                     .icon-xitongrizhi {
                         font-size: 44px;
