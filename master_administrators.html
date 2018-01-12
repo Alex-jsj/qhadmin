@@ -46,6 +46,10 @@
 
 <body>
     <div id="admin">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+                <i class="el-icon-loading"></i>
+            </div>
         <!-- header -->
         <div id="header"></div>
         <!-- list -->
@@ -70,6 +74,7 @@
     var app = new Vue({
         el: '#admin',
         data: {
+            loading: true,
             entryList: [],
             listClass: '',
         },
