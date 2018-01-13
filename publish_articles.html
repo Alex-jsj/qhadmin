@@ -320,6 +320,10 @@
                 }]
             },
         },
+        mounted: function () {
+            //改变首页链接
+            this.crumbs[0].url = window.localStorage.getItem('headerUrl');
+        },
         methods: {
             //日期格式化
             dateFormat(date) {

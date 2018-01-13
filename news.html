@@ -2,7 +2,7 @@
 <html>
 
 <head lang="zh-CN">
-    <title>搜索-站群管理系统</title>
+    <title>新闻-站群管理系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
@@ -127,7 +127,7 @@
                             <li v-for="(item,index) in dateList" :key="item.id" @click="filter_date(index)" :class="item.class?'li-active':''">{{item.name}}</li>
                         </ul>
                         <p class="filter-title">按站点搜索</p>
-                        <el-select v-model="search.site" placeholder="输入站点快速搜索" size="mini" class="filter-site" filterable>
+                        <el-select v-model="search.site" placeholder="请选择站点" size="mini" class="filter-site">
                             <el-option v-for="item in siteList" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
@@ -163,7 +163,7 @@
                 option: 0, //全局/标题
                 source: true, //切换搜索‘站群’和‘共享平台’
                 date: 0, //天/周/月筛选
-                site: '' //站点筛选
+                site: 0 //站点筛选
             },
             //时间段
             dateList: [{
@@ -283,9 +283,44 @@
             },
         },
         mounted: function () {
+            //本日/本周/本月/年度搜索结果
             var that = this;
-            that.search.keyword = window.localStorage.getItem("search_keyword");
-            that.articleSearch();
+            that.search_res.keywords = window.localStorage.getItem('news_keyword');
+            var startTime = new Date().getTime() / 1000;
+            var endTime = null;
+            axios({
+                method: "get",
+                url: "./json/newsList.json",
+                data: {
+                    keyword: that.search_res.keywords,
+                },
+                //格式化
+                transformRequest: [
+                    function (data) {
+                        var ret = "";
+                        for (var i = 0; i < data.length; i++) {
+                            ret +=
+                                encodeURIComponent(it) +
+                                "=" +
+                                encodeURIComponent(data[it]) +
+                                "&";
+                        }
+                        ret = ret.slice(0, -1); // 去掉最后的空行
+                        return ret;
+                    }
+                ],
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            }).then(function (response) {
+                endTime = new Date().getTime() / 1000;
+                that.search_res.time = parseFloat((endTime - startTime).toFixed(3)); //搜索时间
+                that.search_res.count = response.data.count; //总条数
+                that.search_res.result = response.data.result; //搜索结果
+                that.currentPaging.totals = response.data.count; //分页
+            }).catch(function (error) {
+                console.log(error);
+            });
         },
         methods: {
             //新闻检索

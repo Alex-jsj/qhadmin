@@ -67,13 +67,13 @@
                     <!-- list -->
                     <ul class="float-right nav-list">
                         <li class="float-left">
-                            <a href="javascript:void(0);" class="underline-hover">站点排行榜</a>
+                            <a href="rank.html" class="underline-hover">站点排行榜</a>
                         </li>
                         <li class="float-left">
                             <a href="javascript:void(0);" class="underline-hover">学院官网</a>
                         </li>
                         <li class="float-left">
-                            <a href="login.html" class="underline-hover">后台登录</a>
+                            <a href="login.html" class="underline-hover" target="_blank">后台登录</a>
                         </li>
                     </ul>
                 </div>
@@ -84,10 +84,10 @@
                 <div class="filter-container">
                     <span class="filter-title float-left">全站检索</span>
                     <el-input placeholder="请输入关键字" v-model="searchValue" class="input-with-select title-search float-left" size="mini" @keyup.enter.native="newsSearch()">
-                        <el-button slot="append" icon="el-icon-search" @click="newsSearch()"></el-button>
+                        <el-button slot="append" icon="el-icon-search" @click="newsSearch"></el-button>
                     </el-input>
                     <span class="filter-title float-left">新闻查询</span>
-                    <el-select v-model="newsSearchValue" clearable size="mini" class="float-left">
+                    <el-select v-model="newsSearchValue" clearable size="mini" class="float-left" @change="newsList">
                         <el-option v-for="item in newsSearchList" :key="item.value" :label="item.label" :value="item.value"></el-option>
                     </el-select>
                     <div class="float-right">
@@ -137,23 +137,23 @@
             searchValue: '',
             //新闻查询
             newsSearchList: [{
-                    value: 0,
+                    value: 1,
                     label: '今日新闻'
                 },
                 {
-                    value: 1,
+                    value: 2,
                     label: '本周新闻'
                 },
                 {
-                    value: 2,
+                    value: 3,
                     label: '本月新闻'
                 },
                 {
-                    value: 3,
+                    value: 4,
                     label: '年度新闻'
                 }
             ],
-            newsSearchValue: '今日新闻',
+            newsSearchValue: '',
             //当前时间
             now_date: new Date().getTime(),
             //学校列表
@@ -236,7 +236,22 @@
             //新闻检索
             newsSearch() {
                 window.localStorage.setItem("search_keyword", '学术');
-                window.location.href="./search.html";
+                window.location.href = "./search.html";
+            },
+            //新闻列表
+            newsList() {
+                if (this.newsSearchValue) {
+                    if (this.newsSearchValue == 1) {
+                        window.localStorage.setItem("news_keyword", '今日新闻');
+                    } else if (this.newsSearchValue == 2) {
+                        window.localStorage.setItem("news_keyword", '本周新闻');
+                    } else if (this.newsSearchValue == 3) {
+                        window.localStorage.setItem("news_keyword", '本月新闻');
+                    } else if (this.newsSearchValue == 4) {
+                        window.localStorage.setItem("news_keyword", '年度新闻');
+                    }
+                    window.location.href = "./news.html";
+                }
             }
         }
     })

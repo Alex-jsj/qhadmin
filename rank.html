@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <title>站点排行榜-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/element.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            //window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            /* if (cw < 1921 && cw > 769) {
+                //cw = 1920;
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 960) + 'px';
+            } */
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="rank" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header">
+            <!-- nav -->
+            <div id="nav" class="web_nav">
+                <div class="nav-container">
+                    <div class="nav-logo float-left">
+                        <a href="index.html" class="header-url">
+                            <div class="logo-rotate float-left">
+                                <i class="iconfont icon-logo"></i>
+                            </div>
+                            <i class="iconfont icon-qihuankeji"></i>
+                        </a>
+                    </div>
+                    <span class="logo-title float-left">站点排行榜</span>
+                    <!-- list -->
+                    <ul class="float-right nav-list">
+                        <li class="float-left">
+                            <a href="index.html" class="underline-hover">首页</a>
+                        </li>
+                        <li class="float-left">
+                            <a href="javascript:void(0);" class="underline-hover">学院官网</a>
+                        </li>
+                        <li class="float-left">
+                            <a href="login.html" class="underline-hover" target="_blank">后台登录</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="component">
+                <!-- crumb -->
+                <div class="crumbs">
+                    <ul>
+                        <li class="float-left" v-for="item in crumbs" :key="item.id">
+                            <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 数据刷新 -->
+                <div class="refresh">
+                    <span>备注：数据统计时间有延迟，每天更新一次。</span>
+                    <el-button type="primary" size="mini">数据刷新</el-button>
+                </div>
+                <!-- 排行榜 -->
+                <div class="rank-container">
+                    <!-- 文章排行榜 -->
+                    <div class="article-rank rank-box float-left">
+                        <p class="rank-title">
+                            <i class="iconfont icon-wenzhangliebiao"></i>
+                            <span>文章排行榜</span>
+                        </p>
+                        <el-table :data="article_rank" stripe>
+                            <el-table-column prop="rank" label="排行" width="120"></el-table-column>
+                            <el-table-column prop="info" label="网站名称">
+                                <div slot-scope="scope">
+                                    <a :href="scope.row.info.url" target="_blank">{{scope.row.info.uid}} - {{scope.row.info.title}}</a>
+                                </div>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <!-- 访问量排行榜 -->
+                    <div class="visit-rank rank-box float-right">
+                        <p class="rank-title">
+                            <i class="iconfont icon-zhandianfangwenliangtongji"></i>
+                            <span>访问量排行榜</span>
+                        </p>
+                        <el-table :data="visit_rank" stripe>
+                                <el-table-column prop="rank" label="排行" width="120"></el-table-column>
+                                <el-table-column prop="info" label="网站名称">
+                                    <div slot-scope="scope">
+                                        <a :href="scope.row.info.url" target="_blank">{{scope.row.info.uid}} - {{scope.row.info.title}}</a>
+                                    </div>
+                                </el-table-column>
+                            </el-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer">
+            <div class="footer-container">
+                <p>中国美术学院版权所有 技术支持：启焕科技</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#rank',
+        data: {
+            loading: true,
+            //面包屑
+            crumbs: [{
+                    name: '首页',
+                    url: 'index.html',
+                    this_page: true
+                },
+                {
+                    name: '排行榜',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                }
+            ],
+            //排行榜
+            article_rank: [{
+                    rank: 1,
+                    title: '研究生工作部',
+                    info: {
+                        uid: 9105,
+                        title: '研究生工作部',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 2,
+                    info: {
+                        uid: 9109,
+                        title: '教务处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 3,
+                    info: {
+                        uid: 9113,
+                        title: '计划财务处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 4,
+                    info: {
+                        uid: 9106,
+                        title: '学生工作部',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 5,
+                    info: {
+                        uid: 9110,
+                        title: '招生办公室',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 6,
+                    info: {
+                        uid: 9114,
+                        title: '校园建设和管理处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 7,
+                    info: {
+                        uid: 9103,
+                        title: '纪监审办公室',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 8,
+                    info: {
+                        uid: 9107,
+                        title: '网络中心',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 9,
+                    info: {
+                        uid: 9111,
+                        title: '科研创作处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 10,
+                    info: {
+                        uid: 9115,
+                        title: '工会',
+                        url: 'javascript:void(0);'
+                    }
+                },
+            ],
+            visit_rank: [{
+                    rank: 1,
+                    title: '研究生工作部',
+                    info: {
+                        uid: 9105,
+                        title: '研究生工作部',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 2,
+                    info: {
+                        uid: 9109,
+                        title: '教务处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 3,
+                    info: {
+                        uid: 9113,
+                        title: '计划财务处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 4,
+                    info: {
+                        uid: 9106,
+                        title: '学生工作部',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 5,
+                    info: {
+                        uid: 9110,
+                        title: '招生办公室',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 6,
+                    info: {
+                        uid: 9114,
+                        title: '校园建设和管理处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 7,
+                    info: {
+                        uid: 9103,
+                        title: '纪监审办公室',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 8,
+                    info: {
+                        uid: 9107,
+                        title: '网络中心',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 9,
+                    info: {
+                        uid: 9111,
+                        title: '科研创作处',
+                        url: 'javascript:void(0);'
+                    }
+                },
+                {
+                    rank: 10,
+                    info: {
+                        uid: 9115,
+                        title: '工会',
+                        url: 'javascript:void(0);'
+                    }
+                },
+            ]
+        },
+        mounted: function () {
+            var that = this;
+            //获取入口列表数据
+            axios({
+                method: "get",
+                url: "./json/schoolList.json",
+            }).then(function (response) {
+                that.rankList = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        methods: {}
+    })
+</script>
+
+</html>

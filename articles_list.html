@@ -411,6 +411,8 @@
             },
         },
         mounted: function () {
+            //改变首页链接
+            this.crumbs[0].url = window.localStorage.getItem('headerUrl');
             var that = this;
             //获取分页数据
             axios({
