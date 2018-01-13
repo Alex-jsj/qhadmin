@@ -99,20 +99,38 @@
             <div class="component">
                 <!-- search info -->
                 <div class="search-info">
-                    找到【<span>{{search_res.keywords}}</span>】相关的结果约<span>{{search_res.count}}</span>条，用时<span>{{search_res.time}}</span>秒
+                    <span>找到【</span>
+                    <span>{{search_res.keywords}}</span>
+                    <span>】相关的结果约</span>
+                    <span>{{search_res.count}}</span>
+                    <span>条，用时</span>
+                    <span>{{search_res.time}}</span>
+                    <span>秒</span>
                 </div>
                 <!-- search value -->
                 <div class="search-body">
-                    <ul class="float-left">
-                        <li v-for="item in search_res.result" :key="item.id">
-                            <a :href="item.url">
-                                <span v-html="item.title" class="search-title"></span>
-                                <span class="search-form">[{{item.form}}]</span>
-                            </a>
-                            <p class="search-content">{{item.content}}</p>
-                            <span class="search-date">{{item.date}}</span>
-                        </li>
-                    </ul>
+                    <div class="search-list float-left">
+                        <ul>
+                            <li v-for="item in search_res.result" :key="item.id">
+                                <a :href="item.url">
+                                    <span v-html="item.title" class="search-title"></span>
+                                    <span class="search-form">[{{item.form}}]</span>
+                                </a>
+                                <p class="search-content">{{item.content}}</p>
+                                <span class="search-date">{{item.date}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-filter float-right">
+                        <p class="filter-title">发表时间</p>
+                        <ul class="filter-date">
+                            <li v-for="(item,index) in dateList" :key="item.id" @click="filter_date(index)" :class="item.class?'li-active':''">{{item.name}}</li>
+                        </ul>
+                        <p class="filter-title">按站点搜索</p>
+                        <el-select v-model="search.site" placeholder="请选择站点" size="mini" class="filter-site">
+                            <el-option v-for="item in siteList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,6 +158,102 @@
                 date: 0, //天/周/月筛选
                 site: 0 //站点筛选
             },
+            //时间段
+            dateList: [{
+                    name: '1天内',
+                    class: false
+                },
+                {
+                    name: '1周内',
+                    class: false
+                },
+                {
+                    name: '1月内',
+                    class: false
+                },
+                {
+                    name: '更早',
+                    class: false
+                }
+            ],
+            //站点列表
+            siteList: [{
+                    value: 0,
+                    label: '全部站点'
+                },
+                {
+                    value: 1,
+                    label: '中国画与书法艺术学院'
+                },
+                {
+                    value: 2,
+                    label: '绘画艺术学院'
+                },
+                {
+                    value: 3,
+                    label: '雕塑与公共艺术学院'
+                },
+                {
+                    value: 4,
+                    label: '跨媒体艺术学院'
+                },
+                {
+                    value: 5,
+                    label: '设计艺术学院'
+                },
+                {
+                    value: 6,
+                    label: '手工艺术学院'
+                },
+                {
+                    value: 7,
+                    label: '影视与动画艺术学院'
+                },
+                {
+                    value: 8,
+                    label: '建筑艺术学院'
+                },
+                {
+                    value: 9,
+                    label: '艺术人文学院'
+                },
+                {
+                    value: 10,
+                    label: '艺术管理与教育学'
+                },
+                {
+                    value: 11,
+                    label: '上海设计学院'
+                },
+                {
+                    value: 12,
+                    label: '国际教育学院'
+                },
+                {
+                    value: 13,
+                    label: '中德学院'
+                },
+                {
+                    value: 14,
+                    label: '继续教育学院'
+                },
+                {
+                    value: 15,
+                    label: '专业基础教学部'
+                },
+                {
+                    value: 16,
+                    label: '社会科学教学部'
+                },
+                {
+                    value: 17,
+                    label: '公共体育部'
+                },
+                {
+                    value: 18,
+                    label: '实验教学管理部'
+                }
+            ],
             //搜索结果
             search_res: {
                 keywords: '',
@@ -200,6 +314,15 @@
             //搜索切换
             search_switch() {
                 this.search.source = !this.search.source;
+            },
+            //筛选时间
+            filter_date(index) {
+                var that = this;
+                for (var i = 0; i < that.dateList.length; i++) {
+                    that.dateList[i].class = false;
+                }
+                this.dateList[index].class = true;
+                this.search.date = (index + 1);
             }
         }
     })
