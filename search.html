@@ -65,13 +65,13 @@
                     </div>
                     <div class="nav-search float-right">
                         <div class="search-switch">
-                            <span class="float-left" :class="{'span-active':default_search}" @click="search_switch()">站 群</span>
-                            <span class="float-left" :class="{'span-active':!default_search}" @click="search_switch()">学术共享平台</span>
+                            <span class="float-left" :class="{'span-active':search.source}" @click="search_switch()">站 群</span>
+                            <span class="float-left" :class="{'span-active':!search.source}" @click="search_switch()">学术共享平台</span>
                         </div>
-                        <el-input placeholder="请输入关键字" v-model="searchValue" class="input-with-select news-search float-left" @keyup.enter.native="articleSearch()">
+                        <el-input placeholder="请输入关键字" v-model="search.keyword" class="input-with-select news-search float-left" @keyup.enter.native="articleSearch()">
                             <el-button slot="append" icon="el-icon-search" @click="articleSearch()"></el-button>
                         </el-input>
-                        <el-radio-group v-model="search_radio" class="float-left">
+                        <el-radio-group v-model="search.option" class="float-left">
                             <el-radio :label="0">全文搜索</el-radio>
                             <el-radio :label="1">标题搜索</el-radio>
                         </el-radio-group>
@@ -97,7 +97,29 @@
         </div>
         <div class="main">
             <div class="component">
-
+                <!-- search info -->
+                <div class="search-info">
+                    找到【
+                    <span>{{search_res.keywords}}</span>
+                    】相关的结果约
+                    <span>{{search_res.count}}</span>
+                    条，用时
+                    <span>{{search_res.time}}</span>
+                    秒
+                </div>
+                <!-- search value -->
+                <div class="search-body">
+                    <ul>
+                        <li v-for="item in search_res.result" :key="item.id">
+                            <a :href="item.url">
+                                <span v-html="item.title"></span>
+                                <span>[{{item.form}}]</span>
+                            </a>
+                            <p>{{item.content}}</p>
+                            <span>{{item.date}}</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- footer -->
@@ -117,18 +139,73 @@
         data: {
             loading: true,
             //搜索选项
-            searchValue: '',
-            search_radio: 0,
-            default_search: true, //切换搜索‘站群’和‘共享平台’
+            search: {
+                keyword: '',
+                option: 0, //全局/标题
+                source: true, //切换搜索‘站群’和‘共享平台’
+                date: 0, //天/周/月筛选
+                site: 0 //站点筛选
+            },
+            //搜索结果
+            search_res: {
+                keywords: '',
+                count: Number,
+                time: Number,
+                result: []
+            }
+        },
+        mounted: function () {
+            var that = this;
+            that.search.keyword = window.localStorage.getItem("search_keyword");
+            that.articleSearch();
         },
         methods: {
             //新闻检索
             articleSearch() {
-
+                var startTime = new Date().getTime() / 1000;
+                var endTime = null;
+                var that = this;
+                axios({
+                    method: "get",
+                    url: "./json/search.json",
+                    data: {
+                        keyword: that.search.keyword,
+                        option: that.search.option,
+                        source: that.search.source ? '站群' : '学术共享平台',
+                        date: that.search.date,
+                        site: that.search.site
+                    },
+                    //格式化
+                    transformRequest: [
+                        function (data) {
+                            var ret = "";
+                            for (var i = 0; i < data.length; i++) {
+                                ret +=
+                                    encodeURIComponent(it) +
+                                    "=" +
+                                    encodeURIComponent(data[it]) +
+                                    "&";
+                            }
+                            ret = ret.slice(0, -1); // 去掉最后的空行
+                            return ret;
+                        }
+                    ],
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }).then(function (response) {
+                    endTime = new Date().getTime() / 1000;
+                    that.search_res.keywords = that.search.keyword;
+                    that.search_res.time = parseFloat((endTime - startTime).toFixed(3));
+                    that.search_res.count = response.data.count;
+                    that.search_res.result = response.data.result;
+                }).catch(function (error) {
+                    console.log(error);
+                });
             },
             //搜索切换
             search_switch() {
-                this.default_search = !this.default_search;
+                this.search.source = !this.search.source;
             }
         }
     })

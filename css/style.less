@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
- * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-12 00:37:10
+ * @Last Modified by: Alex chenzeyongjsj@163.com
+ * @Last Modified time: 2018-01-13 10:36:14
  */
 
 @base-color: #54c3f1;
@@ -850,6 +850,7 @@ body {
                     .el-input-group__append {
                         padding: 0 10px;
                         overflow: hidden;
+                        .transi;
                         .el-button {
                             .transi;
                         }
@@ -861,6 +862,7 @@ body {
                             .transi;
                         }
                         &:hover {
+                            border-color: @base-color2;
                             .el-button {
                                 background: @base-color2;
                             }
@@ -957,6 +959,20 @@ body {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+//搜索页
+#search {
+    .main {
+        .component {
+            margin-top: 0;
+            .search-info {
+                font-size: 14px;
+                color: @base_grey;
+                margin-bottom: 50px;
             }
         }
     }

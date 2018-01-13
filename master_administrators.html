@@ -54,7 +54,7 @@
         <div id="header"></div>
         <!-- list -->
         <div id="entry-list" :class="listClass">
-            <div v-for="(list,index) in entryList" class="float-left entry-box" :class="list.show?'div-not-show':'div-show'">
+            <div v-for="(list,index) in entryList"  :key="list.id" class="float-left entry-box" :class="list.show?'div-not-show':'div-show'">
                 <a :href="list.entryUrl">
                     <i class="iconfont" :class="list.iconName"></i>
                     <span>{{list.entryName}}</span>

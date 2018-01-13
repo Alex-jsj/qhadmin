@@ -97,10 +97,10 @@
                 </div>
                 <div class="school-list">
                     <ul class="list-ul">
-                        <li v-for="(list,index) in schoolList" :class="index%2==0?loop_a:loop_b">
+                        <li v-for="(list,index) in schoolList" :key="list.id" :class="index%2==0?loop_a:loop_b">
                             <p class="ul-li-title">{{list.department}}</p>
                             <ol class="list-ol">
-                                <li v-for="item in list.departmentList" class="float-left">
+                                <li v-for="item in list.departmentList" :key="item.id" class="float-left">
                                     <a :href="item.schoolUrl" target="_blank">
                                         <div class="text-container">
                                             <span class="school-id">{{item.schoolId}}</span>
@@ -235,6 +235,7 @@
         methods: {
             //新闻检索
             newsSearch() {
+                window.localStorage.setItem("search_keyword", '学术');
                 window.location.href="./search.html";
             }
         }

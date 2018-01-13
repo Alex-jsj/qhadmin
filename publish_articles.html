@@ -75,7 +75,7 @@
                     <!-- crumb -->
                     <div class="crumbs">
                         <ul>
-                            <li class="float-left" v-for="item in crumbs">
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
                                 <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
                             </li>
                         </ul>

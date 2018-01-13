@@ -61,7 +61,7 @@
                     <!-- crumb -->
                     <div class="crumbs">
                         <ul>
-                            <li class="float-left" v-for="item in crumbs">
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
                                 <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
                             </li>
                         </ul>
@@ -81,7 +81,7 @@
                     <div class="data-display">
                         <!-- menu -->
                         <div class="data-menu">
-                            <span ref="data" v-for="(item,index) in data_display" @click="data_switch($event,index)" :class="item.classCon?'span-active':''">{{item.name}}</span>
+                            <span ref="data" v-for="(item,index) in data_display" :key="item.id" @click="data_switch($event,index)" :class="item.classCon?'span-active':''">{{item.name}}</span>
                             <i class="line" :style="{left:line_left,width:line_Width}"></i>
                         </div>
                         <!-- 展示容器 -->
@@ -90,7 +90,7 @@
                                 <!-- 数据总览 -->
                                 <div class="data-all">
                                     <ul>
-                                        <li v-for="item in data_all" class="float-left">
+                                        <li v-for="item in data_all"  :key="item.id" class="float-left">
                                             <span>{{item.count}}</span>
                                             <p>{{item.name}}</p>
                                         </li>
