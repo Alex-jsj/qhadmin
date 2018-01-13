@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-13 10:36:14
+ * @Last Modified time: 2018-01-13 12:13:24
  */
 
 @base-color: #54c3f1;
@@ -972,7 +972,43 @@ body {
             .search-info {
                 font-size: 14px;
                 color: @base_grey;
-                margin-bottom: 50px;
+            }
+            .search-body {
+                &::after {
+                    .clear;
+                }
+                ul {
+                    width: 788px;
+                    li {
+                        padding-top: 18px;
+                        margin-top: 48px;
+                        border-top: 1px solid #d9d9d9;
+                        >a {
+                            display: block;
+                            margin-bottom: 18px;
+                        }
+                        .search-title {
+                            font-size: 20px;
+                            color: #333;
+                        }
+                        .search-form {
+                            font-size: 20px;
+                            color: @base-color2;
+                        }
+                        .search-content {
+                            font-size: 16px;
+                            color: @base_grey;
+                            margin-bottom: 18px;
+                        }
+                        .search-date {
+                            font-size: 14px;
+                            color: @base_grey;
+                        }
+                        .search-class {
+                            color: #ef4f53;
+                        }
+                    }
+                }
             }
         }
     }

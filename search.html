@@ -99,24 +99,18 @@
             <div class="component">
                 <!-- search info -->
                 <div class="search-info">
-                    找到【
-                    <span>{{search_res.keywords}}</span>
-                    】相关的结果约
-                    <span>{{search_res.count}}</span>
-                    条，用时
-                    <span>{{search_res.time}}</span>
-                    秒
+                    找到【<span>{{search_res.keywords}}</span>】相关的结果约<span>{{search_res.count}}</span>条，用时<span>{{search_res.time}}</span>秒
                 </div>
                 <!-- search value -->
                 <div class="search-body">
-                    <ul>
+                    <ul class="float-left">
                         <li v-for="item in search_res.result" :key="item.id">
                             <a :href="item.url">
-                                <span v-html="item.title"></span>
-                                <span>[{{item.form}}]</span>
+                                <span v-html="item.title" class="search-title"></span>
+                                <span class="search-form">[{{item.form}}]</span>
                             </a>
-                            <p>{{item.content}}</p>
-                            <span>{{item.date}}</span>
+                            <p class="search-content">{{item.content}}</p>
+                            <span class="search-date">{{item.date}}</span>
                         </li>
                     </ul>
                 </div>
@@ -149,8 +143,8 @@
             //搜索结果
             search_res: {
                 keywords: '',
-                count: Number,
-                time: Number,
+                count: 0,
+                time: 0,
                 result: []
             }
         },
