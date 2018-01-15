@@ -184,6 +184,10 @@
                     this_page: false
                 }
             ],
+            //导航栏目
+            nav_column_list: [],
+            //导航超过11个时缩小导航
+            nav_column_list_mini: false,
             //表单
             form: {
                 mainColumn: '', //主栏目
@@ -324,8 +328,9 @@
             },
         },
         mounted: function () {
+            var that = this;
             //改变首页链接
-            this.crumbs[0].url = localStorage.getItem('headerUrl');
+            that.crumbs[0].url = localStorage.getItem('headerUrl');
             //获取导航栏目列表
             that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
         },

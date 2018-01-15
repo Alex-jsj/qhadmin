@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
- * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 18:26:35
+ * @Last Modified by: alex (chenzeyongjsj@163.com)
+ * @Last Modified time: 2018-01-15 21:54:51
  */
 
 @base-color: #54c3f1;
@@ -174,19 +174,21 @@ body {
             }
         }
     }
+
+    //系统信息弹框
     .system-dialog-box {
-        position: fixed;
-        top: 50%;
-        left: 50%;
+        position: absolute;
+        top: 90px;
+        right: 0;
         z-index: 99999;
-        width: 300px;
+        width: 0;
+        height: 0;
         background: #fff;
         border-radius: 3px;
-        padding: 20px;
-        border: 1px solid @base_grey;
-        display: none;
+        padding: 0;
+        border: 1px solid #e6e6e6;
+        overflow: hidden;
         .transi;
-        .abso;
         .icon-close {
             position: absolute;
             top: 0;
@@ -194,12 +196,36 @@ body {
             cursor: pointer;
             font-size: 20px;
             color: @base_grey;
+            opacity: 0;
+            .transi;
+            &:hover {
+                color: @base-color2;
+                -webkit-transform: rotateZ(180deg);
+                -moz-transform: rotateZ(180deg);
+                -ms-transform: rotateZ(180deg);
+                -o-transform: rotateZ(180deg);
+                transform: rotateZ(180deg);
+            }
         }
         p {
+            opacity: 0;
+            .transi;
             span {
                 font-size: 14px;
                 color: @base_grey;
             }
+        }
+    }
+    .system-dialog-box-show {
+        width: 300px;
+        height: 137px;
+        padding: 20px;
+        border: 1px solid @base_grey;
+        .icon-close {
+            opacity: 1;
+        }
+        p {
+            opacity: 1;
         }
     }
 }
@@ -211,18 +237,11 @@ body {
     .nav-container {
         width: 1190px;
         margin: 0 auto;
+        position: relative;
         &::after {
             .clear;
         }
         .nav-logo {
-            /* &:hover {
-                .logo-rotate {
-                    -webkit-transform: rotateZ(7deg) translateZ(0);
-                    -ms-transform: rotateZ(7deg) translateZ(0);
-                    -o-transform: rotateZ(7deg) translateZ(0);
-                    transform: rotateZ(7deg) translateZ(0);
-                }
-            } */
             .logo-rotate {
                 position: relative;
                 top: 2px;

@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
- * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 18:01:52
+ * @Last Modified by: alex (chenzeyongjsj@163.com)
+ * @Last Modified time: 2018-01-15 21:51:01
  */
 window.onload = function () {
 	(function () {
@@ -13,7 +13,7 @@ window.onload = function () {
 			$('.notice-list').addClass(localStorage.getItem("infoHidden"));
 			$('.xitong').addClass(localStorage.getItem("setHidden"));
 			//退出登录
-			$('.sign-out').click(function(){
+			$('.sign-out').click(function () {
 				localStorage.clear();
 			});
 		});
@@ -98,10 +98,10 @@ window.onload = function () {
 				系统信息弹框
 				*/
 				$('.system-dialog').click(function () {
-					$('.system-dialog-box').fadeIn(300);
+					$('.system-dialog-box').addClass('system-dialog-box-show');
 				});
 				$('.icon-close').click(function () {
-					$('.system-dialog-box').fadeOut(300);
+					$('.system-dialog-box').removeClass('system-dialog-box-show');
 				});
 			});
 		}
