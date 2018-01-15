@@ -83,11 +83,13 @@
                 method: "get",
                 url: "./json/entryList3.json",
             }).then(function (response) {
+                //将栏目列表存到localStorage
+                localStorage.setItem('nav_column_list', JSON.stringify(response.data));
+                //根据屏幕分辨率修改栏目列表达到隔行变色
                 var cw = window.innerWidth || document.documentElement.clientWidth || document.body
                     .clientWidth;
                 if (cw > 769 && response.data.length > 6) {
                     that.listClass = 'list-9';
-                    //修改入口列表数据以隔行变色
                     for (var i = 0; i < response.data.length; i++) {
                         if ((i + 1) % 5 === 0) {
                             response.data.splice(i, 0, {
@@ -96,9 +98,7 @@
                         }
                     }
                 } else if (cw > 769 && response.data.length < 5) { //小与5个时添加另一套class
-                    console.log(4)
                     that.listClass = 'list-4';
-                    //修改入口列表数据以隔行变色
                     for (var i = 0; i < response.data.length; i++) {
                         if ((i + 1) % 3 === 0) {
                             response.data.splice(i, 0, {
@@ -107,10 +107,8 @@
                         }
                     }
                 } else if (cw > 769 && response.data.length < 7 && response.data.length > 4) { //小与7个且大于4个时添加另一套class
-                    console.log(6)
                     that.listClass = 'list-6';
                 } else {
-                    //修改入口列表数据以隔行变色
                     for (var i = 0; i < response.data.length; i++) {
                         if ((i + 1) % 3 === 0) {
                             response.data.splice(i, 0, {
@@ -119,7 +117,6 @@
                         }
                     }
                 }
-
                 that.entryList = response.data;
             }).catch(function (error) {
                 console.log(error);

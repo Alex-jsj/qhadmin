@@ -56,15 +56,13 @@
             <div class="component">
                 <!-- 二级菜单 -->
                 <div class="second-menu">
-                    <a href="publish_articles.html" class="float-left">
-                        <el-button type="primary" size="mini">发布文章</el-button>
-                    </a>
-                    <a href="publish_href.html" class="float-left">
-                        <el-button type="primary" size="mini">发布链接</el-button>
-                    </a>
-                    <a href="articles_list.html" class="float-left">
-                        <el-button type="primary" size="mini">文章列表</el-button>
-                    </a>
+                    <ul>
+                        <li v-for="item in nav_column_list" :key="item.id" class="float-left">
+                            <a :href="item.entryUrl">
+                                <el-button type="primary" size="mini">{{item.entryName}}</el-button>
+                            </a>
+                        </li>
+                    </ul>
                     <a href="javascript:void(0);" class="float-right question">
                         <i class="el-icon-question"></i>
                         <span>文章管理常见问题解答</span>
@@ -213,6 +211,8 @@
                     this_page: false
                 }
             ],
+            //导航栏目
+            nav_column_list: [],
             //选择栏目
             columnSelection: [{
                     value: 0,
@@ -411,9 +411,12 @@
             },
         },
         mounted: function () {
-            //改变首页链接
-            this.crumbs[0].url = window.localStorage.getItem('headerUrl');
             var that = this;
+            //改变首页链接
+            that.crumbs[0].url = localStorage.getItem('headerUrl');
+            //获取栏目列表
+            that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
+            console.log(JSON.parse(localStorage.getItem('nav_column_list')))
             //获取分页数据
             axios({
                 method: "get",

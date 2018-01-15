@@ -1,17 +1,17 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
- * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-12 00:34:15
+ * @Last Modified by: Alex chenzeyongjsj@163.com
+ * @Last Modified time: 2018-01-15 10:47:33
  */
 window.onload = function () {
 	(function () {
 		var header = $('#header');
 		header.load('tpl/header.html', function () {
-			$('.header-name').text(window.localStorage.getItem("headerName"));
-			$('.header-url').attr('href', window.localStorage.getItem("headerUrl"));
-			$('.notice-list').addClass(window.localStorage.getItem("infoHidden"));
-			$('.xitong').addClass(window.localStorage.getItem("setHidden"));
+			$('.header-name').text(sessionStorage.getItem("headerName"));
+			$('.header-url').attr('href', sessionStorage.getItem("headerUrl"));
+			$('.notice-list').addClass(sessionStorage.getItem("infoHidden"));
+			$('.xitong').addClass(sessionStorage.getItem("setHidden"));
 		});
 		var footer = $('#footer');
 		footer.load('tpl/footer.html', function () {
@@ -68,8 +68,8 @@ window.onload = function () {
 				var _li = li.find('.side-click');
 				var ol_li = li.find('li');
 				//获取菜单的定位信息
-				var liIndex = parseInt(window.localStorage.getItem("liIndex"));
-				var aIndex = parseInt(window.localStorage.getItem("aIndex"));
+				var liIndex = parseInt(window.sessionStorage.getItem("liIndex"));
+				var aIndex = parseInt(window.sessionStorage.getItem("aIndex"));
 				(function () { //初始化给菜单栏定位
 					$(li[liIndex]).addClass('li-active');
 					$(li[liIndex]).children('ol').children('li').eq(aIndex).addClass('side-active');
@@ -87,8 +87,8 @@ window.onload = function () {
 					liIndex = $(this).parents('ol').parent('li').index();
 					aIndex = $(this).parent().index();
 					//存储菜单的定位信息
-					window.localStorage.setItem("liIndex", liIndex);
-					window.localStorage.setItem("aIndex", aIndex);
+					window.sessionStorage.setItem("liIndex", liIndex);
+					window.sessionStorage.setItem("aIndex", aIndex);
 				});
 				/* 
 				系统信息弹框

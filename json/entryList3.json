@@ -11,9 +11,9 @@
         "entryUrl": "javascript:void(0);"
     },
     {
-        "iconName": "icon-shishishuju",
-        "entryName": "实时数据",
-        "entryUrl": "javascript:void(0);"
+        "iconName": "icon-shujukanban",
+        "entryName": "数据看板",
+        "entryUrl": "data_board.html"
     },
     {
         "iconName": "icon-wenzhangpaihang",

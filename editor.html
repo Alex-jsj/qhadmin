@@ -172,6 +172,8 @@
                         }
                     }
                 }
+                //将栏目列表存到localStorage
+                localStorage.setItem('column_list', JSON.stringify(response.data));
                 that.entryList = response.data;
             }).catch(function (error) {
                 console.log(error);
