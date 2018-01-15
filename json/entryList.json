@@ -21,7 +21,7 @@
     {
         "iconName": "icon-huandengpian",
         "entryName": "轮播图",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "carousel_list.html"
     },
     {
         "iconName": "icon-piaofuguanggao",

@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-15 21:54:51
+ * @Last Modified time: 2018-01-15 22:06:15
  */
 .loading {
   width: 100%;
@@ -206,12 +206,13 @@ body {
   -o-transition: all 0.3s;
 }
 #header .system-dialog-box p span {
+  line-height: 24px;
   font-size: 14px;
   color: #888;
 }
 #header .system-dialog-box-show {
   width: 300px;
-  height: 137px;
+  height: 163px;
   padding: 20px;
   border: 1px solid #888;
 }
@@ -678,6 +679,7 @@ body {
   /* 发文章 */
   /* 数据看板 */
   /* 文章排行 */
+  /* 轮播图管理 */
 }
 .public-wap .main {
   width: 1190px;
@@ -788,7 +790,10 @@ body {
   width: 100%;
   margin-top: 20px;
   border-radius: 3px;
+  position: relative;
   /* 表格筛选栏 */
+  /* 三级菜单 */
+  /* 表格主体 */
 }
 .public-wap .table-container .table-filter {
   width: 100%;
@@ -833,6 +838,11 @@ body {
   -webkit-transition: all 0.3s;
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
+}
+.public-wap .table-container .third-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 .public-wap .table-container .table-body {
   width: 100%;
@@ -1082,6 +1092,36 @@ body {
 }
 .public-wap .article_rank .ranks .rank-link {
   color: #606266;
+}
+.public-wap .carousel_container {
+  position: relative;
+}
+.public-wap .carousel_container .carousel-img {
+  width: 180px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+}
+.public-wap .carousel_container .carousel-img img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  width: 100%;
+  min-height: 100%;
+}
+.public-wap .carousel_container .carousel-link {
+  color: #606266;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+.public-wap .carousel_container .carousel-link:hover {
+  color: #00a0e9;
 }
 #sideBar {
   width: 183px;

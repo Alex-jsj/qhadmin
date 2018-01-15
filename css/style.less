@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-15 21:54:51
+ * @Last Modified time: 2018-01-15 22:06:15
  */
 
 @base-color: #54c3f1;
@@ -173,9 +173,7 @@ body {
                 }
             }
         }
-    }
-
-    //系统信息弹框
+    } //系统信息弹框
     .system-dialog-box {
         position: absolute;
         top: 90px;
@@ -211,6 +209,7 @@ body {
             opacity: 0;
             .transi;
             span {
+                line-height: 24px;
                 font-size: 14px;
                 color: @base_grey;
             }
@@ -218,7 +217,7 @@ body {
     }
     .system-dialog-box-show {
         width: 300px;
-        height: 137px;
+        height: 163px;
         padding: 20px;
         border: 1px solid @base_grey;
         .icon-close {
@@ -754,6 +753,7 @@ body {
         width: 100%;
         margin-top: 20px;
         border-radius: 3px;
+        position: relative;
         /* 表格筛选栏 */
         .table-filter {
             width: 100%;
@@ -792,7 +792,14 @@ body {
                 vertical-align: middle;
                 .transi;
             }
-        } //表格主体
+        }
+        /* 三级菜单 */
+        .third-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        /* 表格主体 */
         .table-body {
             width: 100%;
             margin-bottom: 20px;
@@ -1038,6 +1045,31 @@ body {
             }
             .rank-link {
                 color: @text-color;
+            }
+        }
+    }
+    /* 轮播图管理 */
+    .carousel_container {
+        position: relative;
+        .carousel-img {
+            width: 180px;
+            height: 80px;
+            overflow: hidden;
+            position: relative;
+            img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                .abso;
+                width: 100%;
+                min-height: 100%;
+            }
+        }
+        .carousel-link {
+            color: @text-color;
+            .transi;
+            &:hover {
+                color: @base-color2;
             }
         }
     }

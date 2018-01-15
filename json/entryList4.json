@@ -23,7 +23,7 @@
     {
         "iconName": "icon-wenzhangfangwenpaihang",
         "entryName": "文章访问排行",
-        "entryUrl": "articles_rank.html"
+        "entryUrl": "article_rank.html"
     },
     {
         "iconName": "icon-chakanwenzhang",
