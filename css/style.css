@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 15:39:56
+ * @Last Modified time: 2018-01-15 17:07:59
  */
 .loading {
   width: 100%;
@@ -657,6 +657,7 @@ body {
   /* 文章列表 */
   /* 发文章 */
   /* 数据看板 */
+  /* 文章排行 */
 }
 .public-wap .main {
   width: 1190px;
@@ -718,6 +719,7 @@ body {
   width: 100%;
   overflow: hidden;
   margin-top: 20px;
+  position: relative;
 }
 .public-wap .component .second-menu {
   width: 100%;
@@ -1033,6 +1035,33 @@ body {
   position: absolute;
   top: 0;
   right: 0;
+}
+.public-wap .article_rank {
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 50px;
+}
+.public-wap .article_rank .rank-title {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 14px;
+  color: #888;
+}
+.public-wap .article_rank .ranks {
+  margin-top: 50px;
+}
+.public-wap .article_rank .ranks .ranks-title {
+  text-align: center;
+  color: #00a0e9;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.public-wap .article_rank .ranks .rank-link {
+  color: #606266;
 }
 #sideBar {
   width: 183px;

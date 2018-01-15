@@ -13,7 +13,7 @@
     {
         "iconName": "icon-wenzhangshenhe",
         "entryName": "文章审核",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "pending_articles.html"
     },
     {
         "iconName": "icon-zhandianwenzhangshuliangpaihang",
@@ -23,7 +23,7 @@
     {
         "iconName": "icon-wenzhangfangwenpaihang",
         "entryName": "文章访问排行",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "articles_rank.html"
     },
     {
         "iconName": "icon-chakanwenzhang",

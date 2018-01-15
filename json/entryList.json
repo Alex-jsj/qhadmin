@@ -6,7 +6,7 @@
     {
         "iconName": "icon-daishenwenzhang",
         "entryName": "待审文章",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "pending_articles.html"
     },
     {
         "iconName": "icon-wenzhangliebiao",
@@ -46,7 +46,7 @@
     {
         "iconName": "icon-wenzhangpaihang",
         "entryName": "文章排行",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "article_rank.html"
     },
     {
         "iconName": "icon-zhandianxinxi",

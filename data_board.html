@@ -112,9 +112,6 @@
                                 <el-date-picker size="mini" v-model="echarts_filter" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
                                     end-placeholder="结束日期" :picker-options="pickerOptions" class="float-left">
                                 </el-date-picker>
-                                <el-select v-model="earchts_filter_list_value" clearable placeholder="请选择" size="mini" class="float-right">
-                                    <el-option v-for="item in earchts_filter_list" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
                             </div>
                             <div id="echarts-5" style="width: 564px;height:377px;padding-left:8px;"></div>
                         </div>
@@ -196,33 +193,6 @@
             echarts_filter: [
                 '2018-01-15', '2018-01-31'
             ],
-            //选择栏目
-            earchts_filter_list: [{
-                    value: 0,
-                    label: '全部'
-                },
-                {
-                    value: 1,
-                    label: '学院官网'
-                },
-                {
-                    value: 2,
-                    label: '学院官网英文版'
-                },
-                {
-                    value: 3,
-                    label: '艺术与设计学院'
-                },
-                {
-                    value: 4,
-                    label: '新闻与传播学院'
-                },
-                {
-                    value: 5,
-                    label: '公共管理学院'
-                }
-            ],
-            earchts_filter_list_value: '全部',
         },
         mounted: function () {
             var that = this;
