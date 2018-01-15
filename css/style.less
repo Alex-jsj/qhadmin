@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 14:22:50
+ * @Last Modified time: 2018-01-15 15:39:56
  */
 
 @base-color: #54c3f1;
@@ -10,6 +10,7 @@
 @text-color: #606266;
 @text-hover: #1c2a55;
 @base_grey: #888;
+@border_color: #d9d9d9;
 // 预设样式 start
 //页面loading
 .loading {
@@ -844,7 +845,7 @@ body {
         }
         /* 图片上传 */
         .avatar-uploader .el-upload {
-            border: 1px dashed #d9d9d9;
+            border: 1px dashed @border_color;
             border-radius: 6px;
             cursor: pointer;
             position: relative;
@@ -873,6 +874,124 @@ body {
         padding: 20px;
         background: #fff;
         margin-top: 20px;
+        .all-info {
+            width: 100%;
+            border-top: 1px solid @border_color;
+            padding-top: 60px;
+            ul {
+                &::after {
+                    .clear;
+                }
+                li {
+                    margin-right: 18px;
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+                    .el-badge__content {
+                        background-color: @base-color2;
+                        font-size: 14px;
+                        height: 22px;
+                        line-height: 20px;
+                        padding: 0 10px;
+                        border-radius: 15px;
+                    }
+                    .el-badge__content.is-fixed {
+                        right: 63px;
+                        z-index: 9;
+                    }
+                    a {
+                        display: block;
+                        width: 274px;
+                        height: 100px;
+                        text-align: center;
+                        border-radius: 3px;
+                        border: 1px solid @border_color;
+                    }
+                    span {
+                        display: block;
+                        color: @base-color2;
+                        white-space: nowrap;
+                        font-size: 38px;
+                        margin-top: 14px;
+                    }
+                    p {
+                        color: @base_grey;
+                        margin-top: 10px;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+        .echarts-container {
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 55px;
+            &::after {
+                .clear;
+            }
+            .echarts-left {
+                width: 584px;
+                overflow: hidden;
+                .echarts {
+                    margin-right: 16px;
+                    margin-bottom: 16px;
+                    border: 1px solid #c4c5c5;
+                    padding-bottom: 5px;
+                    >p {
+                        display: table-cell;
+                        width: 274px;
+                        height: 30px;
+                        background: #dcdddd;
+                        color: #707070;
+                        font-size: 16px;
+                        padding-left: 5px;
+                        vertical-align: middle;
+                    }
+                }
+            }
+            .echarts-right {
+                width: 564px;
+                height: 426px;
+                border: 1px solid #c4c5c5;
+                overflow: hidden;
+                .echarts-title {
+                    width: 100%;
+                    height: 30px;
+                    background: #dcdddd;
+                    padding-top: 3px;
+                    margin-bottom: 13px;
+                    .el-date-editor {
+                        width: 230px;
+                        height: 24px;
+                        margin-left: 12px;
+                        padding: 0 10px;
+                    }
+                    .el-range__icon {
+                        line-height: 24px;
+                    }
+                    .el-range-input {
+                        font-size: 12px;
+                        height: 20px;
+                    }
+                    .el-range-separator {
+                        width: 12%;
+                        line-height: 24px;
+                    }
+                    .el-select {
+                        width: 160px;
+                        margin-right: 10px;
+                    }
+                    .el-input--mini .el-input__inner {
+                        height: 24px;
+                    }
+                    .el-range__close-icon {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -1013,7 +1132,7 @@ body {
             }
             .rank-container {
                 width: 100%;
-                border-top: 1px solid #d9d9d9;
+                border-top: 1px solid @border_color;
                 padding: 50px 80px;
                 &::after {
                     .clear;
@@ -1101,7 +1220,7 @@ body {
                 width: 100%;
                 margin-top: 20px;
                 padding-top: 50px;
-                border-top: 1px solid #d9d9d9;
+                border-top: 1px solid @border_color;
                 li {
                     .ul-li-title {
                         font-size: 18px;
@@ -1109,7 +1228,7 @@ body {
                         color: @text-color;
                     }
                     .list-ol {
-                        border-top: 1px solid #d9d9d9;
+                        border-top: 1px solid @border_color;
                         padding-top: 20px;
                         margin-bottom: 30px;
                         &::after {
@@ -1199,7 +1318,7 @@ body {
                     width: 1007px;
                     margin-top: 48px;
                     margin-bottom: 48px;
-                    border-right: 1px solid #d9d9d9;
+                    border-right: 1px solid @border_color;
                     &::after {
                         .clear;
                     }
@@ -1208,7 +1327,7 @@ body {
                         >li {
                             padding-top: 18px;
                             margin-bottom: 48px;
-                            border-top: 1px solid #d9d9d9;
+                            border-top: 1px solid @border_color;
                             &:last-of-type {
                                 margin-bottom: 0;
                             }
@@ -1422,7 +1541,7 @@ body {
     }
     .quick-navigation {
         padding-top: 48px;
-        border-top: 1px solid #d9d9d9;
+        border-top: 1px solid @border_color;
         ul {
             &::after {
                 .clear;
@@ -1446,7 +1565,7 @@ body {
                     height: 100px;
                     text-align: center;
                     border-radius: 3px;
-                    border: 1px solid #d9d9d9;
+                    border: 1px solid @border_color;
                     position: relative;
                     .transi;
                     .iconfont {
@@ -1490,7 +1609,7 @@ body {
         .data-menu {
             width: 100%;
             height: 40px;
-            border-bottom: 1px solid #d9d9d9;
+            border-bottom: 1px solid @border_color;
             position: relative;
             span {
                 font-size: 18px;
@@ -1534,7 +1653,7 @@ body {
                         height: 100px;
                         text-align: center;
                         border-radius: 3px;
-                        border: 1px solid #d9d9d9;
+                        border: 1px solid @border_color;
                         position: relative;
                         text-align: center;
                         &:last-of-type {

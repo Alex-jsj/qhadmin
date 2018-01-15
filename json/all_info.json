@@ -1,0 +1,25 @@
+[{
+        "title": "管理员数量",
+        "url": "javascript:void(0);",
+        "info": 4,
+        "change": 1
+    },
+    {
+        "title": "栏目总数",
+        "url": "javascript:void(0);",
+        "info": 20,
+        "change": 0
+    },
+    {
+        "title": "附件容量(MB)",
+        "url": "javascript:void(0);",
+        "info": 126,
+        "change": 23
+    },
+    {
+        "title": "文章总数",
+        "url": "javascript:void(0);",
+        "info": 103,
+        "change": 99999
+    }
+]

@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 14:22:50
+ * @Last Modified time: 2018-01-15 15:39:56
  */
 .loading {
   width: 100%;
@@ -911,6 +911,128 @@ body {
   padding: 20px;
   background: #fff;
   margin-top: 20px;
+}
+.public-wap .data_board .all-info {
+  width: 100%;
+  border-top: 1px solid #d9d9d9;
+  padding-top: 60px;
+}
+.public-wap .data_board .all-info ul::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.public-wap .data_board .all-info ul li {
+  margin-right: 18px;
+}
+.public-wap .data_board .all-info ul li:last-of-type {
+  margin-right: 0;
+}
+.public-wap .data_board .all-info ul li .el-badge__content {
+  background-color: #00a0e9;
+  font-size: 14px;
+  height: 22px;
+  line-height: 20px;
+  padding: 0 10px;
+  border-radius: 15px;
+}
+.public-wap .data_board .all-info ul li .el-badge__content.is-fixed {
+  right: 63px;
+  z-index: 9;
+}
+.public-wap .data_board .all-info ul li a {
+  display: block;
+  width: 274px;
+  height: 100px;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+}
+.public-wap .data_board .all-info ul li span {
+  display: block;
+  color: #00a0e9;
+  white-space: nowrap;
+  font-size: 38px;
+  margin-top: 14px;
+}
+.public-wap .data_board .all-info ul li p {
+  color: #888;
+  margin-top: 10px;
+  white-space: nowrap;
+}
+.public-wap .data_board .echarts-container {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 55px;
+}
+.public-wap .data_board .echarts-container::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.public-wap .data_board .echarts-container .echarts-left {
+  width: 584px;
+  overflow: hidden;
+}
+.public-wap .data_board .echarts-container .echarts-left .echarts {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #c4c5c5;
+  padding-bottom: 5px;
+}
+.public-wap .data_board .echarts-container .echarts-left .echarts > p {
+  display: table-cell;
+  width: 274px;
+  height: 30px;
+  background: #dcdddd;
+  color: #707070;
+  font-size: 16px;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+.public-wap .data_board .echarts-container .echarts-right {
+  width: 564px;
+  height: 426px;
+  border: 1px solid #c4c5c5;
+  overflow: hidden;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title {
+  width: 100%;
+  height: 30px;
+  background: #dcdddd;
+  padding-top: 3px;
+  margin-bottom: 13px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-date-editor {
+  width: 230px;
+  height: 24px;
+  margin-left: 12px;
+  padding: 0 10px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-range__icon {
+  line-height: 24px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-range-input {
+  font-size: 12px;
+  height: 20px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-range-separator {
+  width: 12%;
+  line-height: 24px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-select {
+  width: 160px;
+  margin-right: 10px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-input--mini .el-input__inner {
+  height: 24px;
+}
+.public-wap .data_board .echarts-container .echarts-right .echarts-title .el-range__close-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 #sideBar {
   width: 183px;

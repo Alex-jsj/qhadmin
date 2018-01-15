@@ -74,6 +74,51 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- 总览 -->
+                    <div class="all-info">
+                        <ul>
+                            <li v-for="item in all_info" class="float-left" :key="item.id">
+                                <el-badge :value="item.change" :max="999" class="item">
+                                    <a :href="item.url">
+                                        <span>{{item.info}}</span>
+                                        <p>{{item.title}}</p>
+                                    </a>
+                                </el-badge>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- echarts 图表 -->
+                    <div class="echarts-container">
+                        <div class="float-left echarts-left">
+                            <div class="echarts float-left">
+                                <p>当日数据</p>
+                                <div id="echarts-1" style="width: 274px;height:168px;padding-left:5px;"></div>
+                            </div>
+                            <div class="echarts float-left">
+                                <p>本周数据</p>
+                                <div id="echarts-2" style="width: 274px;height:168px;padding-left:5px;"></div>
+                            </div>
+                            <div class="echarts float-left">
+                                <p>本月数据</p>
+                                <div id="echarts-3" style="width: 274px;height:168px;padding-left:5px;"></div>
+                            </div>
+                            <div class="echarts float-left">
+                                <p>年度数据</p>
+                                <div id="echarts-4" style="width: 274px;height:168px;padding-left:5px;"></div>
+                            </div>
+                        </div>
+                        <div class="float-right echarts-right">
+                            <div class="echarts-title">
+                                <el-date-picker size="mini" v-model="echarts_filter" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期"
+                                    end-placeholder="结束日期" :picker-options="pickerOptions" class="float-left">
+                                </el-date-picker>
+                                <el-select v-model="earchts_filter_list_value" clearable placeholder="请选择" size="mini" class="float-right">
+                                    <el-option v-for="item in earchts_filter_list" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                                </el-select>
+                            </div>
+                            <div id="echarts-5" style="width: 564px;height:377px;padding-left:8px;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,6 +129,7 @@
 <script src="js/vue.js"></script>
 <script src="js/axios.min.js"></script>
 <script src="js/element.min.js"></script>
+<script src="js/echarts.min.js"></script>
 <script src="js/jquery-1.7.2.min.js"></script>
 <script src="js/public.js"></script>
 <script>
@@ -106,9 +152,78 @@
             ],
             //栏目列表
             nav_column_list: [],
-            nav_column_list_mini: false
+            nav_column_list_mini: false,
+            //数据总览
+            all_info: [],
+            //当日数据
+            today_data: {},
+            //本周数据
+            week_data: {},
+            //本月数据
+            month_data: {},
+            //年度数据
+            year_data: {},
+            //筛选数据
+            choose_data: {},
+            //按日期筛选
+            pickerOptions: {
+                shortcuts: [{
+                    text: '最近一周',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近一个月',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }, {
+                    text: '最近三个月',
+                    onClick(picker) {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        picker.$emit('pick', [start, end]);
+                    }
+                }]
+            },
+            echarts_filter: [
+                '2018-01-15', '2018-01-31'
+            ],
+            //选择栏目
+            earchts_filter_list: [{
+                    value: 0,
+                    label: '全部'
+                },
+                {
+                    value: 1,
+                    label: '学院官网'
+                },
+                {
+                    value: 2,
+                    label: '学院官网英文版'
+                },
+                {
+                    value: 3,
+                    label: '艺术与设计学院'
+                },
+                {
+                    value: 4,
+                    label: '新闻与传播学院'
+                },
+                {
+                    value: 5,
+                    label: '公共管理学院'
+                }
+            ],
+            earchts_filter_list_value: '全部',
         },
-        watch: {},
         mounted: function () {
             var that = this;
             //改变首页链接
@@ -119,8 +234,127 @@
             if (JSON.parse(localStorage.getItem('nav_column_list')).length > 11) {
                 that.nav_column_list_mini = true;
             }
+            //获取总览数据
+            axios({
+                method: "get",
+                url: "./json/all_info.json",
+            }).then(function (response) {
+                that.all_info = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            //获取canvas数据并调用
+            axios({
+                method: "get",
+                url: "./json/echart.json",
+            }).then(function (response) {
+                var res = response.data;
+                that.today_data = res.today_data;
+                that.week_data = res.week_data;
+                that.month_data = res.month_data;
+                that.year_data = res.year_data;
+                that.choose_data = res.choose_data;
+                that.echarts();
+            }).catch(function (error) {
+                console.log(error);
+            });
         },
-        methods: {}
+        methods: {
+            echarts() {
+                var that = this;
+                var Charts = function (dataList, name, dataInfo, myChart, posi) {
+                    // 指定图表的配置项和数据
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross',
+                                label: {
+                                    backgroundColor: '#00a0e9'
+                                }
+                            }
+                        },
+                        toolbox: { //将图表保存为图片
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        grid: posi,
+                        xAxis: [{
+                            type: 'category',
+                            boundaryGap: true,
+                            data: dataList
+                        }],
+                        yAxis: [{
+                            type: 'value'
+                        }],
+                        series: [{
+                            name: name,
+                            type: 'line',
+                            stack: '总量',
+                            itemStyle: {
+                                normal: {
+                                    color: 'rgba(84,195,241,0.5)'
+                                }
+                            },
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'top'
+                                }
+                            },
+                            areaStyle: {
+                                normal: {}
+                            },
+                            data: dataInfo
+                        }]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                }
+                // 今日数据
+                var myChart1 = echarts.init(document.getElementById('echarts-1'));
+                Charts(that.today_data.filter_info, '当日数据', that.today_data.show_info, myChart1, {
+                    left: '0',
+                    right: '0',
+                    bottom: '0',
+                    top: '10%',
+                    containLabel: true
+                });
+                var myChart2 = echarts.init(document.getElementById('echarts-2'));
+                Charts(that.week_data.filter_info, '本周数据', that.week_data.show_info, myChart2, {
+                    left: '0',
+                    right: '0',
+                    bottom: '0',
+                    top: '10%',
+                    containLabel: true
+                });
+                var myChart3 = echarts.init(document.getElementById('echarts-3'));
+                Charts(that.month_data.filter_info, '本月数据', that.month_data.show_info, myChart3, {
+                    left: '0',
+                    right: '0',
+                    bottom: '0',
+                    top: '10%',
+                    containLabel: true
+                });
+                var myChart4 = echarts.init(document.getElementById('echarts-4'));
+                Charts(that.year_data.filter_info, '年度数据', that.year_data.show_info, myChart4, {
+                    left: '0',
+                    right: '0',
+                    bottom: '0',
+                    top: '10%',
+                    containLabel: true
+                });
+                var myChart5 = echarts.init(document.getElementById('echarts-5'));
+                Charts(that.choose_data.filter_info, '年度数据', that.choose_data.show_info, myChart5, {
+                    left: '0',
+                    right: '0',
+                    bottom: '0',
+                    top: '10%',
+                    containLabel: true
+                });
+            }
+        }
     })
 </script>
 
