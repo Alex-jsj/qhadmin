@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 12:27:52
+ * @Last Modified time: 2018-01-15 18:01:52
  */
 window.onload = function () {
 	(function () {
@@ -12,6 +12,10 @@ window.onload = function () {
 			$('.header-url').attr('href', localStorage.getItem("headerUrl"));
 			$('.notice-list').addClass(localStorage.getItem("infoHidden"));
 			$('.xitong').addClass(localStorage.getItem("setHidden"));
+			//退出登录
+			$('.sign-out').click(function(){
+				localStorage.clear();
+			});
 		});
 		var footer = $('#footer');
 		footer.load('tpl/footer.html', function () {

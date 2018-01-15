@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 17:07:59
+ * @Last Modified time: 2018-01-15 18:26:35
  */
 .loading {
   width: 100%;
@@ -1231,6 +1231,53 @@ body {
   font-size: 28px;
   position: relative;
   top: 3px;
+}
+#rank .main .component .rank-box .icon-paihang {
+  font-size: 24px;
+  color: #00a0e9;
+  position: relative;
+  top: 1px;
+  opacity: 0;
+}
+#rank .main .component .rank-box .rank-solt {
+  font-size: 20px;
+  color: #888;
+}
+#rank .main .component .rank-box .rank-link {
+  color: #606266;
+}
+#rank .main .component .rank-box .rank-link:hover {
+  color: #00a0e9;
+}
+#rank .main .component .rank-box .el-table tr:nth-child(1) .icon-paihang {
+  color: #00a0e9;
+  opacity: 1;
+}
+#rank .main .component .rank-box .el-table tr:nth-child(1) .rank-solt {
+  font-weight: 600;
+  color: #00a0e9;
+}
+#rank .main .component .rank-box .el-table tr:nth-child(2) .icon-paihang {
+  color: #00b4ed;
+  opacity: 1;
+}
+#rank .main .component .rank-box .el-table tr:nth-child(2) .rank-solt {
+  font-weight: 600;
+  color: #00b4ed;
+}
+#rank .main .component .rank-box .el-table tr:nth-child(3) .icon-paihang {
+  color: #7dcdf4;
+  opacity: 1;
+}
+#rank .main .component .rank-box .el-table tr:nth-child(3) .rank-solt {
+  font-weight: 600;
+  color: #7dcdf4;
+}
+#rank .main .component .rank-box .el-table tr:last-of-type .rank-solt {
+  margin-left: -6px;
+}
+#rank .main .component .rank-box .solt-title.is-leaf {
+  padding-left: 8px;
 }
 #index {
   width: 100%;

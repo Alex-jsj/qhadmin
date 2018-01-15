@@ -38,6 +38,11 @@
                 document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
             }
         })();
+        //判断是否已登录
+        if (!localStorage.getItem("headerName")) { //未登录
+            alert('您还未登录，即将跳转到登录页!');
+            window.location.href = 'login.html';
+        }
     </script>
 </head>
 
@@ -96,7 +101,7 @@
                             </el-table-column>
                             <el-table-column prop="date" label="创建日期" width="100"></el-table-column>
                             <el-table-column prop="author" label="创建人" width="85"></el-table-column>
-                            <el-table-column label="操作" width="250">
+                            <el-table-column label="操作" width="190">
                                 <div slot-scope="scope" class="control-btn">
                                     <el-button size="small" @click.native.prevent="pending(scope.$index, tableInfo)">审核通过</el-button>
                                     <el-button size="small" @click.native.prevent="nopending(scope.$index, tableInfo)" class="control-btn-del">审核不通过</el-button>
@@ -210,8 +215,8 @@
                     column: '联系我们',
                     date: '2017-02-20',
                     author: '吴晓棣',
-                    state: '待审核',
-                    stateClass: 'state2',
+                    state: '未通过',
+                    stateClass: 'state3',
                     count: '684',
                     zip: 200333
                 },

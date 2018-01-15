@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 17:07:59
+ * @Last Modified time: 2018-01-15 18:26:35
  */
 
 @base-color: #54c3f1;
@@ -1183,6 +1183,61 @@ body {
                         position: relative;
                         top: 3px;
                     }
+                }
+                .icon-paihang {
+                    font-size: 24px;
+                    color: @base-color2;
+                    position: relative;
+                    top: 1px;
+                    opacity: 0;
+                }
+                .rank-solt {
+                    font-size: 20px;
+                    color: @base_grey;
+                }
+                .rank-link {
+                    color: @text-color;
+                    &:hover {
+                        color: @base-color2;
+                    }
+                }
+                .el-table tr:nth-child(1) {
+                    .icon-paihang {
+                        color: @base-color2;
+                        opacity: 1;
+                    }
+                    .rank-solt {
+                        font-weight: 600;
+                        color: @base-color2;
+                    }
+                }
+                .el-table tr:nth-child(2) {
+                    .icon-paihang {
+                        color: #00b4ed;
+                        opacity: 1;
+                    }
+                    .rank-solt {
+                        font-weight: 600;
+                        color: #00b4ed;
+                    }
+                }
+                .el-table tr:nth-child(3) {
+                    .icon-paihang {
+                        color: #7dcdf4;
+                        opacity: 1;
+                    }
+                    .rank-solt {
+                        font-weight: 600;
+                        color: #7dcdf4;
+                    }
+                }
+                .el-table tr:last-of-type {
+                    .rank-solt {
+                        margin-left: -6px;
+                    }
+                }
+                .solt-title.is-leaf {
+                    padding-left: 8px;
                 }
             }
         }

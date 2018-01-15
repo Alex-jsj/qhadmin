@@ -38,6 +38,11 @@
                 document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
             }
         })();
+        //判断是否已登录
+        if (!localStorage.getItem("headerName")) { //未登录
+            alert('您还未登录，即将跳转到登录页!');
+            window.location.href = 'login.html';
+        }
     </script>
 </head>
 <!-- 你的浏览器目前处于放大状态，会导致页面显示不正常，你可以键盘按“ctrl+数字0”组合键恢复初始状态。 -->

@@ -103,10 +103,15 @@
                             <span>文章排行榜</span>
                         </p>
                         <el-table :data="article_rank" stripe>
-                            <el-table-column prop="rank" label="排行" width="120"></el-table-column>
+                            <el-table-column label="排行" width="120" class-name="solt-title">
+                                <div slot-scope="scope">
+                                    <i class="iconfont icon-paihang"></i>
+                                    <span class="rank-solt">{{scope.row.rank}}</span>
+                                </div>
+                            </el-table-column>
                             <el-table-column prop="info" label="网站名称">
                                 <div slot-scope="scope">
-                                    <a :href="scope.row.info.url" target="_blank">{{scope.row.info.uid}} - {{scope.row.info.title}}</a>
+                                    <a :href="scope.row.info.url" target="_blank" class="rank-link">{{scope.row.info.uid}} - {{scope.row.info.title}}</a>
                                 </div>
                             </el-table-column>
                         </el-table>
@@ -118,13 +123,18 @@
                             <span>访问量排行榜</span>
                         </p>
                         <el-table :data="visit_rank" stripe>
-                                <el-table-column prop="rank" label="排行" width="120"></el-table-column>
-                                <el-table-column prop="info" label="网站名称">
-                                    <div slot-scope="scope">
-                                        <a :href="scope.row.info.url" target="_blank">{{scope.row.info.uid}} - {{scope.row.info.title}}</a>
-                                    </div>
-                                </el-table-column>
-                            </el-table>
+                            <el-table-column label="排行" width="120" class-name="solt-title">
+                                <div slot-scope="scope">
+                                    <i class="iconfont icon-paihang"></i>
+                                    <span class="rank-solt">{{scope.row.rank}}</span>
+                                </div>
+                            </el-table-column>
+                            <el-table-column prop="info" label="网站名称">
+                                <div slot-scope="scope">
+                                    <a :href="scope.row.info.url" target="_blank" class="rank-link">{{scope.row.info.uid}} - {{scope.row.info.title}}</a>
+                                </div>
+                            </el-table-column>
+                        </el-table>
                     </div>
                 </div>
             </div>
