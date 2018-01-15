@@ -3,7 +3,7 @@
     {
         "iconName": "icon-shujukanban",
         "entryName": "数据看板",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "data_board.html"
     },
     {
         "iconName": "icon-zhandianfangwenpaihang",

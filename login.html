@@ -178,7 +178,9 @@
             top: 0;
             left: 0;
         }
-        <img src="../lADPBY0V4t-RUivNCYHND6A_4000_2433.jpg"/></style>
+
+        <img src="../lADPBY0V4t-RUivNCYHND6A_4000_2433.jpg"/>
+    </style>
 </head>
 
 <body>
@@ -308,32 +310,25 @@
                 var that = this;
                 that.$refs[formName].validate(function (valid) {
                     //跳转地址
-                    var url = null;
+                    var url = "administrators.html";
+                    window.localStorage.setItem("headerUrl", 'administrators.html');
+                    window.localStorage.setItem("infoHidden", 'open');
+                    window.localStorage.setItem("setHidden", 'close');
+                    window.localStorage.setItem("isEditor", false); //判断是否是编辑页面
                     // 演示用账号密码
                     if (that.login_id.username == 'admin1' && that.login_id.password == 'admin1') {
-                        url = "editor.html"; //编辑
                         window.localStorage.setItem("headerName", '沈超(编辑)');
-                        window.localStorage.setItem("headerUrl", 'editor.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
+                        window.localStorage.setItem("jsonUrl", 'entryList2.json');
+                        window.localStorage.setItem("isEditor", true);
                     } else if (that.login_id.username == 'admin2' && that.login_id.password == 'admin2') {
-                        url = "administrators.html"; //管理员
                         window.localStorage.setItem("headerName", '陈泽勇(管理员)');
-                        window.localStorage.setItem("headerUrl", 'administrators.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
+                        window.localStorage.setItem("jsonUrl", 'entryList.json');
                     } else if (that.login_id.username == 'admin3' && that.login_id.password == 'admin3') {
-                        url = "leader.html"; //领导
                         window.localStorage.setItem("headerName", '王欢(领导)');
-                        window.localStorage.setItem("headerUrl", 'leader.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
+                        window.localStorage.setItem("jsonUrl", 'entryList3.json');
                     } else if (that.login_id.username == 'admin4' && that.login_id.password == 'admin4') {
-                        url = "master_administrators.html"; //主站管理员
                         window.localStorage.setItem("headerName", '杜海峰(主站管理员)');
-                        window.localStorage.setItem("headerUrl", 'master_administrators.html');
-                        window.localStorage.setItem("infoHidden", 'open');
-                        window.localStorage.setItem("setHidden", 'close');
+                        window.localStorage.setItem("jsonUrl", 'entryList4.json');
                     } else if (that.login_id.username == 'admin5' && that.login_id.password == 'admin5') {
                         url = "system_administrator.html"; //系统管理员
                         window.localStorage.setItem("headerName", '吴晓棣(系统管理员)');
@@ -341,7 +336,7 @@
                         window.localStorage.setItem("infoHidden", 'close');
                         window.localStorage.setItem("setHidden", 'open');
                     } else {
-                        valid = false;
+                        valid = false;//登陆失败
                     }
                     if (valid) {
                         that.subLoading = true;

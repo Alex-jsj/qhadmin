@@ -42,7 +42,7 @@
 </head>
 
 <body>
-    <div id="articles_list" class="public-wap">
+    <div id="data_board" class="public-wap">
         <!-- 页面未加载完时的loading -->
         <div class="loading" :class="{'loading-close':loading}">
             <i class="el-icon-loading"></i>
@@ -56,26 +56,24 @@
             <div class="component">
                 <!-- 二级菜单 -->
                 <div class="second-menu">
-                    <a href="publish_articles.html" class="float-left">
-                        <el-button type="primary" size="mini">发布文章</el-button>
-                    </a>
-                    <a href="publish_href.html" class="float-left">
-                        <el-button type="primary" size="mini">发布链接</el-button>
-                    </a>
-                    <a href="articles_list.html" class="float-left">
-                        <el-button type="primary" size="mini">文章列表</el-button>
-                    </a>
-                </div>
-                <!-- crumb -->
-                <div class="crumbs">
-                    <ul>
-                        <li class="float-left" v-for="item in crumbs" :key="item.id">
-                            <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                    <ul class="nav-column">
+                        <li v-for="item in nav_column_list" :key="item.id" class="float-left" :class="{'nav_column_list_mini':nav_column_list_mini}">
+                            <a :href="item.entryUrl">
+                                <el-button type="primary" size="mini">{{item.entryName}}</el-button>
+                            </a>
                         </li>
                     </ul>
                 </div>
                 <!-- 表格主体 -->
-                <div class="data-container">
+                <div class="data_board">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,7 +88,7 @@
 <script src="js/public.js"></script>
 <script>
     var app = new Vue({
-        el: '#articles_list',
+        el: '#data_board',
         data: {
             //加载页面
             loading: true,
@@ -107,7 +105,8 @@
                 }
             ],
             //栏目列表
-            nav_column_list: []
+            nav_column_list: [],
+            nav_column_list_mini: false
         },
         watch: {},
         mounted: function () {
@@ -115,7 +114,11 @@
             //改变首页链接
             that.crumbs[0].url = localStorage.getItem('headerUrl');
             //获取栏目列表
-            that.nav_column_list = JSON.parse(localStorage.getItem('column_list'));
+            that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
+            //对大于11个时做处理防止显示错乱
+            if (JSON.parse(localStorage.getItem('nav_column_list')).length > 11) {
+                that.nav_column_list_mini = true;
+            }
         },
         methods: {}
     })

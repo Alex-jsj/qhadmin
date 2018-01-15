@@ -2,16 +2,16 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-15 10:47:33
+ * @Last Modified time: 2018-01-15 12:27:52
  */
 window.onload = function () {
 	(function () {
 		var header = $('#header');
 		header.load('tpl/header.html', function () {
-			$('.header-name').text(sessionStorage.getItem("headerName"));
-			$('.header-url').attr('href', sessionStorage.getItem("headerUrl"));
-			$('.notice-list').addClass(sessionStorage.getItem("infoHidden"));
-			$('.xitong').addClass(sessionStorage.getItem("setHidden"));
+			$('.header-name').text(localStorage.getItem("headerName"));
+			$('.header-url').attr('href', localStorage.getItem("headerUrl"));
+			$('.notice-list').addClass(localStorage.getItem("infoHidden"));
+			$('.xitong').addClass(localStorage.getItem("setHidden"));
 		});
 		var footer = $('#footer');
 		footer.load('tpl/footer.html', function () {

@@ -56,8 +56,8 @@
             <div class="component">
                 <!-- 二级菜单 -->
                 <div class="second-menu">
-                    <ul>
-                        <li v-for="item in nav_column_list" :key="item.id" class="float-left">
+                    <ul class="nav-column">
+                        <li v-for="item in nav_column_list" :key="item.id" class="float-left" :class="{'nav_column_list_mini':nav_column_list_mini}">
                             <a :href="item.entryUrl">
                                 <el-button type="primary" size="mini">{{item.entryName}}</el-button>
                             </a>
@@ -213,6 +213,8 @@
             ],
             //导航栏目
             nav_column_list: [],
+            //导航超过11个时缩小导航
+            nav_column_list_mini: false,
             //选择栏目
             columnSelection: [{
                     value: 0,
@@ -414,33 +416,16 @@
             var that = this;
             //改变首页链接
             that.crumbs[0].url = localStorage.getItem('headerUrl');
-            //获取栏目列表
+            //获取导航栏目列表
             that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
-            console.log(JSON.parse(localStorage.getItem('nav_column_list')))
+            //对大于11个时做处理防止显示错乱
+            if (JSON.parse(localStorage.getItem('nav_column_list')).length > 11) {
+                that.nav_column_list_mini = true;
+            }
             //获取分页数据
             axios({
                 method: "get",
                 url: "./json/paging.json",
-                data: {
-                    //search: search_id
-                },
-                transformRequest: [
-                    function (data) {
-                        let ret = "";
-                        for (var i = 0; i < data.length; i++) {
-                            ret +=
-                                encodeURIComponent(it) +
-                                "=" +
-                                encodeURIComponent(data[it]) +
-                                "&";
-                        }
-                        ret = ret.slice(0, -1); // 去掉最后的空行
-                        return ret;
-                    }
-                ],
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
             }).then(function (response) {
                 var cw = window.innerWidth || document.documentElement.clientWidth || document.body
                     .clientWidth;
