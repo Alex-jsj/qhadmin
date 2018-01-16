@@ -75,11 +75,6 @@ li {
     list-style: none;
 }
 
-em,
-i {
-    font-style: normal;
-}
-
 img {
     width: auto;
     height: auto;
