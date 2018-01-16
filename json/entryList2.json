@@ -11,7 +11,7 @@
     {
         "iconName": "icon-lanmuliebiao",
         "entryName": "栏目列表",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "column_list.html"
     },
     {
         "iconName": "icon-huandengpian",

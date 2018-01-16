@@ -1100,9 +1100,10 @@ body {
   width: 180px;
   height: 80px;
   overflow: hidden;
+  border: 1px solid #54c3f1;
   position: relative;
 }
-.public-wap .carousel_container .carousel-img img {
+.public-wap .carousel_container .carousel-img > img {
   position: absolute;
   top: 50%;
   left: 50%;
