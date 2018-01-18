@@ -3,7 +3,7 @@
 <html>
 
 <head lang="zh-CN">
-    <title>文章排行-站群管理系统</title>
+    <title>站点文章数量排行-站群管理系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
@@ -85,16 +85,14 @@
                     <!-- 文章访问排行 -->
                     <div class="ranks">
                         <!-- <p class="ranks-title">文章访问排行</p> -->
-                        <el-table :data="lookRankings" stripe size="mini">
-                            <el-table-column prop="uid" label="排行" width="50"></el-table-column>
-                            <el-table-column label="标题" width="500">
-                                <a slot-scope="scope" :href="scope.row.url" class="rank-link">{{scope.row.title}}</a>
-                            </el-table-column>
-                            <el-table-column prop="count" label="浏览次数"></el-table-column>
-                            <el-table-column prop="author" label="作者"></el-table-column>
-                            <el-table-column prop="column" label="栏目"></el-table-column>
-                            <el-table-column prop="date" label="创建日期"></el-table-column>
-                            <el-table-column prop="site" label="所属站点"></el-table-column>
+                        <el-table :data="countRankings" stripe size="small">
+                            <el-table-column prop="uid" label="序号" width="50"></el-table-column>
+                            <el-table-column prop="title" label="网站名称" width="300"></el-table-column>
+                            <el-table-column prop="today" label="今日发布"></el-table-column>
+                            <el-table-column prop="thisMonth" label="本月发布"></el-table-column>
+                            <el-table-column prop="lastMonth" label="上月发布"></el-table-column>
+                            <el-table-column prop="thisYear" label="今年发布"></el-table-column>
+                            <el-table-column prop="count" label="总文章数量"></el-table-column>
                         </el-table>
                     </div>
                 </div>
@@ -122,7 +120,7 @@
                     this_page: true
                 },
                 {
-                    name: '文章访问排行',
+                    name: '站点文章数量排行',
                     url: 'javascript:void(0);',
                     this_page: false
                 }
@@ -131,7 +129,7 @@
             nav_column_list: [],
             nav_column_list_mini: false,
             //访问量排行榜
-            lookRankings: []
+            countRankings: []
         },
         mounted: function () {
             var that = this;
@@ -146,9 +144,9 @@
             //文章访问排行榜
             axios({
                 method: "get",
-                url: "./public/lookRankings.json",
+                url: "./public/countRankings.json",
             }).then(function (response) {
-                that.lookRankings = response.data;
+                that.countRankings = response.data;
             }).catch(function (error) {
                 console.log(error);
             });

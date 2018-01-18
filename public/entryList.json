@@ -26,17 +26,17 @@
     {
         "iconName": "icon-piaofuguanggao",
         "entryName": "漂浮广告",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "advertisement_list.html"
     },
     {
         "iconName": "icon-huodongyugao",
         "entryName": "活动预告",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "activity_preview.html"
     },
     {
         "iconName": "icon-jiaoshifengcai",
         "entryName": "教师风采",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "teachers_list.html"
     },
     {
         "iconName": "icon-shujukanban",

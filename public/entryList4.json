@@ -8,7 +8,7 @@
     {
         "iconName": "icon-zhandianfangwenpaihang",
         "entryName": "站点访问排行",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "access_rank.html"
     },
     {
         "iconName": "icon-wenzhangshenhe",
@@ -18,7 +18,7 @@
     {
         "iconName": "icon-zhandianwenzhangshuliangpaihang",
         "entryName": "站点文章数量排行",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "count_rank.html"
     },
     {
         "iconName": "icon-wenzhangfangwenpaihang",
@@ -28,6 +28,6 @@
     {
         "iconName": "icon-chakanwenzhang",
         "entryName": "查看文章",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "articles_list.html"
     }
 ]
