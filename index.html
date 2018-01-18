@@ -225,7 +225,7 @@
             //获取入口列表数据
             axios({
                 method: "get",
-                url: "./public/schoolList",
+                url: './public/schoolList.json',
             }).then(function (response) {
                 that.schoolList = response.data;
             }).catch(function (error) {

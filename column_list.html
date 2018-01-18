@@ -212,7 +212,7 @@
             //获取栏目列表
             axios({
                 method: "get",
-                url: "./public/column_list",
+                url: "./public/column_list.json",
             }).then(function (response) {
                 that.column_list = response.data;
             }).catch(function (error) {

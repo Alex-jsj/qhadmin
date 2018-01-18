@@ -290,7 +290,7 @@
             var endTime = null;
             axios({
                 method: "get",
-                url: "./public/newsList",
+                url: "./public/newsList.json",
                 data: {
                     keyword: that.search_res.keywords,
                 },
@@ -330,7 +330,7 @@
                 var that = this;
                 axios({
                     method: "get",
-                    url: "./public/search",
+                    url: "./public/search.json",
                     data: {
                         keyword: that.search.keyword,
                         option: that.search.option,

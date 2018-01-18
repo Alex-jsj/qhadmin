@@ -369,11 +369,11 @@
                 }
                 that.switch_control = index + 1;
                 if (index == 1) {
-                    url = "./public/accessRankings";
+                    url = "./public/accessRankings.json";
                 } else if (index == 2) {
-                    url = "./public/countRankings";
+                    url = "./public/countRankings.json";
                 } else if (index == 3) {
-                    url = "./public/lookRankings";
+                    url = "./public/lookRankings.json";
                 }
                 axios({
                     method: "get",
@@ -503,7 +503,7 @@
             //获取canvas数据并调用
             axios({
                 method: "get",
-                url: "./public/echart",
+                url: "./public/echart.json",
             }).then(function (response) {
                 var res = response.data;
                 that.today_data = res.today_data;

@@ -103,7 +103,7 @@
                 //获取最新文章列表
                 axios({
                     method: "get",
-                    url: "./public/news",
+                    url: "./public/news.json",
                 }).then(function (response) {
                     that.newsInfo = response.data;
                 }).catch(function (error) {

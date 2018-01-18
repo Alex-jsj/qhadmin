@@ -294,8 +294,8 @@
                 var endTime = null;
                 var that = this;
                 axios({
-                    method: "post",
-                    url: "./public/search",
+                    method: "get",
+                    url: "./public/search.json",
                     data: {
                         keyword: that.search.keyword,
                         option: that.search.option,
