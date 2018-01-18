@@ -103,7 +103,7 @@
                 //获取最新文章列表
                 axios({
                     method: "get",
-                    url: "./json/news.json",
+                    url: "./public/news",
                 }).then(function (response) {
                     that.newsInfo = response.data;
                 }).catch(function (error) {
@@ -113,7 +113,7 @@
             //获取入口列表数据
             axios({
                 method: "get",
-                url: "./json/" + localStorage.getItem('jsonUrl'),
+                url: "./public/" + localStorage.getItem('jsonUrl'),
             }).then(function (response) {
                 //将栏目列表存到localStorage
                 localStorage.setItem('nav_column_list', JSON.stringify(response.data));

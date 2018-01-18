@@ -338,7 +338,7 @@
             //获取入口列表数据
             axios({
                 method: "get",
-                url: "./json/schoolList.json",
+                url: "./public/schoolList",
             }).then(function (response) {
                 that.rankList = response.data;
             }).catch(function (error) {

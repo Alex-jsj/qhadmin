@@ -2,7 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b4aa15e2-e46f-4a0a-ab91-209ef74dd4f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/css/base.css" afterPath="$PROJECT_DIR$/css/base.css" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/administrators.html" afterPath="$PROJECT_DIR$/administrators.html" />
+      <change beforePath="$PROJECT_DIR$/article_rank.html" afterPath="$PROJECT_DIR$/article_rank.html" />
+      <change beforePath="$PROJECT_DIR$/articles_list.html" afterPath="$PROJECT_DIR$/articles_list.html" />
+      <change beforePath="$PROJECT_DIR$/carousel_list.html" afterPath="$PROJECT_DIR$/carousel_list.html" />
+      <change beforePath="$PROJECT_DIR$/column_list.html" afterPath="$PROJECT_DIR$/column_list.html" />
+      <change beforePath="$PROJECT_DIR$/data_board.html" afterPath="$PROJECT_DIR$/data_board.html" />
+      <change beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change beforePath="$PROJECT_DIR$/json/accessRankings.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/all_info.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/countRankings.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/echart.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/entryList.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/entryList2.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/entryList3.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/entryList4.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/lookRankings.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/news.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/newsList.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/paging.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/schoolList.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/json/search.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/login.html" afterPath="$PROJECT_DIR$/login.html" />
+      <change beforePath="$PROJECT_DIR$/news.html" afterPath="$PROJECT_DIR$/news.html" />
+      <change beforePath="$PROJECT_DIR$/pending_articles.html" afterPath="$PROJECT_DIR$/pending_articles.html" />
+      <change beforePath="$PROJECT_DIR$/publish_articles.html" afterPath="$PROJECT_DIR$/publish_articles.html" />
+      <change beforePath="$PROJECT_DIR$/rank.html" afterPath="$PROJECT_DIR$/rank.html" />
+      <change beforePath="$PROJECT_DIR$/search.html" afterPath="$PROJECT_DIR$/search.html" />
+      <change beforePath="$PROJECT_DIR$/system_administrator.html" afterPath="$PROJECT_DIR$/system_administrator.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,7 +74,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -67,6 +95,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -83,8 +113,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -133,15 +161,18 @@
       <workItem from="1515807663859" duration="605000" />
       <workItem from="1515981687279" duration="609000" />
       <workItem from="1516022289913" duration="558000" />
-      <workItem from="1516072340720" duration="1198000" />
+      <workItem from="1516072340720" duration="1797000" />
+      <workItem from="1516240326891" duration="613000" />
+      <workItem from="1516256034051" duration="601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13412000" />
+    <option name="totallyTimeSpent" value="15225000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24868283" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -174,6 +205,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="817">

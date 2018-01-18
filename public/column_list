@@ -1,0 +1,107 @@
+[{
+        "uid": 1,
+        "column_title": "学院概况",
+        "column": "单页",
+        "state": "显示",
+        "leavel": 1,
+        "sort": 1,
+        "leavel2": [{
+                "uid": 8,
+                "column_title": "学校简介",
+                "column": "单页",
+                "state": "显示",
+                "leavel": 2,
+                "sort": 8,
+                "leavel3": [{
+                        "uid": 10,
+                        "column_title": "中文网概况",
+                        "column": "单页",
+                        "state": "显示",
+                        "leavel": 3,
+                        "sort": 13
+                    },
+                    {
+                        "uid": 11,
+                        "column_title": "英文网概况",
+                        "column": "列表",
+                        "state": "显示",
+                        "leavel": 3,
+                        "sort": 14
+                    }
+                ]
+            },
+            {
+                "uid": 9,
+                "column_title": "学校历史",
+                "column": "单页",
+                "state": "显示",
+                "leavel": 2,
+                "sort": 9
+            },
+            {
+                "uid": 10,
+                "column_title": "领导介绍",
+                "column": "单页",
+                "state": "显示",
+                "leavel": 2,
+                "sort": 10
+            },
+            {
+                "uid": 11,
+                "column_title": "校园风光",
+                "column": "列表",
+                "state": "显示",
+                "leavel": 2,
+                "sort": 11
+            }
+        ]
+    },
+    {
+        "uid": 2,
+        "column_title": "学院与学科",
+        "column": "单页",
+        "state": "显示",
+        "leavel": 1,
+        "sort": 2
+    },
+    {
+        "uid": 3,
+        "column_title": "职能部门",
+        "column": "单页",
+        "state": "显示",
+        "leavel": 1,
+        "sort": 3
+    },
+    {
+        "uid": 4,
+        "column_title": "人才培养",
+        "column": "单页",
+        "state": "显示",
+        "leavel": 1,
+        "sort": 4
+    },
+    {
+        "uid": 5,
+        "column_title": "科学研究",
+        "column": "单页",
+        "state": "显示",
+        "leavel": 1,
+        "sort": 5
+    },
+    {
+        "uid": 6,
+        "column_title": "招生就业",
+        "column": "单页",
+        "state": "显示",
+        "leavel": 1,
+        "sort": 6
+    },
+    {
+        "uid": 7,
+        "column_title": "管理与服务",
+        "column": "单页",
+        "state": "隐藏",
+        "leavel": 1,
+        "sort": 7
+    }
+]

@@ -146,7 +146,7 @@
             //文章访问排行榜
             axios({
                 method: "get",
-                url: "./json/lookRankings.json",
+                url: "./public/lookRankings",
             }).then(function (response) {
                 that.lookRankings = response.data;
             }).catch(function (error) {

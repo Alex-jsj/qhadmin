@@ -106,7 +106,7 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="缩略图" class="form-item">
-                            <el-upload action="./upload/upload.json" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+                            <el-upload action="./upload/upload" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
                                 <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar">
                                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>

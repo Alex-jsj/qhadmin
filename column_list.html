@@ -73,7 +73,7 @@
                     </a>
                 </div>
                 <!-- 表格主体 -->
-                <div class="table-container">
+                <div class="table-container column-container">
                     <!-- crumb -->
                     <div class="crumbs">
                         <ul>
@@ -90,29 +90,72 @@
                     </div>
                     <!-- 表格 -->
                     <div class="table-body carousel_container">
-                        <el-table ref="multipleTable" :data="carouselInfo" stripe size="small">
+                        <el-table :data="column_list" stripe size="small">
                             <el-table-column prop="uid" label="ID" width="65"></el-table-column>
-                            <el-table-column prop="title" label="标题" resizable></el-table-column>
-                            <el-table-column prop="column" label="分类" width="65"></el-table-column>
-                            <el-table-column prop="img" label="图片">
-                                <div slot-scope="scope" class="carousel-img">
-                                    <img :src="scope.row.img" />
+                            <el-table-column label="显示子类" type="expand" width="100">
+                                <div slot-scope="props">
+                                    <el-table :data="props.row.leavel2" stripe size="mini" class="second-table">
+                                        <el-table-column prop="uid" width="65"></el-table-column>
+                                        <el-table-column type="expand" width="100">
+                                            <div slot-scope="props">
+                                                <el-table :data="props.row.leavel3" stripe size="mini" class="third-table">
+                                                    <el-table-column prop="uid" width="65"></el-table-column>
+                                                    <el-table-column  width="100" disabled="true"></el-table-column>
+                                                    <el-table-column prop="column_title"></el-table-column>
+                                                    <el-table-column prop="column"></el-table-column>
+                                                    <el-table-column prop="state" width=""></el-table-column>
+                                                    <el-table-column prop="leavel" width="80"></el-table-column>
+                                                    <el-table-column width="60">
+                                                        <div slot-scope="scope" class="table-sort-input">
+                                                            <el-input type="text" size="mini" @blur="sortBlur(scope.$index, column_list)" :value="scope.row.sort">
+                                                        </div>
+                                                    </el-table-column>
+                                                    <el-table-column width="270">
+                                                        <div slot-scope="scope" class="control-btn">
+                                                            <el-button size="small">添加子类</el-button>
+                                                            <el-button size="small">预览</el-button>
+                                                            <el-button size="small">编辑</el-button>
+                                                            <el-button @click.native.prevent="deleteRow(scope.$index, column_list)" size="small" class="control-btn-del">删除</el-button>
+                                                        </div>
+                                                    </el-table-column>
+                                                </el-table>
+                                            </div>
+                                        </el-table-column>
+                                        <el-table-column prop="column_title"></el-table-column>
+                                        <el-table-column prop="column"></el-table-column>
+                                        <el-table-column prop="state" width=""></el-table-column>
+                                        <el-table-column prop="leavel" width="80"></el-table-column>
+                                        <el-table-column width="60">
+                                            <div slot-scope="scope" class="table-sort-input">
+                                                <el-input type="text" size="mini" @blur="sortBlur(scope.$index, column_list)" :value="scope.row.sort">
+                                            </div>
+                                        </el-table-column>
+                                        <el-table-column width="270">
+                                            <div slot-scope="scope" class="control-btn">
+                                                <el-button size="small">添加子类</el-button>
+                                                <el-button size="small">预览</el-button>
+                                                <el-button size="small">编辑</el-button>
+                                                <el-button @click.native.prevent="deleteRow(scope.$index, column_list)" size="small" class="control-btn-del">删除</el-button>
+                                            </div>
+                                        </el-table-column>
+                                    </el-table>
                                 </div>
                             </el-table-column>
-                            <el-table-column prop="imgUrl" label="链接" width="150">
-                                <a :href="scope.row.imgUrl" slot-scope="scope" target="_blank" class="carousel-link">{{scope.row.imgUrl}}</a>
-                            </el-table-column>
-                            <el-table-column label="排序" width="65">
+                            <el-table-column prop="column_title" label="分类名称"></el-table-column>
+                            <el-table-column prop="column" label="类别"></el-table-column>
+                            <el-table-column prop="state" label="状态" width=""></el-table-column>
+                            <el-table-column prop="leavel" label="级别" width="80"></el-table-column>
+                            <el-table-column label="排序" width="60">
                                 <div slot-scope="scope" class="table-sort-input">
-                                    <el-input type="text" size="mini" @blur="sortBlur(scope.$index, carouselInfo)" :value="scope.row.count">
+                                    <el-input type="text" size="mini" @blur="sortBlur(scope.$index, column_list)" :value="scope.row.sort">
                                 </div>
                             </el-table-column>
-                            <el-table-column prop="open" label="启用" width="70"></el-table-column>
-                            <el-table-column prop="date" label="添加时间" width="100"></el-table-column>
-                            <el-table-column label="操作" width="130">
+                            <el-table-column label="操作" width="270">
                                 <div slot-scope="scope" class="control-btn">
+                                    <el-button size="small">添加子类</el-button>
+                                    <el-button size="small">预览</el-button>
                                     <el-button size="small">编辑</el-button>
-                                    <el-button @click.native.prevent="deleteRow(scope.$index, carouselInfo)" size="small" class="control-btn-del">删除</el-button>
+                                    <el-button @click.native.prevent="deleteRow(scope.$index, column_list)" size="small" class="control-btn-del">删除</el-button>
                                 </div>
                             </el-table-column>
                         </el-table>
@@ -135,8 +178,6 @@
         data: {
             //加载页面
             loading: true,
-            //状态class
-            stateClass: 'a',
             //面包屑
             crumbs: [{
                     name: '工作台',
@@ -153,41 +194,8 @@
             nav_column_list: [],
             //导航超过11个时缩小导航
             nav_column_list_mini: false,
-            columnSelectionValue: '',
-            //表格
-            carouselInfo: [{
-                    uid: 1,
-                    title: '学院概况',
-                    type: '单页',
-                    leavel: '2017-02-20',
-                    count: '4',
-                    open: '显示'
-                },
-                {
-                    uid: 2,
-                    title: '学院与学科',
-                    type: '单页',
-                    leavel: '2017-02-20',
-                    count: '3',
-                    open: '显示'
-                },
-                {
-                    uid: 3,
-                    title: '职能部门',
-                    type: '单页',
-                    leavel: '2017-02-20',
-                    count: '2',
-                    open: '显示'
-                },
-                {
-                    uid: 4,
-                    title: '人才培养',
-                    type: '单页',
-                    leavel: '2017-02-20',
-                    count: '1',
-                    open: '隐藏'
-                }
-            ],
+            //栏目列表
+            column_list: [],
             carouselList: [],
         },
         watch: {},
@@ -201,27 +209,36 @@
             if (JSON.parse(localStorage.getItem('nav_column_list')).length > 11) {
                 that.nav_column_list_mini = true;
             }
+            //获取栏目列表
+            axios({
+                method: "get",
+                url: "./public/column_list",
+            }).then(function (response) {
+                that.column_list = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
         },
         methods: {
             //删除表格行
             deleteRow(index, rows) {
-                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                var that = this;
+                that.$confirm('此操作将删除该文件, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
-                }).then(() => {
+                }).then(function () {
                     rows.splice(index, 1);
-                    this.$message({
+                    that.$message({
                         type: 'success',
                         message: '删除成功!'
                     });
-                }).catch(() => {
-                    this.$message({
+                }).catch(function () {
+                    that.$message({
                         type: 'info',
                         message: '已取消删除'
                     });
                 });
-                console.log(this.tableInfo)
             },
             //表格排序
             sortBlur(a, b) {

@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
- * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-15 22:06:15
+ * @Last Modified by: Alex chenzeyongjsj@163.com
+ * @Last Modified time: 2018-01-18 16:33:52
  */
 
 @base-color: #54c3f1;
@@ -1073,6 +1073,35 @@ body {
             &:hover {
                 color: @base-color2;
             }
+        }
+    }
+    /* 栏目列表 */
+    .column-container {
+        .second-table {
+            border-top: 1px solid #ebeef5;
+            .el-table__header-wrapper {
+                display: none;
+            }
+            .el-table__row,
+            .el-table__row>td {
+                background: #e7e7e7;
+            }
+            .el-table__expand-icon>.el-icon {
+                font-size: 12px;
+                left: 50%;
+                top: 50%;
+            }
+        }
+        .el-table__row.expanded {
+            background: #e7e7e7;
+        }
+        .el-table__expanded-cell[class*=cell] {
+            padding: 0 0 20px 0;
+        }
+        .el-table__expand-icon>.el-icon {
+            font-size: 20px;
+            left: 43%;
+            top: 32%;
         }
     }
 }

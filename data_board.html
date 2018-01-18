@@ -212,7 +212,7 @@
             //获取总览数据
             axios({
                 method: "get",
-                url: "./json/all_info.json",
+                url: "./public/all_info",
             }).then(function (response) {
                 that.all_info = response.data;
             }).catch(function (error) {
@@ -221,7 +221,7 @@
             //获取canvas数据并调用
             axios({
                 method: "get",
-                url: "./json/echart.json",
+                url: "./public/echart",
             }).then(function (response) {
                 var res = response.data;
                 that.today_data = res.today_data;

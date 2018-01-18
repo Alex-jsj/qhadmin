@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
- * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-15 22:06:15
+ * @Last Modified by: Alex chenzeyongjsj@163.com
+ * @Last Modified time: 2018-01-18 16:33:52
  */
 .loading {
   width: 100%;
@@ -680,6 +680,7 @@ body {
   /* 数据看板 */
   /* 文章排行 */
   /* 轮播图管理 */
+  /* 栏目列表 */
 }
 .public-wap .main {
   width: 1190px;
@@ -1123,6 +1124,32 @@ body {
 }
 .public-wap .carousel_container .carousel-link:hover {
   color: #00a0e9;
+}
+.public-wap .column-container .second-table {
+  border-top: 1px solid #ebeef5;
+}
+.public-wap .column-container .second-table .el-table__header-wrapper {
+  display: none;
+}
+.public-wap .column-container .second-table .el-table__row,
+.public-wap .column-container .second-table .el-table__row > td {
+  background: #e7e7e7;
+}
+.public-wap .column-container .second-table .el-table__expand-icon > .el-icon {
+  font-size: 12px;
+  left: 50%;
+  top: 50%;
+}
+.public-wap .column-container .el-table__row.expanded {
+  background: #e7e7e7;
+}
+.public-wap .column-container .el-table__expanded-cell[class*=cell] {
+  padding: 0 0 20px 0;
+}
+.public-wap .column-container .el-table__expand-icon > .el-icon {
+  font-size: 20px;
+  left: 43%;
+  top: 32%;
 }
 #sideBar {
   width: 183px;
