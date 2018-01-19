@@ -150,6 +150,11 @@
                 {
                     name: '网页生成',
                     url: 'javascript:void(0);',
+                    this_page: true
+                },
+                {
+                    name: '一键生成',
+                    url: 'javascript:void(0);',
                     this_page: false
                 }
             ],
@@ -206,6 +211,19 @@
                 var url = null;
                 for (var i = 0; i < that.data_display.length; i++) {
                     that.data_display[i].classCon = false;
+                }
+                if (index == 0) {
+                    that.crumbs[2].name = '一键生成';
+                } else if (index == 1) {
+                    that.crumbs[2].name = '生成首页';
+                } else if (index == 2) {
+                    that.crumbs[2].name = '生成频道页';
+                } else if (index == 3) {
+                    that.crumbs[2].name = '生成栏目页';
+                } else if (index == 4) {
+                    that.crumbs[2].name = '生成单页';
+                } else if (index == 5) {
+                    that.crumbs[2].name = '生成内容页';
                 }
                 that.switch_control = index + 1;
                 that.data_display[index].classCon = true;
