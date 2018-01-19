@@ -64,7 +64,7 @@
         <div class="loading" :class="{'loading-close':loading}">
             <i class="el-icon-loading"></i>
         </div>
-        <div id="header" v-html="header_html"></div>
+        <div id="header"></div>
         <!-- component -->
         <div class="main">
             <!-- component -->
@@ -127,9 +127,11 @@
             </div>
         </div>
         <!-- footer -->
-        <div id="footer" v-html="footer_html"></div>
+        <div id="footer"></div>
     </div>
 </body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
 <script src="js/vue.js"></script>
 <script src="js/axios.min.js"></script>
 <script src="js/element.min.js"></script>
@@ -137,12 +139,8 @@
     var app = new Vue({
         el: '#article_rank',
         data: {
-            //header
-            header_html: '',
-            //footer
-            footer_html: '',
             //加载页面
-            loading: false,
+            loading: true,
             //面包屑
             crumbs: [{
                     name: '工作台',
@@ -200,25 +198,6 @@
             if (JSON.parse(localStorage.getItem('nav_column_list')).length > 11) {
                 that.nav_column_list_mini = true;
             }
-            //并发请求
-            function getHeader() {
-                return axios.get('./tpl/header.html');
-            }
-
-            function getFooter() {
-                return axios.get('./tpl/footer.html');
-            }
-            axios.all([getHeader(), getFooter()])
-                .then(axios.spread(function (resH, resF) {
-                    that.header_html = resH.data;
-                    that.footer_html = resF.data;
-                    that.loading = true;
-                    console.log(document.getElementById('header'));
-                    //localStorage.getItem("headerName")
-                    //$('.header-url').attr('href', localStorage.getItem("headerUrl"));
-                    //$('.notice-list').addClass(localStorage.getItem("infoHidden"));
-                    //$('.xitong').addClass(localStorage.getItem("setHidden"));
-                }));
         },
         methods: {
             //切换
