@@ -47,6 +47,18 @@
 </head>
 
 <body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
     <div id="carousel_list" class="public-wap">
         <!-- 页面未加载完时的loading -->
         <div class="loading" :class="{'loading-close':loading}">
@@ -203,8 +215,7 @@
             //栏目检索
             titleSearchValue: '',
             //表格
-            carouselInfo: [
-                {
+            carouselInfo: [{
                     uid: 3,
                     title: '十九大精神学习专题',
                     column: '漂浮广告',

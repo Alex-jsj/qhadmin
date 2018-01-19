@@ -48,6 +48,18 @@
 </head>
 
 <body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
     <div id="publish_articles" class="public-wap">
         <!-- 页面未加载完时的loading -->
         <div class="loading" :class="{'loading-close':loading}">
@@ -340,7 +352,9 @@
             that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
             //实例化编辑器
             var um = UM.getEditor('myEditor');
-            um.setContent('为了进一步有效地激发各级工会组织、广大工会干部和教职工的积极性、创造性，共同推进我校工会工作再上新台阶。同时，把握好奖励的尺度，规范奖励的范围，更是确保工会经费使用面向教职工，使经费运作更加规范合理的基础。根据我院实际，特制订本办法。',true)
+            um.setContent(
+                '为了进一步有效地激发各级工会组织、广大工会干部和教职工的积极性、创造性，共同推进我校工会工作再上新台阶。同时，把握好奖励的尺度，规范奖励的范围，更是确保工会经费使用面向教职工，使经费运作更加规范合理的基础。根据我院实际，特制订本办法。',
+                true)
         },
         methods: {
             //日期格式化

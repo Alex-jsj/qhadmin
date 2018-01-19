@@ -51,6 +51,6 @@
     {
         "iconName": "icon-zhandianxinxi",
         "entryName": "站点信息",
-        "entryUrl": "javascript:void(0);"
+        "entryUrl": "station_site_information.html"
     }
 ]

@@ -182,6 +182,18 @@
 </head>
 
 <body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
     <div id="login">
         <div class="login-header" id="canvas-box">
             <!-- 可更换背景图 -->
@@ -303,7 +315,7 @@
                         window.localStorage.setItem("infoHidden", 'close');
                         window.localStorage.setItem("setHidden", 'open');
                     } else {
-                        valid = false;//登陆失败
+                        valid = false; //登陆失败
                     }
                     if (valid) {
                         that.subLoading = true;

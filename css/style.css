@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-18 17:55:16
+ * @Last Modified time: 2018-01-19 15:13:27
  */
 .loading {
   width: 100%;
@@ -212,7 +212,7 @@ body {
 }
 #header .system-dialog-box-show {
   width: 300px;
-  height: 163px;
+  height: 208px;
   padding: 20px;
   border: 1px solid #888;
 }
@@ -882,6 +882,7 @@ body {
   margin-top: 20px;
   border-radius: 3px;
   /* 图片上传 */
+  /* wechat weibo 二维码上传 */
 }
 .public-wap .form-container .form-box {
   overflow: hidden;
@@ -903,6 +904,10 @@ body {
 }
 .public-wap .form-container .form-item {
   width: 90%;
+}
+.public-wap .form-container .site-item-info {
+  font-size: 14px;
+  color: #606266;
 }
 .public-wap .form-container .form-item-width-2 {
   width: 20%;
@@ -938,6 +943,15 @@ body {
   width: 178px;
   height: 158px;
   display: block;
+}
+.public-wap .form-container .wechat_weibo_uploader {
+  width: 140px;
+  height: 140px;
+}
+.public-wap .form-container .wechat_weibo_uploader .avatar-uploader-icon {
+  width: 140px;
+  height: 140px;
+  line-height: 140px;
 }
 .public-wap .data_board {
   width: 100%;
