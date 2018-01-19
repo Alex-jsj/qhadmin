@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>网页生成-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/element.min.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            //window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+        //判断是否已登录
+        if (!localStorage.getItem("headerName")) { //未登录
+            alert('您还未登录，即将跳转到登录页!');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
+    <div id="article_rank" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- component -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- 二级菜单 -->
+                <div class="second-menu">
+                    <ul class="nav-column">
+                        <li v-for="item in nav_column_list" :key="item.id" class="float-left" :class="{'nav_column_list_mini':nav_column_list_mini}">
+                            <a :href="item.entryUrl">
+                                <el-button type="primary" size="mini">{{item.entryName}}</el-button>
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="javascript:void(0);" class="float-right question">
+                        <i class="el-icon-question"></i>
+                        <span>使用说明</span>
+                    </a>
+                </div>
+                <!-- 表格主体 -->
+                <div class="article_rank">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- menu -->
+                    <div class="data-menu">
+                        <span ref="data" v-for="(item,index) in data_display" :key="item.id" @click="data_switch($event,index)" :class="item.classCon?'span-active':''">{{item.name}}</span>
+                        <i class="line" :style="{left:line_left,width:line_Width}"></i>
+                    </div>
+                    <!-- switch -->
+                    <!-- 一键生成 -->
+                    <div v-if="switch_control == 1">
+                        一键生成
+                    </div>
+                    <!-- 生成首页 -->
+                    <div v-if="switch_control == 2">
+                        生成首页
+                    </div>
+                    <!-- 生成频道页 -->
+                    <div v-if="switch_control == 3">
+                        生成频道页
+                    </div>
+                    <!-- 生成栏目页 -->
+                    <div v-if="switch_control == 4">
+                        生成栏目页
+                    </div>
+                    <!-- 生成单页 -->
+                    <div v-if="switch_control == 5">
+                        生成单页
+                    </div>
+                    <!-- 生成内容页 -->
+                    <div v-if="switch_control == 6">
+                        生成内容页
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
+<script>
+    var app = new Vue({
+        el: '#article_rank',
+        data: {
+            //加载页面
+            loading: true,
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'index.html',
+                    this_page: true
+                },
+                {
+                    name: '网页生成',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                }
+            ],
+            //栏目列表
+            nav_column_list: [],
+            nav_column_list_mini: false,
+            //数据导航
+            data_display: [{
+                    name: '一键生成',
+                    classCon: true
+                },
+                {
+                    name: '生成首页',
+                    classCon: false
+                },
+                {
+                    name: '生成频道页',
+                    classCon: false
+                },
+                {
+                    name: '生成栏目页',
+                    classCon: false
+                },
+                {
+                    name: '生成单页',
+                    classCon: false
+                },
+                {
+                    name: '生成内容页',
+                    classCon: false
+                }
+            ],
+            //line-left
+            line_left: 0,
+            line_Width: 72,
+            //切换控制
+            switch_control: 1,
+        },
+        mounted: function () {
+            var that = this;
+            //改变首页链接
+            that.crumbs[0].url = localStorage.getItem('headerUrl');
+            //获取栏目列表
+            that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
+            //对大于11个时做处理防止显示错乱
+            if (JSON.parse(localStorage.getItem('nav_column_list')).length > 11) {
+                that.nav_column_list_mini = true;
+            }
+        },
+        methods: {
+            //切换
+            data_switch: function (event, index) {
+                var that = this;
+                var url = null;
+                for (var i = 0; i < that.data_display.length; i++) {
+                    that.data_display[i].classCon = false;
+                }
+                that.switch_control = index + 1;
+                that.data_display[index].classCon = true;
+                that.line_left = event.currentTarget.offsetLeft + 'px';
+                that.line_Width = event.currentTarget.offsetWidth + 'px';
+            },
+        }
+    })
+</script>
+
+</html>

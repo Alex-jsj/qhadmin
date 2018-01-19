@@ -11,36 +11,6 @@
     <link rel="stylesheet" href="iconfont/iconfont.css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/element.min.css">
-    <script>
-        /*判断浏览器版本是否过低*/
-        function IETester(userAgent) {
-            var UA = userAgent || navigator.userAgent;
-            if (/msie/i.test(UA)) {
-                return UA.match(/msie (\d+\.\d+)/i)[1];
-            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
-                return UA.match(/rv:(\d+\.\d+)/)[1];
-            }
-            return false;
-        }
-        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
-        if (IETester() == 9.0) {
-            //window.location.href = 'iepoint/index.html';
-        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
-            window.location.href = 'iepoint/index.html';
-        }
-
-        // 动态设置font-size
-        (function () {
-            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-            if (cw < 1921 && cw > 769) {
-                //cw = 1920;
-                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 960) + 'px';
-            }
-            if (cw < 769) {
-                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
-            }
-        })();
-    </script>
     <style>
         .float-left {
             float: left;
@@ -179,6 +149,41 @@
             left: 0;
         }
     </style>
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            //window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 1921 && cw > 769) {
+                //cw = 1920;
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 960) + 'px';
+            }
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+
+        //判断是否已登录
+        if (localStorage.getItem("headerName")) { //已登录
+            window.location.href = 'administrators.html';
+        }
+    </script>
 </head>
 
 <body>
@@ -280,9 +285,6 @@
                 }]
             },
         },
-        mounted: function () {
-            var that = this;
-        },
         methods: {
             //表单提交
             submitForm(formName) {
@@ -336,6 +338,7 @@
         }
     })
 </script>
+<!-- canvas -->
 <script>
     //定义画布宽高和生成点的个数
     var WIDTH = window.innerWidth,
