@@ -100,28 +100,62 @@
                     </div>
                     <!-- switch -->
                     <!-- 一键生成 -->
-                    <div v-if="switch_control == 1">
-                        一键生成
+                    <div v-if="switch_control == 1" class="btn-container">
+                        <el-button type="primary">一键生成首页</el-button>
+                        <el-button type="primary">一键生成所有内容</el-button>
+                        <el-button type="primary">一键生成所有栏目</el-button>
+                        <el-button type="primary">一键生成所有单页</el-button>
+                        <div class="btn-container">
+                            <el-button type="primary">一键生成某时间段内容</el-button>
+                            <el-date-picker v-model="time_slot" type="datetimerange" :picker-options="pickerOptions" range-separator="至" start-placeholder="开始时间"
+                                end-placeholder="结束时间" align="right" @change="time_choose()">
+                            </el-date-picker>
+                        </div>
+                        <div class="btn-container">
+                            <el-button type="primary">一键生成ID端内容</el-button>
+                            <el-input placeholder="请输入ID范围" v-model="id_map" clearable class="id-input"></el-input>
+                            <span class="remarks">指定ID范围，例如：4-9,5000-6000</span>
+                        </div>
                     </div>
                     <!-- 生成首页 -->
-                    <div v-if="switch_control == 2">
-                        生成首页
+                    <div v-if="switch_control == 2" class="btn-container">
+                        <span class="remarks2">选择首页模板</span>
+                        <el-select v-model="selectModules" placeholder="选择首页模板" size="small" class="modules-input">
+                            <el-option v-for="item in modules" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-button type="primary" size="small" class="btn">生成首页</el-button>
                     </div>
                     <!-- 生成频道页 -->
-                    <div v-if="switch_control == 3">
-                        生成频道页
+                    <div v-if="switch_control == 3" class="btn-container">
+                        <span class="remarks2">选择频道</span>
+                        <el-select v-model="selectChannels" placeholder="选择频道" size="small" class="modules-input">
+                            <el-option v-for="item in channels" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-button type="primary" size="small" class="btn">生成频道页</el-button>
                     </div>
                     <!-- 生成栏目页 -->
-                    <div v-if="switch_control == 4">
-                        生成栏目页
+                    <div v-if="switch_control == 4" class="btn-container">
+                        <span class="remarks2">选择栏目</span>
+                        <el-select v-model="selectColumns" placeholder="选择栏目" size="small" class="modules-input">
+                            <el-option v-for="item in columns" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-button type="primary" size="small" class="btn">生成栏目页</el-button>
                     </div>
                     <!-- 生成单页 -->
-                    <div v-if="switch_control == 5">
-                        生成单页
+                    <div v-if="switch_control == 5" class="btn-container">
+                        <span class="remarks2">选择单页</span>
+                        <el-select v-model="selectSingelPages" placeholder="选择单页" size="small" class="modules-input">
+                            <el-option v-for="item in singelPages" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-button type="primary" size="small" class="btn">生成单页</el-button>
                     </div>
                     <!-- 生成内容页 -->
-                    <div v-if="switch_control == 6">
-                        生成内容页
+                    <div v-if="switch_control == 6" class="btn-container">
+                        <span class="remarks2">选择栏目</span>
+                        <el-select v-model="selectContentPages" placeholder="选择单页" size="small" class="modules-input">
+                            <el-option v-for="item in contentPages" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <el-button type="primary" size="small" class="btn">生成内容页</el-button>
                     </div>
                 </div>
             </div>
@@ -149,7 +183,7 @@
                 },
                 {
                     name: '网页生成',
-                    url: 'javascript:void(0);',
+                    url: 'page_generation.html',
                     this_page: true
                 },
                 {
@@ -192,6 +226,123 @@
             line_Width: 72,
             //切换控制
             switch_control: 1,
+            //时间段选择
+            time_slot: [
+                new Date().getTime() - 3600 * 1000,
+                new Date()
+            ],
+            pickerOptions: {
+                shortcuts: [{
+                        text: '最近一小时',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    },
+                    {
+                        text: '最近一天',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 1);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    },
+                    {
+                        text: '最近一周',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    },
+                    {
+                        text: '最近一个月',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    },
+                ]
+            },
+            //ID范围
+            id_map: '0-9',
+            //选择首页模板
+            modules: [{
+                    value: 0,
+                    label: '/template/school-blue/index.html'
+                },
+                {
+                    value: 1,
+                    label: '/template/school-blue/index-20.html'
+                }
+            ],
+            selectModules: '/template/school-blue/index.html',
+            //选择频道
+            channels: [{
+                    value: 0,
+                    label: '新闻中心'
+                },
+                {
+                    value: 1,
+                    label: '图片中心'
+                },
+                {
+                    value: 2,
+                    label: '下载中心'
+                }
+            ],
+            selectChannels: '新闻中心',
+            //选择栏目
+            columns: [{
+                    value: 0,
+                    label: '通知公告'
+                },
+                {
+                    value: 1,
+                    label: '活动预告'
+                },
+                {
+                    value: 2,
+                    label: '教师风采'
+                }
+            ],
+            selectColumns: '通知公告',
+            //选择单页
+            singelPages: [{
+                    value: 0,
+                    label: '系部介绍'
+                },
+                {
+                    value: 1,
+                    label: '领导介绍'
+                },
+                {
+                    value: 2,
+                    label: '联系我们'
+                }
+            ],
+            selectSingelPages: '系部介绍',
+            //选择内容页
+            contentPages: [{
+                    value: 0,
+                    label: '通知公告'
+                },
+                {
+                    value: 1,
+                    label: '最新新闻'
+                },
+                {
+                    value: 2,
+                    label: '活动预告'
+                }
+            ],
+            selectContentPages: '通知公告'
         },
         mounted: function () {
             var that = this;
@@ -230,6 +381,28 @@
                 that.line_left = event.currentTarget.offsetLeft + 'px';
                 that.line_Width = event.currentTarget.offsetWidth + 'px';
             },
+            //时间日期选择
+            time_choose: function () {
+                var that = this;
+
+                function date_filter(date, idx) {
+                    var year = date[idx].getFullYear();
+                    var month = date[idx].getMonth() + 1;
+                    var day = date[idx].getDate();
+                    var hour = date[idx].getHours();
+                    var minute = date[idx].getMinutes();
+                    var second = date[idx].getSeconds();
+                    month < 10 ? (month = "0" + month) : month;
+                    day < 10 ? (month = "0" + day) : day;
+                    hour < 10 ? (hour = "0" + hour) : hour;
+                    minute < 10 ? (minute = "0" + minute) : minute;
+                    second < 10 ? (second = "0" + second) : second;
+                    that.time_slot[idx] = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' +
+                        second;
+                }
+                date_filter(that.time_slot, 0);
+                date_filter(that.time_slot, 1);
+            }
         }
     })
 </script>

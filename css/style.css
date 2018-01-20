@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-19 16:18:39
+ * @Last Modified time: 2018-01-20 14:22:14
  */
 .loading {
   width: 100%;
@@ -1146,6 +1146,31 @@ body {
   -webkit-transition: all 0.3s;
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
+}
+.public-wap .article_rank .btn-container {
+  width: 100%;
+  margin-top: 40px;
+}
+.public-wap .article_rank .btn-container .remarks {
+  color: #606266;
+  font-size: 14px;
+}
+.public-wap .article_rank .btn-container .remarks2 {
+  display: inline-block;
+  width: 90px;
+  color: #606266;
+  font-size: 14px;
+}
+.public-wap .article_rank .btn-container .id-input {
+  width: 20%;
+}
+.public-wap .article_rank .btn-container .modules-input {
+  width: 30%;
+}
+.public-wap .article_rank .btn-container .btn {
+  display: block;
+  margin-left: 95px;
+  margin-top: 20px;
 }
 .public-wap .carousel_container {
   position: relative;
