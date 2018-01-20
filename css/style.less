@@ -2,7 +2,7 @@
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
  * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-20 16:16:12
+ * @Last Modified time: 2018-01-20 17:45:09
  */
 
 @base-color: #54c3f1;
@@ -468,10 +468,9 @@ body {
             }
         }
         .tools {
-            cursor: pointer;
             margin-left: 15px;
             &:hover {
-                .icon-gongjuxiang,
+                >.iconfont,
                 span {
                     color: @text-hover;
                 }
@@ -480,6 +479,8 @@ body {
             span {
                 font-size: 16px;
                 color: @base_grey;
+                cursor: pointer;
+                .transi;
             }
             span {
                 font-size: 14px;
@@ -569,6 +570,98 @@ body {
                     }
                 }
             }
+        }
+    }
+    .cache-dialog {
+        width: 0;
+        height: 0;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        .abso;
+        .transi;
+        z-index: 99999;
+        background: rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        .dialog-container {
+            width: 400px;
+            height: 200px;
+            background: #fff;
+            border-radius: 5px;
+            padding: 10px 15px 15px 15px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            .abso;
+            .transi;
+            .title {
+                font-size: 20px;
+                color: @text-color;
+            }
+            .icon-close {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                font-size: 22px;
+                color: @base_grey;
+                cursor: pointer;
+                .transi;
+                &:hover {
+                    color: @base-color2;
+                    -webkit-transform: rotateZ(180deg) translateZ(0);
+                    -moz-transform: rotateZ(180deg) translateZ(0);
+                    -ms-transform: rotateZ(180deg) translateZ(0);
+                    -o-transform: rotateZ(180deg) translateZ(0);
+                    transform: rotateZ(180deg) translateZ(0);
+                }
+            }
+            .content {
+                margin-top: 40px;
+                font-size: 14px;
+                color: @base_grey;
+            }
+            .btn-container {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                button {
+                    background: #fff;
+                    border: 1px solid #dcdfe6;
+                    color: #606266;
+                    outline: none;
+                    padding: 8px 20px;
+                    font-size: 14px;
+                    border-radius: 4px;
+                    display: inline-block;
+                    line-height: 1;
+                    cursor: pointer;
+                    margin-left: 10px;
+                    .transi;
+                    &:hover {
+                        color: #409eff;
+                        border-color: #c6e2ff;
+                        background-color: #ecf5ff;
+                    }
+                }
+                .sure-btn {
+                    color: #fff;
+                    background-color: #409eff;
+                    border-color: #409eff;
+                    &:hover {
+                        background: #66b1ff;
+                        border-color: #66b1ff;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .cache-dialog-open {
+        width: 100%;
+        height: 100%;
+        .dialog-container {
+            opacity: 1;
         }
     }
 }
@@ -1107,13 +1200,13 @@ body {
                 color: @text-color;
                 font-size: 14px;
             }
-            .id-input{
+            .id-input {
                 width: 20%;
             }
-            .modules-input{
+            .modules-input {
                 width: 30%;
             }
-            .btn{
+            .btn {
                 display: block;
                 margin-left: 95px;
                 margin-top: 20px;
