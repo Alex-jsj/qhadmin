@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-08 10:45:11 
- * @Last Modified by: Alex chenzeyongjsj@163.com
- * @Last Modified time: 2018-01-20 17:42:31
+ * @Last Modified by: alex (chenzeyongjsj@163.com)
+ * @Last Modified time: 2018-01-22 14:19:16
  */
 window.onload = function () {
 	(function () {
@@ -64,10 +64,10 @@ window.onload = function () {
 			}
 			/* 缓存dialog */
 			var chche_box = $('.cache-dialog');
-			$('.cache-btn').click(function(){
+			$('.cache-btn').click(function () {
 				chche_box.addClass('cache-dialog-open');
 			});
-			$('.dialog-close').click(function(){
+			$('.dialog-close').click(function () {
 				chche_box.removeClass('cache-dialog-open');
 			});
 		})
