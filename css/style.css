@@ -321,41 +321,6 @@ body {
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-#quick-nav {
-  width: 100%;
-  height: 36px;
-  background: #54c3f1;
-}
-#quick-nav .quick-container {
-  width: 1190px;
-  height: 100%;
-  margin: 0 auto;
-}
-#quick-nav .quick-container ul::after {
-  content: "";
-  display: block;
-  visibility: hidden;
-  clear: both;
-}
-#quick-nav .quick-container ul li {
-  margin-right: 32px;
-}
-#quick-nav .quick-container ul li a {
-  line-height: 36px;
-  font-size: 14px;
-  color: #fff;
-  position: relative;
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-}
-#quick-nav .quick-container ul li a:hover {
-  color: #1c2a55;
-}
-#quick-nav .quick-container ul li .underline-hover:before {
-  bottom: -2px;
-}
 #nav.web_nav .logo-title {
   color: #00a0e9;
   font-size: 24px;
@@ -461,6 +426,41 @@ body {
 #nav.search-nav .nav-search .el-radio + .el-radio {
   margin-left: 22px;
   line-height: 36px;
+}
+#quick-nav {
+  width: 100%;
+  height: 36px;
+  background: #54c3f1;
+}
+#quick-nav .quick-container {
+  width: 1190px;
+  height: 100%;
+  margin: 0 auto;
+}
+#quick-nav .quick-container ul::after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#quick-nav .quick-container ul li {
+  margin-right: 32px;
+}
+#quick-nav .quick-container ul li a {
+  line-height: 36px;
+  font-size: 14px;
+  color: #fff;
+  position: relative;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+#quick-nav .quick-container ul li a:hover {
+  color: #1c2a55;
+}
+#quick-nav .quick-container ul li .underline-hover:before {
+  bottom: -2px;
 }
 #footer {
   width: 100%;
@@ -616,14 +616,16 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
+  opacity: 0;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
   z-index: 99999;
   background: rgba(0, 0, 0, 0.5);
   overflow: hidden;
@@ -716,6 +718,7 @@ body {
 #footer .cache-dialog-open {
   width: 100%;
   height: 100%;
+  opacity: 1;
 }
 #footer .cache-dialog-open .dialog-container {
   opacity: 1;
@@ -1958,36 +1961,39 @@ body {
 }
 #system_administrator {
   width: 100%;
+  /* 公共包裹元素 */
+  /* 首页 */
+  /* 添加站点 */
 }
-#system_administrator .system-main {
+#system_administrator .public-container {
   width: 990px;
   background: #fff;
   padding: 20px;
   border-radius: 3px;
 }
-#system_administrator .quick-navigation {
+#system_administrator .system-main .quick-navigation {
   padding-top: 48px;
   border-top: 1px solid #d9d9d9;
 }
-#system_administrator .quick-navigation ul::after {
+#system_administrator .system-main .quick-navigation ul::after {
   content: "";
   display: block;
   visibility: hidden;
   clear: both;
 }
-#system_administrator .quick-navigation ul li {
+#system_administrator .system-main .quick-navigation ul li {
   margin-right: 18px;
 }
-#system_administrator .quick-navigation ul li:last-of-type {
+#system_administrator .system-main .quick-navigation ul li:last-of-type {
   margin-right: 0;
 }
-#system_administrator .quick-navigation ul li:hover a {
+#system_administrator .system-main .quick-navigation ul li:hover a {
   -webkit-transform: scale(1.05) translateZ(0);
   -ms-transform: scale(1.05) translateZ(0);
   -o-transform: scale(1.05) translateZ(0);
   transform: scale(1.05) translateZ(0);
 }
-#system_administrator .quick-navigation ul li a {
+#system_administrator .system-main .quick-navigation ul li a {
   display: block;
   width: 175px;
   height: 100px;
@@ -2000,7 +2006,7 @@ body {
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-#system_administrator .quick-navigation ul li a .iconfont {
+#system_administrator .system-main .quick-navigation ul li a .iconfont {
   color: #00a0e9;
   font-size: 40px;
   position: absolute;
@@ -2011,19 +2017,19 @@ body {
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
 }
-#system_administrator .quick-navigation ul li a .icon-quanxianguanli {
+#system_administrator .system-main .quick-navigation ul li a .icon-quanxianguanli {
   font-size: 38px;
 }
-#system_administrator .quick-navigation ul li a .icon-shujubeifen {
+#system_administrator .system-main .quick-navigation ul li a .icon-shujubeifen {
   font-size: 38px;
 }
-#system_administrator .quick-navigation ul li a .icon-fujianguanli {
+#system_administrator .system-main .quick-navigation ul li a .icon-fujianguanli {
   font-size: 33px;
 }
-#system_administrator .quick-navigation ul li a .icon-xitongrizhi {
+#system_administrator .system-main .quick-navigation ul li a .icon-xitongrizhi {
   font-size: 44px;
 }
-#system_administrator .quick-navigation ul li a p {
+#system_administrator .system-main .quick-navigation ul li a p {
   position: absolute;
   left: 50%;
   bottom: 10px;
@@ -2034,17 +2040,17 @@ body {
   color: #888;
   white-space: nowrap;
 }
-#system_administrator .data-display {
+#system_administrator .system-main .data-display {
   margin-top: 46px;
   padding-bottom: 40px;
 }
-#system_administrator .data-display .data-menu {
+#system_administrator .system-main .data-display .data-menu {
   width: 100%;
   height: 40px;
   border-bottom: 1px solid #d9d9d9;
   position: relative;
 }
-#system_administrator .data-display .data-menu span {
+#system_administrator .system-main .data-display .data-menu span {
   font-size: 18px;
   color: #888;
   cursor: pointer;
@@ -2055,16 +2061,16 @@ body {
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-#system_administrator .data-display .data-menu span:last-of-type {
+#system_administrator .system-main .data-display .data-menu span:last-of-type {
   margin-right: 0;
 }
-#system_administrator .data-display .data-menu span:hover {
+#system_administrator .system-main .data-display .data-menu span:hover {
   color: #00a0e9;
 }
-#system_administrator .data-display .data-menu .span-active {
+#system_administrator .system-main .data-display .data-menu .span-active {
   color: #00a0e9;
 }
-#system_administrator .data-display .data-menu .line {
+#system_administrator .system-main .data-display .data-menu .line {
   width: 72px;
   height: 5px;
   background: #00a0e9;
@@ -2076,19 +2082,19 @@ body {
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
 }
-#system_administrator .data-display .data-container {
+#system_administrator .system-main .data-display .data-container {
   margin-top: 50px;
 }
-#system_administrator .data-display .data-container .data-all {
+#system_administrator .system-main .data-display .data-container .data-all {
   margin-bottom: 50px;
 }
-#system_administrator .data-display .data-container .data-all ul::after {
+#system_administrator .system-main .data-display .data-container .data-all ul::after {
   content: "";
   display: block;
   visibility: hidden;
   clear: both;
 }
-#system_administrator .data-display .data-container .data-all ul li {
+#system_administrator .system-main .data-display .data-container .data-all ul li {
   margin-right: 18px;
   display: block;
   width: 175px;
@@ -2098,41 +2104,41 @@ body {
   position: relative;
   text-align: center;
 }
-#system_administrator .data-display .data-container .data-all ul li:last-of-type {
+#system_administrator .system-main .data-display .data-container .data-all ul li:last-of-type {
   margin-right: 0;
 }
-#system_administrator .data-display .data-container .data-all ul li span {
+#system_administrator .system-main .data-display .data-container .data-all ul li span {
   display: block;
   color: #00a0e9;
   font-size: 34px;
   white-space: nowrap;
   margin-top: 11px;
 }
-#system_administrator .data-display .data-container .data-all ul li p {
+#system_administrator .system-main .data-display .data-container .data-all ul li p {
   color: #888;
   white-space: nowrap;
   margin-top: 11px;
 }
-#system_administrator .data-display .data-container .echarts-container {
+#system_administrator .system-main .data-display .data-container .echarts-container {
   width: 100%;
 }
-#system_administrator .data-display .data-container .echarts-container::after {
+#system_administrator .system-main .data-display .data-container .echarts-container::after {
   content: "";
   display: block;
   visibility: hidden;
   clear: both;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-left {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-left {
   width: 500px;
   height: 374px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-left .echarts {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-left .echarts {
   margin-right: 20px;
   margin-bottom: 20px;
   border: 1px solid #c4c5c5;
   padding-bottom: 5px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-left .echarts > p {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-left .echarts > p {
   display: table-cell;
   width: 227px;
   height: 30px;
@@ -2142,53 +2148,53 @@ body {
   padding-left: 5px;
   vertical-align: middle;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right {
   width: 450px;
   height: 374px;
   border: 1px solid #c4c5c5;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title {
   width: 100%;
   height: 30px;
   background: #dcdddd;
   padding-top: 3px;
   margin-bottom: 17px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-date-editor {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-date-editor {
   width: 230px;
   height: 24px;
   margin-left: 12px;
   padding: 0 10px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range__icon {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range__icon {
   line-height: 24px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range-input {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range-input {
   font-size: 12px;
   height: 20px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range-separator {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range-separator {
   width: 12%;
   line-height: 24px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-select {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-select {
   width: 160px;
   margin-right: 10px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-input--mini .el-input__inner {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-input--mini .el-input__inner {
   height: 24px;
 }
-#system_administrator .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range__close-icon {
+#system_administrator .system-main .data-display .data-container .echarts-container .echarts-right .echarts-title .el-range__close-icon {
   position: absolute;
   top: 0;
   right: 0;
 }
-#system_administrator .data-display .data-container .rank-title {
+#system_administrator .system-main .data-display .data-container .rank-title {
   width: 100%;
   height: 40px;
   margin-bottom: 20px;
 }
-#system_administrator .data-display .data-container .rank-title > span {
+#system_administrator .system-main .data-display .data-container .rank-title > span {
   font-size: 14px;
   color: #888;
   margin-left: 10px;
