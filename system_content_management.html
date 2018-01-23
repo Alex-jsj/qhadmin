@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>内容管理-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/element.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            //window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+        //判断是否已登录
+        if (!localStorage.getItem("headerName")) { //未登录
+            alert('您还未登录，即将跳转到登录页!');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
+    <div id="system_administrator" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- main -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- side bar -->
+                <div id="sideBar" class="float-left"></div>
+                <!-- index -->
+                <div class="content-management public-container float-right">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 表格主体 -->
+                    <div class="table-container">
+                        <!-- 表格筛选 -->
+                        <div class="table-filter">
+                            <el-select v-model="siteSelectionValue" clearable placeholder="选择站点" size="mini" class="float-left state-selection">
+                                <el-option v-for="item in siteSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            </el-select>
+                            <el-select v-model="stateValue" clearable placeholder="发布状态" size="mini" class="float-left state-selection">
+                                <el-option v-for="item in stateSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            </el-select>
+                            <el-select v-model="columnSelectionValue" clearable placeholder="栏目" size="mini" class="float-left column-selection">
+                                <el-option v-for="item in columnSelection" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            </el-select>
+                            <el-input placeholder="请输入关键字" v-model="titleSearchValue" class="input-with-select title-search float-right" size="mini">
+                                <el-button slot="append" icon="el-icon-search" @click="articleSearch()"></el-button>
+                            </el-input>
+                        </div>
+                        <!-- 表格 -->
+                        <div class="table-body">
+                            <el-table ref="multipleTable" :data="tableInfo" stripe size="small" @selection-change="handleSelectionChange">
+                                <el-table-column type="selection"></el-table-column>
+                                <el-table-column prop="uid" label="ID" width="50"></el-table-column>
+                                <el-table-column prop="title" label="标题" width="250"></el-table-column>
+                                <el-table-column prop="column" label="栏目" width="100"></el-table-column>
+                                <el-table-column prop="site" label="所属站点" width="120"></el-table-column>
+                                <el-table-column prop="state" label="发布状态" width="90">
+                                    <div slot-scope="scope">
+                                        <el-tag close-transition :class="scope.row.stateClass" size="mini">{{scope.row.state}}</el-tag>
+                                    </div>
+                                </el-table-column>
+                                <el-table-column prop="date" label="创建日期" width="100"></el-table-column>
+                                <el-table-column prop="author" label="创建人" width="85"></el-table-column>
+                                <el-table-column prop="count" label="浏览次数" width="70"></el-table-column>
+                                <el-table-column label="操作" width="250" fixed="right">
+                                    <div slot-scope="scope" class="control-btn">
+                                        <el-button size="small">访问</el-button>
+                                        <el-button size="small">审核</el-button>
+                                        <el-button size="small">编辑</el-button>
+                                        <el-button @click.native.prevent="deleteRow(scope.$index, tableInfo)" size="small" class="control-btn-del">删除</el-button>
+                                    </div>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                        <!-- 表格控制 -->
+                        <div class="table-filter">
+                            <el-button type="primary" size="mini" @click="selection(tableInfo)">全选</el-button>
+                            <el-button type="primary" size="mini" @click="batchDeleting()">批量删除</el-button>
+                            <el-button type="primary" size="mini">批量审核</el-button>
+                        </div>
+                        <!-- 分页 -->
+                        <div class="paging">
+                            <center>
+                                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
+                                    :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
+                                    :total="currentPaging.totals">
+                                </el-pagination>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#system_administrator',
+        data: {
+            //加载页面
+            loading: true,
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'system_administrator.html',
+                    this_page: true
+                },
+                {
+                    name: '站点管理',
+                    url: 'javascript:void(0);',
+                    this_page: true
+                },
+                {
+                    name: '内容管理',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                },
+            ],
+            //分页
+            currentPaging: {},
+            //选择站点
+            siteSelection: [{
+                value: 0,
+                label: '9401中国美术学院'
+            }],
+            siteSelectionValue: '',
+            //选择栏目
+            columnSelection: [{
+                    value: 0,
+                    label: '学术交流'
+                },
+                {
+                    value: 1,
+                    label: '通知公告'
+                },
+                {
+                    value: 2,
+                    label: '下载中心'
+                },
+                {
+                    value: 3,
+                    label: '联系我们'
+                }
+            ],
+            columnSelectionValue: '',
+            //选择发布状态
+            stateSelection: [{
+                    value: 0,
+                    label: '已发'
+                },
+                {
+                    value: 1,
+                    label: '待审'
+                },
+                {
+                    value: 2,
+                    label: '草稿'
+                }
+            ],
+            stateValue: '',
+            //栏目检索
+            titleSearchValue: '',
+            //表格
+            tableInfo: [{
+                    uid: 0,
+                    title: '郎朗独奏音乐会',
+                    column: '学术交流',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '56',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 1,
+                    title: '中国美术学院工会工作奖励和配套资助办法',
+                    column: '学术交流',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '656',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 2,
+                    title: '中国美术学院举行纪念建团95周年活动',
+                    column: '学术交流',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '待审',
+                    stateClass: 'state2',
+                    count: '1',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 3,
+                    title: '“治水最前线”中国美术学院下乡创作实践展开幕',
+                    column: '联系我们',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '684',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 4,
+                    title: '「民族翰骨——潘天寿诞辰120年纪念大展」在中国美术馆开幕',
+                    column: '联系我们',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '草稿',
+                    stateClass: 'state3',
+                    count: '78',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 5,
+                    title: '纪念潘天寿诞辰120周年座谈会举行 刘延东出席并讲话',
+                    column: '通知公告',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '待审',
+                    stateClass: 'state2',
+                    count: '5',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 6,
+                    title: '中国美术学院第八届教代会、第十六届工代会第三次会议隆重举行',
+                    column: '下载中心',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '草稿',
+                    stateClass: 'state3',
+                    count: '875',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 7,
+                    title: '中国美术学院2017-2018年教职工蛋糕（券）供应商',
+                    column: '通知公告',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '54',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 8,
+                    title: '中国美术学院民艺博物馆物业服务项目预中标公告',
+                    column: '下载中心',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '0',
+                    site: '9401中国美术学院'
+                },
+                {
+                    uid: 9,
+                    title: '中国美术学院2017年接受国内访问学者简章',
+                    column: '通知公告',
+                    date: '2017-02-20',
+                    author: '吴晓棣',
+                    state: '已发',
+                    stateClass: 'state1',
+                    count: '1456',
+                    site: '9401中国美术学院'
+                }
+            ],
+            tableList: [],
+        },
+        methods: {
+            //全选
+            selection(rows) {
+                var that = this;
+                if (this.tableInfo.length !== this.tableList.length) {
+                    rows.forEach(function (row) {
+                        that.$refs.multipleTable.toggleRowSelection(row, true);
+                    });
+                } else {
+                    that.$refs.multipleTable.clearSelection();
+                }
+            },
+            //选中的时候触发
+            handleSelectionChange(val) {
+                this.tableList = val;
+                //console.log(val[0].uid)
+                //this.tableInfo.splice(val.uid, 1)
+                //console.log(this.tableList)
+            },
+            //文章检索
+            articleSearch() {
+                console.log(this.titleSearchValue)
+            },
+            //删除表格行
+            deleteRow(index, rows) {
+                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    rows.splice(index, 1);
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+                console.log(this.tableInfo)
+            },
+            //表格排序
+            sortBlur(a, b) {
+                console.log(b[a].uid)
+            },
+            //批量删除
+            batchDeleting() {
+                for (var i = 0; i < this.tableList.length; i++) {
+                    //console.log(this.tableList[i].uid)
+                }
+                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //分页
+            handleSizeChange(val) {
+                this.currentPaging.pageSize = val; // 设置每页显示的条数
+                console.log(this.currentPaging.pageSize);
+            },
+            handleCurrentChange(val) {
+                this.currentPaging.currentPage = val; // 设置当前页
+                console.log(this.currentPaging.currentPage);
+            }
+        },
+        watch: {
+        },
+        mounted: function () {
+            var that = this;
+            //侧边菜单定位
+            window.sessionStorage.setItem("liIndex", 1);
+            window.sessionStorage.setItem("aIndex", 3);
+            //获取分页数据
+            axios({
+                method: "get",
+                url: "./public/paging.json",
+            }).then(function (response) {
+                var cw = window.innerWidth || document.documentElement.clientWidth || document.body
+                    .clientWidth;
+                that.currentPaging = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    })
+</script>
+
+</html>
