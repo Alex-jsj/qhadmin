@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="iconfont/iconfont.css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="plugins/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="css/element.min.css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script>
@@ -59,7 +60,7 @@
         })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
     </script>
     <!-- ↑ 启用前端性能监控 ↑ -->
-    <div id="publish_href" class="public-wap">
+    <div id="publish_articles" class="public-wap">
         <!-- 页面未加载完时的loading -->
         <div class="loading" :class="{'loading-close':loading}">
             <i class="el-icon-loading"></i>
@@ -76,6 +77,11 @@
                         <li v-for="item in nav_column_list" :key="item.id" class="float-left">
                             <a :href="item.entryUrl">
                                 <el-button type="primary" size="mini">{{item.entryName}}</el-button>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="publish_href.html">
+                                <el-button type="primary" size="mini">发链接</el-button>
                             </a>
                         </li>
                     </ul>
@@ -116,6 +122,13 @@
                                 <el-radio label="置顶"></el-radio>
                             </el-radio-group>
                         </el-form-item>
+                        <el-form-item label="缩略图" class="form-item">
+                            <el-upload action="./upload/upload.json" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                                <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </el-form-item>
                         <el-form-item label="来源" class="form-item" prop="comeFrom">
                             <el-select v-model="form.comeFrom" placeholder="请选择栏目" style="width:100%;">
                                 <el-option v-for="item in mainColumnList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
@@ -129,6 +142,10 @@
                         </el-form-item>
                         <el-form-item label="摄影" class="form-item">
                             <el-input v-model="form.photoGraphy"></el-input>
+                        </el-form-item>
+                        <el-form-item label="链接地址" class="form-item" prop="href">
+                            <el-input v-model="form.href"></el-input>
+                            <span>一定要带"http://"</span>
                         </el-form-item>
                         <el-form-item label="文章排序" class="form-item" prop="sort">
                             <el-input v-model.number="form.sort"></el-input>
@@ -161,7 +178,7 @@
 <script src="js/element.min.js"></script>
 <script>
     var app = new Vue({
-        el: '#publish_href',
+        el: '#publish_articles',
         data: {
             //加载页面
             loading: true,
@@ -181,6 +198,10 @@
                     this_page: false
                 }
             ],
+            //导航栏目
+            nav_column_list: [],
+            //导航超过11个时缩小导航
+            nav_column_list_mini: false,
             //表单
             form: {
                 mainColumn: '', //主栏目
@@ -192,6 +213,7 @@
                 author: '', //作者
                 editer: '', //编辑
                 photoGraphy: '', //摄影
+                href: '', //链接地址
                 sort: 100, //文章排序
                 toTop: '', //置顶
                 date: '' //发布日期
@@ -201,6 +223,18 @@
                 title: [{
                         required: true,
                         message: '请输入标题',
+                        trigger: 'blur'
+                    },
+                    {
+                        min: 1,
+                        //max: 5,
+                        message: '内容不能为空',
+                        trigger: 'blur'
+                    }
+                ],
+                href: [{
+                        required: true,
+                        message: '请输入地址',
                         trigger: 'blur'
                     },
                     {
@@ -321,8 +355,9 @@
             },
         },
         mounted: function () {
+            var that = this;
             //改变首页链接
-            this.crumbs[0].url = localStorage.getItem('headerUrl');
+            that.crumbs[0].url = localStorage.getItem('headerUrl');
             //获取导航栏目列表
             that.nav_column_list = JSON.parse(localStorage.getItem('nav_column_list'));
         },
@@ -381,6 +416,5 @@
         }
     })
 </script>
-
 
 </html>

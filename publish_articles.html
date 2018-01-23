@@ -79,6 +79,11 @@
                                 <el-button type="primary" size="mini">{{item.entryName}}</el-button>
                             </a>
                         </li>
+                        <li>
+                            <a href="publish_href.html">
+                                <el-button type="primary" size="mini">发链接</el-button>
+                            </a>
+                        </li>
                     </ul>
                     <a href="javascript:void(0);" class="float-right question">
                         <i class="el-icon-question"></i>
@@ -118,7 +123,8 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="缩略图" class="form-item">
-                            <el-upload action="./upload/upload.json" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                            <el-upload action="./upload/upload.json" class="avatar-uploader" :show-file-list="false" :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
                                 <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar">
                                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                             </el-upload>
