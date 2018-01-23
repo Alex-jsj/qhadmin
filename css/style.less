@@ -915,6 +915,14 @@ body {
                 font-weight: 300;
                 padding: 7px 10px;
             }
+            .control-btn .el-button a {
+                color: #606266;
+            }
+            .control-btn .el-button:hover {
+                a {
+                    color: #00a0e9;
+                }
+            }
             .control-btn .control-btn-del:hover {
                 color: #f56c6c;
                 background: #fef0f0;
@@ -2101,7 +2109,26 @@ body {
     }
     /* 添加站点 */
     .add-site {
-        
+        .item-a {
+            color: @base-color2;
+            .transi;
+            &:hover {
+                color: @text-hover;
+            }
+        }
+    }
+    /* 站点列表 */
+    .site-list {
+        .table-filter {
+            .float-left {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+        .table-container {
+            padding: 0;
+        }
     }
 }
 

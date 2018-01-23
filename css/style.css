@@ -1004,6 +1004,12 @@ body {
   font-weight: 300;
   padding: 7px 10px;
 }
+.public-wap .table-container .table-body .control-btn .el-button a {
+  color: #606266;
+}
+.public-wap .table-container .table-body .control-btn .el-button:hover a {
+  color: #00a0e9;
+}
 .public-wap .table-container .table-body .control-btn .control-btn-del:hover {
   color: #f56c6c;
   background: #fef0f0;
@@ -2009,6 +2015,7 @@ body {
   /* 公共包裹元素 */
   /* 首页 */
   /* 添加站点 */
+  /* 站点列表 */
 }
 #system_administrator .public-container {
   width: 990px;
@@ -2246,6 +2253,23 @@ body {
   font-size: 14px;
   color: #888;
   margin-left: 10px;
+}
+#system_administrator .add-site .item-a {
+  color: #00a0e9;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+#system_administrator .add-site .item-a:hover {
+  color: #1c2a55;
+}
+#system_administrator .site-list .table-filter .float-left a {
+  color: #fff;
+}
+#system_administrator .site-list .table-container {
+  padding: 0;
 }
 #publish_href .component .form-container {
   padding: 20px;

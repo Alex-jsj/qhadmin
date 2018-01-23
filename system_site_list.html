@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>站点列表-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/element.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            //window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+        //判断是否已登录
+        if (!localStorage.getItem("headerName")) { //未登录
+            alert('您还未登录，即将跳转到登录页!');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
+    <div id="system_administrator" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- main -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- side bar -->
+                <div id="sideBar" class="float-left"></div>
+                <!-- index -->
+                <div class="site-list public-container float-right">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- table -->
+                    <div class="table-container">
+                        <!-- 表格筛选 -->
+                        <div class="table-filter">
+                            <el-button size="mini" type="primary" class="float-left">
+                                <a href="system_add_site.html">添加站点</a>
+                            </el-button>
+                            <el-input placeholder="请输入关键字" v-model="titleSearchValue" class="input-with-select title-search float-right" size="mini">
+                                <el-button slot="append" icon="el-icon-search" @click="articleSearch()"></el-button>
+                            </el-input>
+                        </div>
+                        <!-- 表格 -->
+                        <div class="table-body">
+                            <el-table ref="multipleTable" :data="tableInfo" stripe size="small">
+                                <el-table-column prop="uid" label="序号" width="50"></el-table-column>
+                                <el-table-column prop="title" label="站点名称" width="100"></el-table-column>
+                                <el-table-column prop="category" label="类别" width="80"></el-table-column>
+                                <el-table-column prop="code" label="编码" width="60"></el-table-column>
+                                <el-table-column prop="alias" label="别名" width="60"></el-table-column>
+                                <el-table-column prop="domain_name" label="域名" width="120"></el-table-column>
+                                <el-table-column prop="date" label="创建时间" width="90"></el-table-column>
+                                <el-table-column prop="state" label="状态" width="60"></el-table-column>
+                                <el-table-column label="排序" width="50">
+                                    <div slot-scope="scope" class="table-sort-input">
+                                        <el-input type="text" size="mini" @blur="sortBlur(scope.$index, tableInfo)" :value="scope.row.count">
+                                    </div>
+                                </el-table-column>
+                                <el-table-column label="操作" width="500" fixed="right">
+                                    <div slot-scope="scope" class="control-btn">
+                                        <el-button size="mini">
+                                            <a :href="scope.row.url">访问</a>
+                                        </el-button>
+                                        <el-button size="mini">切换</el-button>
+                                        <el-button size="mini">编辑</el-button>
+                                        <el-button size="mini">更新缓存</el-button>
+                                        <el-button size="mini">数据备份</el-button>
+                                        <el-button size="mini">数据恢复</el-button>
+                                        <el-button @click.native.prevent="deleteRow(scope.$index, tableInfo)" size="mini" class="control-btn-del">删除</el-button>
+                                    </div>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                        <!-- 分页 -->
+                        <div class="paging">
+                            <center>
+                                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
+                                    :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
+                                    :total="currentPaging.totals">
+                                </el-pagination>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#system_administrator',
+        data: {
+            //加载页面
+            loading: true,
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'system_administrator.html',
+                    this_page: true
+                },
+                {
+                    name: '站点管理',
+                    url: 'javascript:void(0);',
+                    this_page: true
+                },
+                {
+                    name: '站点列表',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                },
+            ],
+            //分页
+            currentPaging: {},
+            //栏目检索
+            titleSearchValue: '',
+            //表格
+            tableInfo: [{
+                    uid: 0,
+                    title: '中国美术学院',
+                    category: '机关单位',
+                    code: 9104,
+                    alias: 'caa',
+                    domain_name: 'www.caa.edu.cn',
+                    date: '2017-02-20',
+                    state: '正常',
+                    count: 1,
+                    url: ''
+                },
+                {
+                    uid: 1,
+                    title: '教务处',
+                    category: '机关单位',
+                    code: 9109,
+                    alias: 'caa',
+                    domain_name: 'jwc.caa.edu.cn',
+                    date: '2017-02-20',
+                    state: '正常',
+                    count: 2,
+                    url: 'javascript:void(0);'
+                },
+            ],
+            tableList: [],
+        },
+        methods: {
+            //检索
+            articleSearch() {
+                console.log(this.titleSearchValue)
+            },
+            //删除表格行
+            deleteRow(index, rows) {
+                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    rows.splice(index, 1);
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+                console.log(this.tableInfo)
+            },
+            //表格排序
+            sortBlur(a, b) {
+                console.log(b[a].uid)
+            },
+            //分页
+            handleSizeChange(val) {
+                this.currentPaging.pageSize = val; // 设置每页显示的条数
+                console.log(this.currentPaging.pageSize);
+            },
+            handleCurrentChange(val) {
+                this.currentPaging.currentPage = val; // 设置当前页
+                console.log(this.currentPaging.currentPage);
+            }
+        },
+        watch: {
+            //分页
+            total: function (newVal, oldVal) {
+                console.log(newVal)
+            },
+        },
+        mounted: function () {
+            var that = this;
+            //侧边菜单定位
+            window.sessionStorage.setItem("liIndex", 1);
+            window.sessionStorage.setItem("aIndex", 1);
+            //获取分页数据
+            axios({
+                method: "get",
+                url: "./public/paging.json",
+            }).then(function (response) {
+                var cw = window.innerWidth || document.documentElement.clientWidth || document.body
+                    .clientWidth;
+                that.currentPaging = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    })
+</script>
+
+</html>
