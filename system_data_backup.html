@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang="zh-CN">
+    <title>数据备份-站群管理系统</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/element.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        /*判断浏览器版本是否过低*/
+        function IETester(userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
+        }
+        //console.log(IETester());//不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        if (IETester() == 9.0) {
+            //window.location.href = 'iepoint/index.html';
+        } else if (IETester() == 8.0 || IETester() == 7.0 || IETester() == 6.0 || IETester() == 5.0) {
+            window.location.href = 'iepoint/index.html';
+        }
+
+        // 动态设置font-size
+        (function () {
+            var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if (cw < 769) {
+                document.getElementsByTagName("html")[0].style.fontSize = 20 * (cw / 375) + 'px';
+            }
+        })();
+        //判断是否已登录
+        if (!localStorage.getItem("headerName")) { //未登录
+            alert('您还未登录，即将跳转到登录页!');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+        !(function (c, b, d, a) {
+            c[a] || (c[a] = {});
+            c[a].config = {
+                pid: "b1gea23itb@5ad4b345f120f16",
+                imgUrl: "https://arms-retcode.aliyuncs.com/r.png?"
+            };
+            with(b) with(body) with(insertBefore(createElement("script"), firstChild)) setAttribute("crossorigin",
+                "", src = d)
+        })(window, document, "https://retcode.alicdn.com/retcode/bl.js", "__bl");
+    </script>
+    <!-- ↑ 启用前端性能监控 ↑ -->
+    <div id="system_administrator" class="public-wap">
+        <!-- 页面未加载完时的loading -->
+        <div class="loading" :class="{'loading-close':loading}">
+            <i class="el-icon-loading"></i>
+        </div>
+        <!-- header -->
+        <div id="header"></div>
+        <!-- main -->
+        <div class="main">
+            <!-- component -->
+            <div class="component">
+                <!-- side bar -->
+                <div id="sideBar" class="float-left"></div>
+                <!-- index -->
+                <div class="data-backup public-container float-right">
+                    <!-- crumb -->
+                    <div class="crumbs">
+                        <ul>
+                            <li class="float-left" v-for="item in crumbs" :key="item.id">
+                                <a :href="item.url" class="float-left" :class="{'a-active':item.this_page}" v-cloak>{{item.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="second-menu">
+                        <ul class="nav-column">
+                            <li class="float-left">
+                                <a href="javascript:void(0);">
+                                    <el-button type="primary" size="mini">自动备份设置</el-button>
+                                </a>
+                            </li>
+                            <li class="float-left">
+                                <a href="javascript:void(0);">
+                                    <el-button type="primary" size="mini">数据恢复</el-button>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="javascript:void(0);" class="float-right question">
+                            <i class="el-icon-question"></i>
+                            <span>数据备份常见问题解答</span>
+                        </a>
+                    </div>
+                    <!-- 表单 -->
+                    <el-form ref="form" :model="form" :rules="rules" status-icon size="mini" label-position="right" class="form-box">
+                        <el-form-item>
+                            <p class="backup-title">请选择备份类型</p>
+                        </el-form-item>
+                        <el-form-item class="form-item">
+                            <el-radio v-model="backup_type" label="备份数据（日常维护推荐使用只备份数据）" @change="backup"></el-radio>
+                        </el-form-item>
+                        <el-form-item class="form-item">
+                            <el-radio v-model="backup_type" label="全备份（包含所有站点文件数据及数据库）" @change="backup"></el-radio>
+                            <el-checkbox-group v-model="form.backup_choose" style="margin-left:24px;" v-if="form.backup_type==1?true:false">
+                                <el-checkbox label="文件增量备份"></el-checkbox>
+                                <el-checkbox label="不备份大文件"></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                        <el-form-item class="form-item">
+                            <el-button type="primary">立即备份</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div id="footer"></div>
+    </div>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/public.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/element.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#system_administrator',
+        data: {
+            //加载页面
+            loading: true,
+            //面包屑
+            crumbs: [{
+                    name: '工作台',
+                    url: 'system_administrator.html',
+                    this_page: true
+                },
+                {
+                    name: '站点管理',
+                    url: 'javascript:void(0);',
+                    this_page: true
+                },
+                {
+                    name: '数据备份',
+                    url: 'javascript:void(0);',
+                    this_page: false
+                },
+            ],
+            //单选
+            backup_type: '备份数据（日常维护推荐使用只备份数据）',
+            //form
+            form: {
+                backup_type: 0, //备份类型
+                backup_choose: []
+            },
+            //表单验证
+            rules: {
+                attribute: [{
+                    required: true,
+                    message: '请选择属性',
+                    trigger: 'change'
+                }]
+            },
+        },
+        methods: {
+            backup: function (value) {
+                if (value == '备份数据（日常维护推荐使用只备份数据）') {
+                    this.form.backup_type = 0;
+                    this.form.backup_choose = [];
+                } else if (value == '全备份（包含所有站点文件数据及数据库）') {
+                    this.form.backup_type = 1;
+                }
+            }
+        },
+        mounted: function () {
+            var that = this;
+            //侧边菜单定位
+            window.sessionStorage.setItem("liIndex", 1);
+            window.sessionStorage.setItem("aIndex", 3);
+        }
+    })
+</script>
+
+</html>

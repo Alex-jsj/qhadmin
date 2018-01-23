@@ -2016,6 +2016,7 @@ body {
   /* 首页 */
   /* 添加站点 */
   /* 站点列表 */
+  /* 数据备份 */
 }
 #system_administrator .public-container {
   width: 990px;
@@ -2270,6 +2271,13 @@ body {
 }
 #system_administrator .site-list .table-container {
   padding: 0;
+}
+#system_administrator .data-backup .second-menu {
+  padding: 0;
+}
+#system_administrator .data-backup .backup-title {
+  font-size: 16px;
+  color: #606266;
 }
 #publish_href .component .form-container {
   padding: 20px;
