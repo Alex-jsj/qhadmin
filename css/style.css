@@ -1,8 +1,8 @@
 /*
  * @Author: Alex chenzeyongjsj@163.com 
  * @Date: 2018-01-05 10:30:14 
- * @Last Modified by: alex (chenzeyongjsj@163.com)
- * @Last Modified time: 2018-01-22 14:19:56
+ * @Last Modified by: Alex chenzeyongjsj@163.com
+ * @Last Modified time: 2018-01-24 15:35:10
  */
 .loading {
   width: 100%;
@@ -2017,6 +2017,7 @@ body {
   /* 添加站点 */
   /* 站点列表 */
   /* 数据备份 */
+  /* 添加附件 */
 }
 #system_administrator .public-container {
   width: 990px;
@@ -2279,33 +2280,12 @@ body {
   font-size: 16px;
   color: #606266;
 }
-#publish_href .component .form-container {
-  padding: 20px;
-  background: #fff;
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 3px;
+#system_administrator .add-enclosure .second-menu {
+  padding: 0;
 }
-#publish_href .component .form-container .form-box {
-  overflow: hidden;
-  margin-top: 20px;
-  position: relative;
-  padding-bottom: 50px;
-}
-#publish_href .component .form-container .form-box::after {
-  content: "";
-  display: block;
-  visibility: hidden;
-  clear: both;
-}
-#publish_href .component .form-container .form-box .el-form-item {
-  float: left;
-}
-#publish_href .component .form-container .form-box .form-control-btn {
-  margin-top: 20px;
-}
-#publish_href .component .form-container .form-item {
-  width: 90%;
+#system_administrator .add-enclosure .prompt {
+  width: 660px;
+  color: #606266;
 }
 .open {
   display: block;
