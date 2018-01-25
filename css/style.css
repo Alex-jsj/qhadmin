@@ -2018,6 +2018,7 @@ body {
   /* 站点列表 */
   /* 数据备份 */
   /* 添加附件 */
+  /* 附件列表 */
 }
 #system_administrator .public-container {
   width: 990px;
@@ -2286,6 +2287,9 @@ body {
 #system_administrator .add-enclosure .prompt {
   width: 660px;
   color: #606266;
+}
+#system_administrator .enclosure-list.table-container {
+  margin-top: 0;
 }
 .open {
   display: block;
