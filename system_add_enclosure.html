@@ -198,10 +198,6 @@
                             type: 'success',
                             message: '提交成功!'
                         });
-                        setTimeout(function () { //提交成功后跳转到文章列表页面
-                            window.location.href = "articles_list.html";
-                        }, 1000)
-                        console.log(that.form.date);
                     } else {
                         that.subLoading = false;
                         that.$message.error('提交失败!');
