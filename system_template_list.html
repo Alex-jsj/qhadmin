@@ -3,7 +3,7 @@
 <html>
 
 <head lang="zh-CN">
-    <title>组件列表-站群管理系统</title>
+    <title>模板列表-站群管理系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
@@ -87,45 +87,40 @@
                         <!-- 表格筛选 -->
                         <div class="table-filter">
                             <el-button size="mini" type="primary" class="float-left">
-                                <a href="system_add_component.html">添加组件</a>
+                                <a href="system_add_template.html">添加模板</a>
                             </el-button>
                             <el-input placeholder="请输入关键字" v-model="titleSearchValue" class="input-with-select title-search float-right" size="mini">
                                 <el-button slot="append" icon="el-icon-search" @click="articleSearch()"></el-button>
                             </el-input>
                         </div>
-                        <!-- 表格 -->
-                        <div class="table-body">
-                            <el-table ref="multipleTable" :data="tableInfo" stripe size="small">
-                                <el-table-column prop="uid" label="ID" width="50"></el-table-column>
-                                <el-table-column prop="title" label="组件名称" width="160"></el-table-column>
-                                <el-table-column prop="date" label="发布时间" width="100"></el-table-column>
-                                <el-table-column prop="team" label="开发团队" width="100"></el-table-column>
-                                <el-table-column prop="code" label="编码" width="100"></el-table-column>
-                                <el-table-column prop="category" label="类型" width="100"></el-table-column>
-                                <el-table-column prop="state" label="状态" width="100"></el-table-column>
-                                <el-table-column label="排序" width="50">
-                                    <div slot-scope="scope" class="table-sort-input">
-                                        <el-input type="text" size="mini" @blur="sortBlur(scope.$index, tableInfo)" :value="scope.row.count">
+                        <!-- template-list -->
+                        <div class="template-list">
+                            <ul>
+                                <li v-for="item in templates" :key="item.id">
+                                    <p class="template-title">{{item.template_title}}</p>
+                                    <ol>
+                                        <li v-for="list in item.template_list" :key="list.id" class="float-left">
+                                            <div class="template-img-box">
+                                                <img :src="list.img_url" alt="">
+                                            </div>
+                                            <p class="t-name">{{list.template_name}}</p>
+                                            <div class="t-url">
+                                                <a :href="list.edit_url">编辑</a>
+                                                <a :href="list.look_url" target="_blank">预览</a>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                    <!-- 分页 -->
+                                    <div class="paging">
+                                        <center>
+                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
+                                                :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
+                                                :total="currentPaging.totals">
+                                            </el-pagination>
+                                        </center>
                                     </div>
-                                </el-table-column>
-                                <el-table-column label="操作">
-                                    <div slot-scope="scope" class="control-btn">
-                                        <el-button size="mini" v-if="scope.row.state_value">卸载</el-button>
-                                        <el-button size="mini" v-else>安装</el-button>
-                                        <el-button size="mini">授权</el-button>
-                                        <el-button @click.native.prevent="deleteRow(scope.$index, tableInfo)" size="mini" class="control-btn-del">删除</el-button>
-                                    </div>
-                                </el-table-column>
-                            </el-table>
-                        </div>
-                        <!-- 分页 -->
-                        <div class="paging">
-                            <center>
-                                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
-                                    :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
-                                    :total="currentPaging.totals">
-                                </el-pagination>
-                            </center>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -153,162 +148,27 @@
                     this_page: true
                 },
                 {
-                    name: '组件管理',
+                    name: '模板管理',
                     url: 'javascript:void(0);',
                     this_page: true
                 },
                 {
-                    name: '组件列表',
+                    name: '模板列表',
                     url: 'javascript:void(0);',
                     this_page: false
                 },
             ],
             //分页
             currentPaging: {},
-            //栏目检索
+            //模板检索
             titleSearchValue: '',
-            //表格
-            tableInfo: [{
-                    uid: 1,
-                    title: '党员生日',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 1,
-                },
-                {
-                    uid: 2,
-                    title: '纪委举报',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 2,
-                },
-                {
-                    uid: 3,
-                    title: '活动预告',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 3,
-                },
-                {
-                    uid: 4,
-                    title: '轮播图',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 4,
-                },
-                {
-                    uid: 5,
-                    title: '友情链接',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 5,
-                },
-                {
-                    uid: 6,
-                    title: '留言反馈',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 6,
-                },
-                {
-                    uid: 7,
-                    title: '微信登录',
-                    team: '腾讯科技',
-                    category: '第三方组件',
-                    code: 'GBK UTF8',
-                    date: '2017-02-20',
-                    state: '未安装',
-                    state_value: false,
-                    count: 7,
-                },
-                {
-                    uid: 8,
-                    title: '支付宝登录',
-                    team: '蚂蚁金服',
-                    category: '第三方组件',
-                    code: 'GBK UTF8',
-                    date: '2017-02-20',
-                    state: '未安装',
-                    state_value: false,
-                    count: 8,
-                },
-                {
-                    uid: 9,
-                    title: '漂浮图标',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 9,
-                },
-                {
-                    uid: 10,
-                    title: '教师风采',
-                    team: '启焕科技',
-                    category: '组件',
-                    code: 'UTF8',
-                    date: '2017-02-20',
-                    state: '已安装',
-                    state_value: true,
-                    count: 10,
-                }
-            ],
-            tableList: [],
+            //模板列表
+            templates: {}
         },
         methods: {
             //检索
             articleSearch() {
                 console.log(this.titleSearchValue)
-            },
-            //删除表格行
-            deleteRow(index, rows) {
-                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    rows.splice(index, 1);
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
-                console.log(this.tableInfo)
-            },
-            //表格排序
-            sortBlur(a, b) {
-                console.log(b[a].uid)
             },
             //分页
             handleSizeChange(val) {
@@ -329,19 +189,23 @@
         mounted: function () {
             var that = this;
             //侧边菜单定位
-            window.sessionStorage.setItem("liIndex", 3);
+            window.sessionStorage.setItem("liIndex", 4);
             window.sessionStorage.setItem("aIndex", 1);
             //获取分页数据
-            axios({
-                method: "get",
-                url: "./public/paging.json",
-            }).then(function (response) {
-                var cw = window.innerWidth || document.documentElement.clientWidth || document.body
-                    .clientWidth;
-                that.currentPaging = response.data;
-            }).catch(function (error) {
-                console.log(error);
-            });
+            function get_paging() {
+                return axios.get('./public/paging.json');
+            }
+
+            function get_template_list() {
+                return axios.get('./public/template.json');
+            }
+
+            axios.all([get_paging(), get_template_list()])
+                .then(axios.spread(function (paging, template) {
+                    // 两个请求现在都执行完成
+                    that.currentPaging = paging.data;
+                    that.templates = template.data;
+                }));
         }
     })
 </script>

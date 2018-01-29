@@ -1,0 +1,105 @@
+[{
+        "template_title": "整站模板",
+        "template_list": [{
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "大学典雅蓝风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            }
+        ]
+    },
+    {
+        "template_title": "组件模板",
+        "template_list": [{
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            },
+            {
+                "img_url": "./images/template.jpg",
+                "template_name": "组件模板风格",
+                "edit_url": "system_add_template.html",
+                "look_url": "javascript:void(0);"
+            }
+        ]
+    }
+]
