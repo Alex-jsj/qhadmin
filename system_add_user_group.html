@@ -3,7 +3,7 @@
 <html>
 
 <head lang="zh-CN">
-    <title>添加用户-站群管理系统</title>
+    <title>添加用户组-站群管理系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
@@ -86,30 +86,8 @@
                     <div class="form-container">
                         <!-- 表单 -->
                         <el-form ref="form" :model="form" :rules="rules" status-icon label-width="125px" size="mini" label-position="right">
-                            <el-form-item label="登录用户名" class="form-item" prop="user_name">
-                                <el-input v-model="form.uesr_name"></el-input>
-                            </el-form-item>
-                            <el-form-item label="姓名" class="form-item">
-                                <el-input v-model="form.name"></el-input>
-                            </el-form-item>
-                            <el-form-item label="登录密码" class="form-item" prop="password">
-                                <el-input v-model="form.password"></el-input>
-                                <span class="site-item-info">最少6位，英文与数字或下划线组合</span>
-                            </el-form-item>
-                            <el-form-item label="用户组" class="form-item" prop="user_group">
-                                <el-select v-model="form.user_group" clearable size="mini">
-                                    <el-option v-for="item in user_group_list" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="所属部门" class="form-item" prop="subordinateDepartmentValue">
-                                <el-select v-model="form.subordinateDepartmentValue" clearable size="mini">
-                                    <el-option v-for="item in subordinateDepartment" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="管理站点" class="form-item" prop="site">
-                                <el-select v-model="form.site" clearable size="mini">
-                                    <el-option v-for="item in site_list" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                                </el-select>
+                            <el-form-item label="用户组名" class="form-item" prop="user_group_name">
+                                <el-input v-model="form.uesr_group_name"></el-input>
                             </el-form-item>
                             <el-form-item label="是否开启" class="form-item">
                                 <el-switch v-model="form.open" active-color="#13ce66" inactive-color="#aaa"></el-switch>
@@ -158,158 +136,37 @@
                     this_page: true
                 },
                 {
-                    name: '用户管理',
+                    name: '用户组管理',
                     url: 'javascript:void(0);',
                     this_page: true
                 },
                 {
-                    name: '添加用户',
+                    name: '添加用户组',
                     url: 'javascript:void(0);',
                     this_page: false
                 },
             ],
             //表单
             form: {
-                user_name: '', //用户名
-                name: '', //姓名
-                subordinateDepartmentValue: '', //所属部门
-                password: '', //密码
-                user_group: '', //用户组
-                site: '', //管理站点
+                user_group_name: '', //用户名
                 remarks: '', //备注
                 open: true, //是否开启
                 close_info: '' //关闭原因
             },
             //表单验证
             rules: {
-                user_name: [{
+                user_group_name: [{
                         required: true,
-                        message: '请输入用户名',
+                        message: '请输入用户组名',
                         trigger: 'blur'
                     },
                     {
                         min: 1,
-                        message: '用户名不能为空',
+                        message: '用户组名不能为空',
                         trigger: 'blur'
                     }
                 ],
-                close_info: [{
-                        required: true,
-                        message: '请输入关闭原因',
-                        trigger: 'blur'
-                    },
-                    {
-                        min: 1,
-                        max: 50,
-                        message: '不能超过50个字',
-                        trigger: 'blur'
-                    }
-                ],
-                password: [{
-                    required: true,
-                    validator: function (rule, value, callback) {
-                        var reg = /^[0-9a-zA-Z_]{6,12}$/; //6-12位数字字母下划线
-                        if (!value) {
-                            callback(new Error('密码不能为空'));
-                        } else if (reg.test(value) == false) {
-                            callback(new Error('密码必须为数字/字母/下划线,长度6-12位之间'));
-                        } else {
-                            callback();
-                        }
-                    },
-                    trigger: 'blur'
-                }],
-                user_group: [{
-                    required: true,
-                    message: '请选择用户组',
-                    trigger: 'change'
-                }],
-                subordinateDepartmentValue: [{
-                    required: true,
-                    message: '请选择所属部门',
-                    trigger: 'change'
-                }],
-                site: [{
-                    required: true,
-                    message: '请选择站点',
-                    trigger: 'change'
-                }],
-            },
-            subordinateDepartment: [{
-                    value: 0,
-                    label: '党员办'
-                },
-                {
-                    value: 1,
-                    label: '组织人事'
-                },
-                {
-                    value: 2,
-                    label: '纪监审办公室'
-                },
-                {
-                    value: 3,
-                    label: '宣传部'
-                },
-                {
-                    value: 4,
-                    label: '研究生工作部'
-                },
-                {
-                    value: 5,
-                    label: '学生工作部'
-                },
-                {
-                    value: 6,
-                    label: '网络中心'
-                },
-                {
-                    value: 7,
-                    label: '教务处'
-                },
-                {
-                    value: 8,
-                    label: '招生办公室'
-                },
-                {
-                    value: 9,
-                    label: '科研创作处'
-                },
-                {
-                    value: 10,
-                    label: '外事处'
-                },
-                {
-                    value: 11,
-                    label: '计划财务处'
-                },
-                {
-                    value: 12,
-                    label: '校园建设和管理处'
-                },
-                {
-                    value: 13,
-                    label: '工会'
-                },
-                {
-                    value: 14,
-                    label: '保卫处'
-                }
-            ],
-            user_group_list: [{
-                    value: 0,
-                    label: '系统超级管理员'
-                },
-                {
-                    value: 1,
-                    label: '分站管理员'
-                },
-                {
-                    value: 2,
-                    label: '编辑'
-                }
-            ],
-            site_list: []
+            }
         },
         methods: {
             //表单提交
@@ -335,7 +192,7 @@
             var that = this;
             //侧边菜单定位
             window.sessionStorage.setItem("liIndex", 5);
-            window.sessionStorage.setItem("aIndex", 0);
+            window.sessionStorage.setItem("aIndex", 2);
         }
     })
 </script>

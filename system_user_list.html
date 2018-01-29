@@ -3,7 +3,7 @@
 <html>
 
 <head lang="zh-CN">
-    <title>模板列表-站群管理系统</title>
+    <title>用户列表-站群管理系统</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
@@ -87,40 +87,40 @@
                         <!-- 表格筛选 -->
                         <div class="table-filter">
                             <el-button size="mini" type="primary" class="float-left">
-                                <a href="system_add_template.html">添加模板</a>
+                                <a href="system_add_user.html">添加用户</a>
                             </el-button>
                             <el-input placeholder="请输入关键字" v-model="titleSearchValue" class="input-with-select title-search float-right" size="mini">
                                 <el-button slot="append" icon="el-icon-search" @click="articleSearch()"></el-button>
                             </el-input>
                         </div>
-                        <!-- template-list -->
-                        <div class="template-list">
-                            <ul>
-                                <li v-for="item in templates" :key="item.id">
-                                    <p class="template-title">{{item.template_title}}</p>
-                                    <ol>
-                                        <li v-for="list in item.template_list" :key="list.id" class="float-left">
-                                            <div class="template-img-box">
-                                                <img :src="list.img_url" alt="">
-                                            </div>
-                                            <p class="t-name">{{list.template_name}}</p>
-                                            <div class="t-url">
-                                                <a :href="list.edit_url">编辑</a>
-                                                <a :href="list.look_url" target="_blank">预览</a>
-                                            </div>
-                                        </li>
-                                    </ol>
-                                    <!-- 分页 -->
-                                    <div class="paging">
-                                        <center>
-                                            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
-                                                :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
-                                                :total="currentPaging.totals">
-                                            </el-pagination>
-                                        </center>
+                        <!-- 表格 -->
+                        <div class="table-body">
+                            <el-table ref="multipleTable" :data="tableInfo" stripe size="small">
+                                <el-table-column prop="uid" label="ID" width="50"></el-table-column>
+                                <el-table-column prop="uesr_name" label="登录用户名"></el-table-column>
+                                <el-table-column prop="name" label="姓名"></el-table-column>
+                                <el-table-column prop="user_group" label="用户组"></el-table-column>
+                                <el-table-column prop="subordinateDepartmentValue" label="所属部门"></el-table-column>
+                                <el-table-column prop="site" label="管理站点"></el-table-column>
+                                <el-table-column prop="count" label="登陆次数"></el-table-column>
+                                <el-table-column prop="ip" label="最后一次登录IP" width="120"></el-table-column>
+                                <el-table-column prop="state" label="状态"></el-table-column>
+                                <el-table-column label="操作" width="130">
+                                    <div slot-scope="scope" class="control-btn">
+                                        <el-button size="mini">更改</el-button>
+                                        <el-button @click.native.prevent="deleteRow(scope.$index, tableInfo)" size="mini" class="control-btn-del">删除</el-button>
                                     </div>
-                                </li>
-                            </ul>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                        <!-- 分页 -->
+                        <div class="paging">
+                            <center>
+                                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPaging.currentPage"
+                                    :page-sizes="currentPaging.pageSizes" :page-size="currentPaging.pageSize" layout="total, sizes, prev, pager, next, jumper"
+                                    :total="currentPaging.totals">
+                                </el-pagination>
+                            </center>
                         </div>
                     </div>
                 </div>
@@ -148,27 +148,91 @@
                     this_page: true
                 },
                 {
-                    name: '网站模板',
+                    name: '权限管理',
                     url: 'javascript:void(0);',
                     this_page: true
                 },
                 {
-                    name: '模板列表',
+                    name: '用户管理',
+                    url: 'javascript:void(0);',
+                    this_page: true
+                },
+                {
+                    name: '用户列表',
                     url: 'javascript:void(0);',
                     this_page: false
                 },
             ],
             //分页
             currentPaging: {},
-            //模板检索
+            //栏目检索
             titleSearchValue: '',
-            //模板列表
-            templates: {}
+            //表格
+            tableInfo: [
+                {
+                    uid: 1,
+                    uesr_name: 'admin',
+                    name: '乔立',
+                    user_group: '系统管理员',
+                    subordinateDepartmentValue: '网络中心',
+                    site: '站群主页',
+                    count: 115,
+                    ip: '115.192.201.17',
+                    state: '启用'
+                },
+                {
+                    uid: 2,
+                    uesr_name: 'jwc',
+                    name: '赵老师',
+                    user_group: '分站管理员',
+                    subordinateDepartmentValue: '教务处',
+                    site: '教务处',
+                    count: 52,
+                    ip: '115.193.158.234',
+                    state: '启用'
+                },
+                {
+                    uid: 3,
+                    uesr_name: 'jwc02',
+                    name: '李刚',
+                    user_group: '编辑',
+                    subordinateDepartmentValue: '教务处',
+                    site: '教务处',
+                    count: 32,
+                    ip: '192.168.199.221',
+                    state: '关闭'
+                },
+            ],
+            tableList: [],
         },
         methods: {
             //检索
             articleSearch() {
                 console.log(this.titleSearchValue)
+            },
+            //删除表格行
+            deleteRow(index, rows) {
+                this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    rows.splice(index, 1);
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+                console.log(this.tableInfo)
+            },
+            //表格排序
+            sortBlur(a, b) {
+                console.log(b[a].uid)
             },
             //分页
             handleSizeChange(val) {
@@ -189,23 +253,19 @@
         mounted: function () {
             var that = this;
             //侧边菜单定位
-            window.sessionStorage.setItem("liIndex", 4);
+            window.sessionStorage.setItem("liIndex", 5);
             window.sessionStorage.setItem("aIndex", 1);
             //获取分页数据
-            function get_paging() {
-                return axios.get('./public/paging.json');
-            }
-
-            function get_template_list() {
-                return axios.get('./public/template.json');
-            }
-
-            axios.all([get_paging(), get_template_list()])
-                .then(axios.spread(function (paging, template) {
-                    // 两个请求现在都执行完成
-                    that.currentPaging = paging.data;
-                    that.templates = template.data;
-                }));
+            axios({
+                method: "get",
+                url: "./public/paging.json",
+            }).then(function (response) {
+                var cw = window.innerWidth || document.documentElement.clientWidth || document.body
+                    .clientWidth;
+                that.currentPaging = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     })
 </script>
