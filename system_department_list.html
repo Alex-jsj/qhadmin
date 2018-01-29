@@ -107,18 +107,17 @@
                                                         <el-table-column prop="uid" width="65"></el-table-column>
                                                         <el-table-column width="100" disabled="true"></el-table-column>
                                                         <el-table-column prop="column_title"></el-table-column>
-                                                        <el-table-column prop="column"></el-table-column>
-                                                        <el-table-column prop="state" width=""></el-table-column>
+                                                        <el-table-column prop="code" width="80"></el-table-column>
+                                                        <el-table-column prop="type"></el-table-column>
                                                         <el-table-column prop="leavel" width="80"></el-table-column>
                                                         <el-table-column width="60">
                                                             <div slot-scope="scope" class="table-sort-input">
                                                                 <el-input type="text" size="mini" @blur="sortBlur(scope.$index, column_list)" :value="scope.row.sort">
                                                             </div>
                                                         </el-table-column>
-                                                        <el-table-column width="270">
+                                                        <el-table-column width="220">
                                                             <div slot-scope="scope" class="control-btn">
                                                                 <el-button size="small">添加子类</el-button>
-                                                                <el-button size="small">预览</el-button>
                                                                 <el-button size="small">编辑</el-button>
                                                                 <el-button @click.native.prevent="deleteRow(scope.$index, column_list)" size="small" class="control-btn-del">删除</el-button>
                                                             </div>
@@ -127,18 +126,17 @@
                                                 </div>
                                             </el-table-column>
                                             <el-table-column prop="column_title"></el-table-column>
-                                            <el-table-column prop="column"></el-table-column>
-                                            <el-table-column prop="state" width=""></el-table-column>
+                                            <el-table-column prop="code" width="80"></el-table-column>
+                                            <el-table-column prop="type"></el-table-column>
                                             <el-table-column prop="leavel" width="80"></el-table-column>
                                             <el-table-column width="60">
                                                 <div slot-scope="scope" class="table-sort-input">
                                                     <el-input type="text" size="mini" @blur="sortBlur(scope.$index, column_list)" :value="scope.row.sort">
                                                 </div>
                                             </el-table-column>
-                                            <el-table-column width="270">
+                                            <el-table-column width="220">
                                                 <div slot-scope="scope" class="control-btn">
                                                     <el-button size="small">添加子类</el-button>
-                                                    <el-button size="small">预览</el-button>
                                                     <el-button size="small">编辑</el-button>
                                                     <el-button @click.native.prevent="deleteRow(scope.$index, column_list)" size="small" class="control-btn-del">删除</el-button>
                                                 </div>
@@ -146,19 +144,18 @@
                                         </el-table>
                                     </div>
                                 </el-table-column>
-                                <el-table-column prop="column_title" label="分类名称"></el-table-column>
-                                <el-table-column prop="column" label="类别"></el-table-column>
-                                <el-table-column prop="state" label="状态" width=""></el-table-column>
+                                <el-table-column prop="column_title" label="部门名称"></el-table-column>
+                                <el-table-column prop="code" label="编码" width="80"></el-table-column>
+                                <el-table-column prop="type" label="所属类别"></el-table-column>
                                 <el-table-column prop="leavel" label="级别" width="80"></el-table-column>
                                 <el-table-column label="排序" width="60">
                                     <div slot-scope="scope" class="table-sort-input">
                                         <el-input type="text" size="mini" @blur="sortBlur(scope.$index, column_list)" :value="scope.row.sort">
                                     </div>
                                 </el-table-column>
-                                <el-table-column label="操作" width="270">
+                                <el-table-column label="操作" width="220">
                                     <div slot-scope="scope" class="control-btn">
                                         <el-button size="small">添加子类</el-button>
-                                        <el-button size="small">预览</el-button>
                                         <el-button size="small">编辑</el-button>
                                         <el-button @click.native.prevent="deleteRow(scope.$index, column_list)" size="small" class="control-btn-del">删除</el-button>
                                     </div>
@@ -279,7 +276,7 @@
             });
             axios({
                 method: "get",
-                url: "./public/column_list.json",
+                url: "./public/department_list.json",
             }).then(function (response) {
                 that.column_list = response.data;
             }).catch(function (error) {

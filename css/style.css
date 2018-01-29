@@ -821,6 +821,7 @@ body {
   /* 文章排行 */
   /* 轮播图管理 */
   /* 栏目列表 */
+  /* 三级菜单 */
 }
 .public-wap .main {
   width: 1190px;
@@ -1381,6 +1382,16 @@ body {
   font-size: 20px;
   left: 43%;
   top: 32%;
+}
+.public-wap .system-third-menu {
+  width: 990px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.public-wap .system-third-menu .system-third-menu-link {
+  margin-right: 15px;
 }
 #sideBar {
   width: 183px;
