@@ -106,7 +106,7 @@
                                 <el-table-column prop="state" label="状态" width="60"></el-table-column>
                                 <el-table-column label="排序" width="50">
                                     <div slot-scope="scope" class="table-sort-input">
-                                        <el-input type="text" size="mini" @blur="sortBlur(scope.$index, tableInfo)" :value="scope.row.count">
+                                        <el-input type="text" size="mini" @blur="sortBlur(scope.$index, tableInfo)" :value="scope.row.count"></el-input>
                                     </div>
                                 </el-table-column>
                                 <el-table-column label="操作" width="500" fixed="right">
