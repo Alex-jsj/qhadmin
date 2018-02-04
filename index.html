@@ -174,15 +174,15 @@
         filters: {
             // 时间过滤器
             formatTime: function (value, type) {
-                let dataTime = "";
-                let data = new Date();
+                var dataTime = "";
+                var data = new Date();
                 data.setTime(value);
-                let year = data.getFullYear();
-                let month = data.getMonth() + 1;
-                let day = data.getDate();
-                let hour = data.getHours();
-                let minute = data.getMinutes();
-                let second = data.getSeconds();
+                var year = data.getFullYear();
+                var month = data.getMonth() + 1;
+                var day = data.getDate();
+                var hour = data.getHours();
+                var minute = data.getMinutes();
+                var second = data.getSeconds();
                 if (month < 10) {
                     month = "0" + month;
                 }
