@@ -2031,6 +2031,7 @@ body {
   /* 添加附件 */
   /* 附件列表 */
   /* 模板列表 */
+  /* 登陆日志 */
 }
 #system_administrator .public-container {
   width: 990px;
@@ -2366,6 +2367,14 @@ body {
 #system_administrator .template-list > ul > li .paging {
   margin-top: 0;
   margin-bottom: 50px;
+}
+#system_administrator .login-log {
+  margin-top: 0;
+}
+#system_administrator .login-log .log-item-info {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #606266;
 }
 .open {
   display: block;

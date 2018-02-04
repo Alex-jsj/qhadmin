@@ -64,15 +64,16 @@ video {
     border: 0;
     outline: none;
     font-size: 100%;
-    /* font-family: arial, "微软雅黑", "宋体", "华文细黑", \5B8B\4F53, sans-serif; */
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-family: arial, "微软雅黑", "宋体", "华文细黑", \5B8B\4F53, sans-serif;
+    /* font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif; */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 textarea {
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-family: arial, "微软雅黑", "宋体", "华文细黑", \5B8B\4F53, sans-serif;
+    /* font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif; */
 }
 
 li {
@@ -88,7 +89,10 @@ img {
 a {
     text-decoration: none;
 }
+
+
 /* 滚动条样式 */
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
